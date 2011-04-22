@@ -1,0 +1,39 @@
+= Landslider
+
+Ruby interface to Landslide's SOAP based API
+
+== Pre-requisites
+
+An account with Landslide that has the API enabled. (www.landslide.com)
+
+== Resources
+
+=== Dependencies
+
+This gem requires the following gems:
+	handsoap (1.1.8)
+
+== Install
+
+	landslider requires the handsoap gem
+
+	gem install handsoap landslider
+
+== Usage
+
+	Configuration:
+
+	# constants to be set by rails environment config files
+	LS_INSTANCE_NAME = 'jaytest'
+	LS_API_USERNAME = 'jayp@landslide.com'
+	LS_API_PASSWORD = 'Applogin1'
+	LS_API_KEY =  Digest::MD5.hexdigest(LS_API_PASSWORD + LS_INSTANCE_NAME)
+	LS_API_NAMESPACE = "http://www.landslide.com/webservices/SoapService"
+	LS_API_ENDPOINT = {
+	  :uri => "https://#{LS_INSTANCE_NAME}.api.landslide.com/webservices/SoapService",
+	  :version => 2
+	}
+	
+	
+	
+	more here later..
