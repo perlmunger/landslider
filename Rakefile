@@ -5,9 +5,11 @@ begin
 	require 'jeweler'
 	Jeweler::Tasks.new do |gemspec|
 		gemspec.name = "landslider"
-		gemspec.summary = "Ruby interface to Landslide SOAP API"
-		gemspec.description = "Ruby interface to Landslide SOAP API. "
+		gemspec.summary = "Landslide Ruby"
+		gemspec.description = "Landslider is a ruby interface to the Landslide SOAP-based API"
 		gemspec.email = "jayprall@gmail.com"
+		gemspec.homepage = "https://github.com/j4y/landslider"
+		gemspec.add_dependency("handsoap", ">= 1.1.8")	
 		gemspec.authors = ['Jay Prall']
 	end
 	Jeweler::GemcutterTasks.new
