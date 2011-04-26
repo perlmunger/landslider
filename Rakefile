@@ -19,3 +19,13 @@ end
 
 # Load any rake files that exist
 Dir["#{File.dirname(__FILE__)}/tasks/*.rake"].sort.each { |f| load f } 
+
+task :default => [:test]
+
+require 'rake/testtask'
+Rake::TestTask.new(:test) do |test|
+	test.libs << 'lib' << 'test'
+	test.pattern = 'test/**/*_test.rb'
+	test.verbose = false
+end
+
