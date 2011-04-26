@@ -68,8 +68,39 @@ class LandsliderTest < Test::Unit::TestCase
 			!opp[:deal_value].nil? && 
 			!opp[:selling_process].nil?
 		}, "opportunities require a name, account, deal value and selling process"
-  
-  end
+	end
+
+	def test_landslider_get_contact_notes
+		result = Landslider.login('LOGINTOKEN=' + LS_INSTANCE_NAME)
+		
+		# exists on jaytest
+		result = Landslider.get_contact_notes(result[:session_id], 62813411)
+		
+		validate_standard_api_result result
+		assert_operator result[:results_returned], :>=, 1
+	end
+	
+	def test_landslider_get_lead_notes
+		result = Landslider.login('LOGINTOKEN=' + LS_INSTANCE_NAME)
+		
+		# exists on jaytest
+		result = Landslider.get_lead_notes(result[:session_id], 33592028)
+		validate_standard_api_result result
+		assert_operator result[:results_returned], :>=, 1
+	
+	end
+	
+	
+	def test_landslider_get_opportunity_notes
+		result = Landslider.login('LOGINTOKEN=' + LS_INSTANCE_NAME)
+		
+		# exists on jaytest
+		result = Landslider.get_opportunity_notes(result[:session_id], 55952453)
+		validate_standard_api_result result
+		assert_operator result[:results_returned], :>=, 1
+	end
+
+	
 	
 
 	private

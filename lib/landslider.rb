@@ -113,8 +113,8 @@ class Landslider < Handsoap::Service
 				ans.add 'totalResultsRequested', 10
 			}
 		end
-		puts response.document.inspect
-	
+		node = response.document.xpath('//ns:getContactNotesResponse', ns)
+		parse_get_contact_notes_result(node)
 	end
 	
 	def get_opportunity_notes(session_id, opportunity_id)
@@ -128,8 +128,8 @@ class Landslider < Handsoap::Service
 				ans.add 'totalResultsRequested', 10
 			}
 		end
-		puts response.document.inspect
-
+		node = response.document.xpath('//ns:getOpportunityNotesResponse', ns)
+		parse_get_opportunity_notes_result(node)
 	end
 	
 	def get_lead_notes(session_id, lead_id)
@@ -143,8 +143,8 @@ class Landslider < Handsoap::Service
 				ans.add 'totalResultsRequested', 10
 			}
 		end
-		puts response.document.inspect
-	
+		node = response.document.xpath('//ns:getLeadNotesResponse', ns)
+		parse_get_lead_notes_result(node)
 	end
 	
 	private
@@ -210,6 +210,36 @@ class Landslider < Handsoap::Service
 		:error => xml_to_bool(node, './*/error/text()'),
 		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
+		}
+	end
+	
+	def parse_get_contact_notes_result(node)
+		{
+		:error => xml_to_bool(node, './*/error/text()'),
+		:error_code => xml_to_int(node, './*/errorCode/text()'),
+		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
+		:status_code => xml_to_int(node, './*/statusCode/text()'),
+		:results_returned => xml_to_int(node, './*/resultsReturned/text()')
+		}
+	end
+	
+	def parse_get_lead_notes_result(node)
+		{
+		:error => xml_to_bool(node, './*/error/text()'),
+		:error_code => xml_to_int(node, './*/errorCode/text()'),
+		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
+		:status_code => xml_to_int(node, './*/statusCode/text()'),
+		:results_returned => xml_to_int(node, './*/resultsReturned/text()')
+		}	
+	end
+	
+	def parse_get_opportunity_notes_result(node)
+		{
+		:error => xml_to_bool(node, './*/error/text()'),
+		:error_code => xml_to_int(node, './*/errorCode/text()'),
+		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
+		:status_code => xml_to_int(node, './*/statusCode/text()'),
+		:results_returned => xml_to_int(node, './*/resultsReturned/text()')
 		}
 	end
 	
