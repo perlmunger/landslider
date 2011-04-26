@@ -67,31 +67,17 @@ class Landslider < Handsoap::Service
 		node = response.document.xpath('//ns:getAccountsResponse', ns)
 		parse_get_accounts_result(node)
 	end
-	
-	def get_account_opportunities(session_id, account_id)
-		self.session_id = session_id
-		response = invoke("getAccountOpportunities", :soap_action => :none) do |message|
-			message.add 'accountId', account_id
-		end
-		puts response.document.inspect
-		
-		node = response.document.xpath('//ns:getAccountOpportunitiesResponse', ns)
-		parse_get_account_opportunities_result(node)	
-	end
-	
 
-	
 	def get_account_contacts(session_id, account_id)
 		self.session_id = session_id
 		response = invoke("getAccountContacts", :soap_action => :none) do |message|
 			message.add 'accountId', account_id
 		end
-		puts response.document.inspect
 		
 		node = response.document.xpath('//ns:getAccountContactsResponse', ns)
 		parse_get_account_contacts_result(node) 
 	end
-	
+		
 	def get_account_notes(session_id, account_id)
 		self.session_id = session_id
 
@@ -101,20 +87,22 @@ class Landslider < Handsoap::Service
 				ans.add 'accountId', account_id
 				ans.add 'firstResultPosition', 1
 				ans.add 'totalResultsRequested', 10
-
-				# search criteria doesn't seem to work
-				# ans.add('searchCriteria') { |sc|
-				#	sc.add 'fieldId', 'note'
-				#	sc.add 'operator', 'Contains'
-				#	sc.add 'queryValue', 'BLAH'
-				# }
 			}
 		end
-		puts response.document.inspect
-	
+		node = response.document.xpath('//ns:getAccountNotesResponse', ns)
+		parse_get_account_notes_result(node)
 	end
 	
-	
+	def get_account_opportunities(session_id, account_id)
+		self.session_id = session_id
+		response = invoke("getAccountOpportunities", :soap_action => :none) do |message|
+			message.add 'accountId', account_id
+		end
+		
+		node = response.document.xpath('//ns:getAccountOpportunitiesResponse', ns)
+		parse_get_account_opportunities_result(node)	
+	end
+
 	def get_contact_notes(session_id, contact_id)
 		self.session_id = session_id
 		
@@ -128,7 +116,6 @@ class Landslider < Handsoap::Service
 		puts response.document.inspect
 	
 	end
-	
 	
 	def get_opportunity_notes(session_id, opportunity_id)
 		self.session_id = session_id
@@ -160,7 +147,6 @@ class Landslider < Handsoap::Service
 	
 	end
 	
-
 	private
 
 	def ns
@@ -196,6 +182,16 @@ class Landslider < Handsoap::Service
 		:result_msg => xml_to_str(node, '//Accounts/resultMsg/text()'),
 		:results_returned => xml_to_int(node, '//Accounts/resultsReturned/text()'),
 		:total_results_available => xml_to_int(node, '//Accounts/totalResultsAvailable/text()')
+		}
+	end
+	
+	def parse_get_account_notes_result(node) 
+		{
+		:error => xml_to_bool(node, './*/error/text()'),
+		:error_code => xml_to_int(node, './*/errorCode/text()'),
+		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
+		:status_code => xml_to_int(node, './*/statusCode/text()'),
+		:results_returned => xml_to_int(node, './*/resultsReturned/text()')
 		}
 	end
 	
