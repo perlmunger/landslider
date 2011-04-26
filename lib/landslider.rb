@@ -43,7 +43,7 @@ class Landslider < Handsoap::Service
 	def get_api_version(session_id)
 		self.session_id = session_id
 		
-		response = invoke("urn:getApiVersion", :soap_action => :none)
+		response = invoke("getApiVersion", :soap_action => :none)
 		
 		node = response.document.xpath('//ns:getApiVersionResponse', ns)
 		parse_api_version_result(node)
