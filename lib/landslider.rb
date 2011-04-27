@@ -322,7 +322,6 @@ class Landslider < Handsoap::Service
 	end
 	
 	def parse_notes(node)
-		# puts node.inspect
 		{
 		:notes => node.xpath('./*/notes', ns).map { |child| parse_note(child) }
 		}
@@ -342,41 +341,7 @@ class Landslider < Handsoap::Service
 		
 		}
 	end
-	
-	# [<Notes>
-	#   <error>false</error>
-	#   <errorCode>0</errorCode>
-	#   <resultMsg>notes retrieved successfully</resultMsg>
-	#   <statusCode>0</statusCode>
-	#   <firstResultPosition>1</firstResultPosition>
-	#   <resultsReturned>2</resultsReturned>
-	#   <totalResultsAvailable>2</totalResultsAvailable>
-	#   <notes>
-	#     <entityId>0</entityId>
-	#     <entityType>WsNote</entityType>
-	#     <archivedBy>0</archivedBy>
-	#     <createdBy>12640894</createdBy>
-	#     <createdOn>2011-04-20T17:06:51-04:00</createdOn>
-	#     <latest>false</latest>
-	#     <note><p>Note2 for unassigned Contact (<span>::</span><span>Boston Contact)</span></p>
-	# </note>
-	#     <noteId>75873085</noteId>
-	#   </notes>
-	#   <notes>
-	#     <entityId>0</entityId>
-	#     <entityType>WsNote</entityType>
-	#     <archivedBy>0</archivedBy>
-	#     <createdBy>12640894</createdBy>
-	#     <createdOn>2011-04-20T17:06:31-04:00</createdOn>
-	#     <latest>false</latest>
-	#     <note><p>Note1 for unassigned Contact (<span>::</span><span>Boston Contact)</span></p>
-	# </note>
-	#     <noteId>75873084</noteId>
-	#   </notes>
-	# </Notes>]
-	
-	
-	
+
 	# WsOpportunity
 	def parse_opportunity(node)
 		{
