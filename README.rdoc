@@ -13,6 +13,11 @@ An account with Landslide that has the API enabled. (www.landslide.com)
 This gem requires the following gems:
 	handsoap (1.1.8)
 
+
+	You need to have either curb or httpclient on the load path.
+
+
+
 == Install
 
 	landslider requires the handsoap gem
