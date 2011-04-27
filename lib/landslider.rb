@@ -334,9 +334,9 @@ class Landslider < Handsoap::Service
 		#:entity_type => xml_to_str(node, './entityType/text()'),
 		:archived_by => xml_to_int(node, './archivedBy/text()'),
 		:created_by => xml_to_int(node, './createdBy/text()'),
-		:created_on => xml_to_str(node, './createdOn/text()'),
+		:created_on => xml_to_date(node, './createdOn/text()'),
 		:latest => xml_to_bool(node, './latest/text()'),
-		:note_id => xml_to_str(node, './noteId/text()'),
+		:note_id => xml_to_int(node, './noteId/text()'),
 		:note_html => xml_to_str(node, './note/text()')
 		
 		}
