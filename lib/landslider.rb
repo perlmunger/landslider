@@ -67,6 +67,17 @@ class Landslider < Handsoap::Service
 		node = response.document.xpath('//ns:getAccountsResponse', ns)
 		parse_get_accounts_result(node)
 	end
+	
+	def get_account_by_id(session_id, account_id)
+		self.session_id = session_id
+		
+		response = invoke("getAccountById", :soap_action => :none) do |message|
+			message.add 'accountId', account_id
+		end
+		
+		node = response.document.xpath('//ns:getAccountByIdResponse', ns)
+		parse_get_account_by_id_result(node)
+	end
 
 	def get_account_contacts(session_id, account_id)
 		self.session_id = session_id
@@ -87,6 +98,13 @@ class Landslider < Handsoap::Service
 				ans.add 'accountId', account_id
 				ans.add 'firstResultPosition', 1
 				ans.add 'totalResultsRequested', 10
+				
+				ans.add('searchCriteria') { |sc|
+					# just find accounts with an empty main city
+					
+					sc.add 'fieldId', 'MainAddressCity'
+					sc.add 'operator', 'Empty'
+				}
 			}
 		end
 		node = response.document.xpath('//ns:getAccountNotesResponse', ns)
@@ -130,6 +148,20 @@ class Landslider < Handsoap::Service
 		end
 		node = response.document.xpath('//ns:getOpportunityNotesResponse', ns)
 		parse_get_opportunity_notes_result(node)
+	end
+	
+	def get_leads(session_id, account_id)
+		self.session_id = session_id
+	
+		response = invoke("getLeads", :soap_action => :none) do |message|
+			message.add('leadRequest') { |lr|
+		
+				lr.add 'firstResultPosition', 1
+				lr.add 'totalResultsRequested', 10
+			}
+		end
+		node = response.document.xpath('//ns:getLeadsResponse', ns)
+		parse_get_leads_result(node)
 	end
 	
 	def get_lead_notes(session_id, lead_id)
@@ -177,6 +209,7 @@ class Landslider < Handsoap::Service
 	def parse_get_accounts_result(node)
 		{
 		:accounts => node.xpath('//Accounts/accountList', ns).map { |child| parse_account(child) },
+		
 		:error => xml_to_bool(node, '//Accounts/error/text()'),
 		:error_code => xml_to_int(node, '//Accounts/errorCode/text()'),
 		:result_msg => xml_to_str(node, '//Accounts/resultMsg/text()'),
@@ -185,19 +218,32 @@ class Landslider < Handsoap::Service
 		}
 	end
 	
+	def parse_get_account_by_id_result(node)
+		{
+		:account => parse_account(node.xpath('./Account/account')),
+		:error => xml_to_bool(node, './*/error/text()'),
+		:error_code => xml_to_int(node, './*/errorCode/text()'),
+		:result_msg => xml_to_str(node, './*/resultMsg/text()')
+		}	
+	end
+	
 	def parse_get_account_notes_result(node) 
 		{
+		:notes => parse_notes(node),
+		
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
 		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
 		:status_code => xml_to_int(node, './*/statusCode/text()'),
-		:results_returned => xml_to_int(node, './*/resultsReturned/text()')
+		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
+		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
 		}
 	end
 	
 	def parse_get_account_opportunities_result(node)
 		{
 		:opportunities => node.xpath('./*/opportunityList', ns).map { |child| parse_opportunity(child) },
+		
 		:error => xml_to_bool(node, './*/error/text()'),
 		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
@@ -207,6 +253,7 @@ class Landslider < Handsoap::Service
 	def parse_get_account_contacts_result(node)
 		{
 		:contacts => node.xpath('./*/contactList', ns).map { |child| parse_contact(child) },
+		
 		:error => xml_to_bool(node, './*/error/text()'),
 		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
@@ -215,31 +262,53 @@ class Landslider < Handsoap::Service
 	
 	def parse_get_contact_notes_result(node)
 		{
+		:notes => parse_notes(node),
+			
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
 		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
 		:status_code => xml_to_int(node, './*/statusCode/text()'),
-		:results_returned => xml_to_int(node, './*/resultsReturned/text()')
+		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
+		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
+		
+		}
+	end
+	def parse_get_leads_result(node)
+		{
+		:leads => parse_leads(node),
+		
+		:error => xml_to_bool(node, './*/error/text()'),
+		:error_code => xml_to_int(node, './*/errorCode/text()'),
+		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
+		:status_code => xml_to_int(node, './*/statusCode/text()'),
+		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
+		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
 		}
 	end
 	
 	def parse_get_lead_notes_result(node)
 		{
+		:notes => parse_notes(node),
+		
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
 		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
 		:status_code => xml_to_int(node, './*/statusCode/text()'),
-		:results_returned => xml_to_int(node, './*/resultsReturned/text()')
-		}	
+		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
+		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
+		}
 	end
 	
 	def parse_get_opportunity_notes_result(node)
 		{
+		:notes => parse_notes(node),
+			
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
 		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
 		:status_code => xml_to_int(node, './*/statusCode/text()'),
-		:results_returned => xml_to_int(node, './*/resultsReturned/text()')
+		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
+		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
 		}
 	end
 	
@@ -303,6 +372,44 @@ class Landslider < Handsoap::Service
 		:email => xml_to_str(node, './email/text()'),
 		:owner_id => xml_to_str(node, './ownerId/text()')
 		}
+	end
+	
+	def parse_notes(node)
+		{
+		:notes => node.xpath('./*/notes', ns).map { |child| parse_note(child) }
+		}
+	end
+	
+	# WsNote
+	def parse_note(node)
+		{
+		#:entity_id => xml_to_str(node, './entityId/text()'),
+		#:entity_type => xml_to_str(node, './entityType/text()'),
+		:archived_by => xml_to_int(node, './archivedBy/text()'),
+		:created_by => xml_to_int(node, './createdBy/text()'),
+		:created_on => xml_to_date(node, './createdOn/text()'),
+		:latest => xml_to_bool(node, './latest/text()'),
+		:note_id => xml_to_int(node, './noteId/text()'),
+		:note_html => xml_to_str(node, './note/text()')
+		
+		}
+	end
+	
+	def parse_leads(node)
+		{
+		:leads => node.xpath('./*/leadList', ns).map { |child| parse_lead(child) }
+		}
+	end
+	
+	# WsLead
+	def parse_lead(node)
+		{
+		:name => xml_to_str(node, './name/text()'),
+		:ok_to_call => xml_to_bool(node, './okToCall/text()'),
+		:ok_to_email => xml_to_bool(node, './okToEmail/text()'),
+		:hot => xml_to_bool(node, './hot/text()')
+		}
+	
 	end
 	
 	# WsOpportunity
