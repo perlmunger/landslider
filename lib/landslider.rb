@@ -1,6 +1,5 @@
 
 require 'handsoap'
-require 'curb'
 
 class Landslider < Handsoap::Service
 
