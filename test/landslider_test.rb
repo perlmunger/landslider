@@ -32,13 +32,21 @@ class LandsliderTest < Test::Unit::TestCase
 	
 	def test_landslider_get_accounts
 		result = Landslider.get_accounts($sid)
-		
+				
 		assert_equal false, result[:error]
 		assert_not_nil result[:accounts]
 		assert result[:accounts].all? { |a| !a[:account_name].nil? }, "account name required"
 		assert_operator result[:results_returned], :>=, 0
 		assert_operator result[:total_results_available], :>=, 0
 		assert_not_nil result[:result_msg]
+	end
+	
+	def test_landslider_get_account_by_id
+		result = Landslider.get_account_by_id($sid, 51857822)
+		
+		assert_not_nil result
+		assert_equal false, result[:error]
+		assert_not_nil result[:account]
 	end
 	
 	def test_landslider_get_account_contacts		
@@ -56,7 +64,7 @@ class LandsliderTest < Test::Unit::TestCase
 		validate_standard_api_result result
 		validate_at_least_one_note_returned result
 	end
-
+	
 	def test_landslider_get_account_opportunities
 		# exists on jaytest
 		result = Landslider.get_account_opportunities($sid, 51858821)
@@ -69,7 +77,7 @@ class LandsliderTest < Test::Unit::TestCase
 			!opp[:selling_process].nil?
 		}, "opportunities require a name, account, deal value and selling process"
 	end
-
+	
 	def test_landslider_get_contact_notes
 		# exists on jaytest
 		result = Landslider.get_contact_notes($sid, 62813411)
@@ -77,6 +85,14 @@ class LandsliderTest < Test::Unit::TestCase
 		validate_standard_api_result result
 		validate_at_least_one_note_returned result
 	end
+	
+	def test_landslider_get_leads
+		result = Landslider.get_leads($sid, 51857822)
+		
+		validate_standard_api_result result
+		assert_not_nil result[:leads]
+	end
+	
 	
 	def test_landslider_get_lead_notes
 		# exists on jaytest
@@ -94,9 +110,9 @@ class LandsliderTest < Test::Unit::TestCase
 		validate_standard_api_result result
 		validate_at_least_one_note_returned result
 	end
-
+	
 	private
-
+	
 	def validate_standard_api_result(result) 
 		assert_equal Hash, result.class, "api method should return a hash"
 		assert_not_nil result[:results_returned], ":results_returned missing"
@@ -112,11 +128,6 @@ class LandsliderTest < Test::Unit::TestCase
 		assert_not_nil result[:notes], "at least one note should be returned"
 		assert_equal Hash, result[:notes].class
 	end
-
-	# def login(session_id)
-	# 	Landslider.login(session_id)
-	# end
-	# 
 
 end
 

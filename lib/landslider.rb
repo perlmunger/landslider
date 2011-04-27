@@ -67,6 +67,17 @@ class Landslider < Handsoap::Service
 		node = response.document.xpath('//ns:getAccountsResponse', ns)
 		parse_get_accounts_result(node)
 	end
+	
+	def get_account_by_id(session_id, account_id)
+		self.session_id = session_id
+		
+		response = invoke("getAccountById", :soap_action => :none) do |message|
+			message.add 'accountId', account_id
+		end
+		
+		node = response.document.xpath('//ns:getAccountByIdResponse', ns)
+		parse_get_account_by_id_result(node)
+	end
 
 	def get_account_contacts(session_id, account_id)
 		self.session_id = session_id
@@ -87,6 +98,13 @@ class Landslider < Handsoap::Service
 				ans.add 'accountId', account_id
 				ans.add 'firstResultPosition', 1
 				ans.add 'totalResultsRequested', 10
+				
+				ans.add('searchCriteria') { |sc|
+					# just find accounts with an empty main city
+					
+					sc.add 'fieldId', 'MainAddressCity'
+					sc.add 'operator', 'Empty'
+				}
 			}
 		end
 		node = response.document.xpath('//ns:getAccountNotesResponse', ns)
@@ -130,6 +148,20 @@ class Landslider < Handsoap::Service
 		end
 		node = response.document.xpath('//ns:getOpportunityNotesResponse', ns)
 		parse_get_opportunity_notes_result(node)
+	end
+	
+	def get_leads(session_id, account_id)
+		self.session_id = session_id
+	
+		response = invoke("getLeads", :soap_action => :none) do |message|
+			message.add('leadRequest') { |lr|
+		
+				lr.add 'firstResultPosition', 1
+				lr.add 'totalResultsRequested', 10
+			}
+		end
+		node = response.document.xpath('//ns:getLeadsResponse', ns)
+		parse_get_leads_result(node)
 	end
 	
 	def get_lead_notes(session_id, lead_id)
@@ -186,6 +218,15 @@ class Landslider < Handsoap::Service
 		}
 	end
 	
+	def parse_get_account_by_id_result(node)
+		{
+		:account => parse_account(node.xpath('./Account/account')),
+		:error => xml_to_bool(node, './*/error/text()'),
+		:error_code => xml_to_int(node, './*/errorCode/text()'),
+		:result_msg => xml_to_str(node, './*/resultMsg/text()')
+		}	
+	end
+	
 	def parse_get_account_notes_result(node) 
 		{
 		:notes => parse_notes(node),
@@ -230,6 +271,18 @@ class Landslider < Handsoap::Service
 		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
 		
+		}
+	end
+	def parse_get_leads_result(node)
+		{
+		:leads => parse_leads(node),
+		
+		:error => xml_to_bool(node, './*/error/text()'),
+		:error_code => xml_to_int(node, './*/errorCode/text()'),
+		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
+		:status_code => xml_to_int(node, './*/statusCode/text()'),
+		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
+		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
 		}
 	end
 	
@@ -341,7 +394,24 @@ class Landslider < Handsoap::Service
 		
 		}
 	end
-
+	
+	def parse_leads(node)
+		{
+		:leads => node.xpath('./*/leadList', ns).map { |child| parse_lead(child) }
+		}
+	end
+	
+	# WsLead
+	def parse_lead(node)
+		{
+		:name => xml_to_str(node, './name/text()'),
+		:ok_to_call => xml_to_bool(node, './okToCall/text()'),
+		:ok_to_email => xml_to_bool(node, './okToEmail/text()'),
+		:hot => xml_to_bool(node, './hot/text()')
+		}
+	
+	end
+	
 	# WsOpportunity
 	def parse_opportunity(node)
 		{
