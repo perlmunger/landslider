@@ -298,8 +298,14 @@ class Landslider < Handsoap::Service
 	
 	def parse_get_instance_information_result(node)
 		{
+		:address => parse_address(node.xpath('./*/address')),
+		:company_name => xml_to_str(node, './*/companyName/text()'),
+		:instance_url => xml_to_str(node, './*/instanceURL/text()'),
+			
 		:error => xml_to_bool(node, './*/error/text()'),
-		:error_code => xml_to_int(node, './*/errorCode/text()')
+		:error_code => xml_to_int(node, './*/errorCode/text()'),
+		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
+		:status_code => xml_to_int(node, './*/statusCode/text()')
 		}
 	end
 	

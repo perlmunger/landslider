@@ -87,12 +87,14 @@ class LandsliderTest < Test::Unit::TestCase
 	end
 	
 	def test_landslider_get_instance_information
-	
-		result = Landslider.get_instance_information($sid, 12640894)
-
+		# Landslide API doc bug..  integer user_id doesn't work
+		result = Landslider.get_instance_information($sid, 'jayp@landslide.com')
+		
 		assert_not_nil result
 		assert_equal false, result[:error]
-
+		assert_not_nil result[:address]
+		assert_not_nil result[:company_name]
+		assert_not_nil result[:instance_url]
 	end
 	
 	def test_landslider_get_leads

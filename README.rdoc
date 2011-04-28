@@ -53,6 +53,7 @@ This gem requires the following gems:
 	* getAccountNotes
 	* getAccountOpportunities
 	* getContactNotes
+	* getInstanceInformation
 	* getLeads
 	* getLeadNotes
 	* getOpportunityNotes
