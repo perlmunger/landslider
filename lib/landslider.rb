@@ -135,59 +135,16 @@ class Landslider < Handsoap::Service
 
 	end
 
-	def get_user_information_by_id(session_id, user_id)
+	def get_instance_information(session_id, user_id)
 		self.session_id = session_id
 		
-		response = invoke("getUserInformationById", :soap_action => :none) do |message|
+		response = invoke("getInstanceInformation", :soap_action => :none) do |message|
 			message.add 'userId', user_id
 		end
-		node = response.document.xpath('//ns:getUserInformationByIdResponse', ns)
-		parse_get_user_information_by_id_result(node)
-		#   <soap:Body>
-		#     <ns2:getUserInformationByIdResponse xmlns:ns2="http://www.landslide.com/webservices/SoapService">
-		#       <WsEmployee>
-		#         <error>false</error>
-		#         <errorCode>0</errorCode>
-		#         <resultMsg>user information retrieved successfully</resultMsg>
-		#         <statusCode>0</statusCode>
-		#         <employee>
-		#           <entityId>0</entityId>
-		#           <entityType>WsEmployee</entityType>
-		#           <companyName>internal test</companyName>
-		#           <emailAddress>jayp@landslide.com</emailAddress>
-		#           <employeeId>12640894</employeeId>
-		#           <firstName>jay</firstName>
-		#           <isAdministrator>true</isAdministrator>
-		#           <lastName>prall</lastName>
-		#           <officePhone>617-555-1212</officePhone>
-		#           <title>test test</title>
-		#           <userId>jayp@landslide.com</userId>
-		#         </employee>
-		#       </WsEmployee>
-		#     </ns2:getUserInformationByIdResponse>
-		#   </soap:Body>
-		# </soap:Envelope>
+		node = response.document.xpath('//ns:getInstanceInformationResponse', ns)
+		parse_get_instance_information_result(node)
 	end
-	# 
-	# <soap:getUserInformationById>
-	#        <userId>?</userId>
-	#     </soap:getUserInformationById>
 
-	def get_opportunity_notes(session_id, opportunity_id)
-		self.session_id = session_id
-	
-		response = invoke("getOpportunityNotes", :soap_action => :none) do |message|
-			message.add('opportunityNote') { |ans|
-		
-				ans.add 'opportunityId', opportunity_id
-				ans.add 'firstResultPosition', 1
-				ans.add 'totalResultsRequested', 10
-			}
-		end
-		node = response.document.xpath('//ns:getOpportunityNotesResponse', ns)
-		parse_get_opportunity_notes_result(node)
-	end
-	
 	def get_leads(session_id, account_id)
 		self.session_id = session_id
 	
@@ -216,7 +173,33 @@ class Landslider < Handsoap::Service
 		node = response.document.xpath('//ns:getLeadNotesResponse', ns)
 		parse_get_lead_notes_result(node)
 	end
+
+
+	def get_opportunity_notes(session_id, opportunity_id)
+		self.session_id = session_id
 	
+		response = invoke("getOpportunityNotes", :soap_action => :none) do |message|
+			message.add('opportunityNote') { |ans|
+		
+				ans.add 'opportunityId', opportunity_id
+				ans.add 'firstResultPosition', 1
+				ans.add 'totalResultsRequested', 10
+			}
+		end
+		node = response.document.xpath('//ns:getOpportunityNotesResponse', ns)
+		parse_get_opportunity_notes_result(node)
+	end
+	
+
+	def get_user_information_by_id(session_id, user_id)
+		self.session_id = session_id
+		
+		response = invoke("getUserInformationById", :soap_action => :none) do |message|
+			message.add 'userId', user_id
+		end
+		node = response.document.xpath('//ns:getUserInformationByIdResponse', ns)
+		parse_get_user_information_by_id_result(node)
+	end
 	
 	private
 
@@ -312,6 +295,15 @@ class Landslider < Handsoap::Service
 		
 		}
 	end
+	
+	def parse_get_instance_information_result(node)
+		{
+		:error => xml_to_bool(node, './*/error/text()'),
+		:error_code => xml_to_int(node, './*/errorCode/text()')
+		}
+	end
+	
+	
 	def parse_get_leads_result(node)
 		{
 		:leads => parse_leads(node),
@@ -350,7 +342,7 @@ class Landslider < Handsoap::Service
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
 		}
 	end
-	
+
 	def parse_get_user_information_by_id_result(node)
 		{
 		:employee => parse_employee(node.xpath('./WsEmployee/employee')),

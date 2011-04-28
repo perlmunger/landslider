@@ -86,6 +86,15 @@ class LandsliderTest < Test::Unit::TestCase
 		validate_at_least_one_note_returned result
 	end
 	
+	def test_landslider_get_instance_information
+	
+		result = Landslider.get_instance_information($sid, 12640894)
+
+		assert_not_nil result
+		assert_equal false, result[:error]
+
+	end
+	
 	def test_landslider_get_leads
 		result = Landslider.get_leads($sid, 51857822)
 		
