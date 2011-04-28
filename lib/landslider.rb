@@ -48,12 +48,12 @@ class Landslider < Handsoap::Service
 		parse_api_version_result(node)
 	end
 	
-	def get_accounts(session_id)
+	def get_accounts(session_id, first_result_position=1, total_results_requested=25)
 		self.session_id = session_id
 		response = invoke("getAccounts", :soap_action => :none) do |message|
 			message.add('accountsRequest') { |ar|
-				ar.add 'firstResultPosition', 1
-				ar.add 'totalResultsRequested', 25
+				ar.add 'firstResultPosition', first_result_position
+				ar.add 'totalResultsRequested', total_results_requested
 				# ar.add('searchCriteria') { |sc|
 				# 	# just find accounts with an empty main city
 				# 	
