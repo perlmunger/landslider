@@ -54,12 +54,12 @@ class Landslider < Handsoap::Service
 			message.add('accountsRequest') { |ar|
 				ar.add 'firstResultPosition', 1
 				ar.add 'totalResultsRequested', 25
-				ar.add('searchCriteria') { |sc|
-					# just find accounts with an empty main city
-					
-					sc.add 'fieldId', 'MainAddressCity'
-					sc.add 'operator', 'Empty'
-				}
+				# ar.add('searchCriteria') { |sc|
+				# 	# just find accounts with an empty main city
+				# 	
+				# 	sc.add 'fieldId', 'MainAddressCity'
+				# 	sc.add 'operator', 'Empty'
+				# }
 			}
 		end
 		
@@ -87,15 +87,15 @@ class Landslider < Handsoap::Service
 		parse_get_account_contacts_result(node) 
 	end
 		
-	def get_account_notes(session_id, account_id)
+	def get_account_notes(session_id, account_id, first_result_position=1, total_results_requested=25)
 		self.session_id = session_id
 
 		response = invoke("getAccountNotes", :soap_action => :none) do |message|
 			message.add('accountNoteSearch') { |ans|
 		
 				ans.add 'accountId', account_id
-				ans.add 'firstResultPosition', 1
-				ans.add 'totalResultsRequested', 25
+				ans.add 'firstResultPosition', first_result_position
+				ans.add 'totalResultsRequested', total_results_requested
 				
 				# ans.add('searchCriteria') { |sc|
 				# 	# just find accounts with an empty main city
