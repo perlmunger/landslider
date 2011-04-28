@@ -64,9 +64,9 @@ class LandsliderTest < Test::Unit::TestCase
 		
 	end
 	
-	def test_landslider_get_account_contacts		
+	def test_landslider_get_account_contacts
 		# exists on jaytest
-		result = Landslider.get_account_contacts($sid, 51857822)		
+		result = Landslider.get_account_contacts($sid, 51857822)
 		
 		validate_standard_api_result result
 		assert_equal Array, result[:contacts].class
