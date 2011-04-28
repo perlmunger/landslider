@@ -3,14 +3,16 @@ require 'rake'
 
 begin
 	require 'jeweler'
-	Jeweler::Tasks.new do |gemspec|
-		gemspec.name = "landslider"
-		gemspec.summary = "Landslide Ruby"
-		gemspec.description = "Landslider is a ruby interface to the Landslide SOAP-based API"
-		gemspec.email = "jayprall@gmail.com"
-		gemspec.homepage = "https://github.com/j4y/landslider"
-		gemspec.add_dependency("handsoap", ">= 1.1.8")	
-		gemspec.authors = ['Jay Prall']
+	Jeweler::Tasks.new do |gem|
+		gem.name = "landslider"
+		gem.summary = "Landslide Ruby"
+		gem.description = "Landslider is a ruby interface to the Landslide SOAP-based API"
+		gem.license = "MIT"
+		gem.email = "jay@j4y.net"
+		gem.homepage = "https://github.com/j4y/landslider"
+		gem.authors = ['Jay Prall']
+		
+		# dependencies listed in Gemfile
 	end
 	Jeweler::GemcutterTasks.new
 rescue LoadError
