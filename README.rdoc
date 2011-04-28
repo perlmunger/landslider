@@ -43,3 +43,17 @@ This gem requires the following gems:
 		puts "id: #{account[:account_id]} name: #{account[:account_name]}"
 	end
 
+=== Supported API methods
+
+	* login
+	* getApiVersion
+	* getAccounts
+	* getAccountById
+	* getAccountContacts
+	* getAccountNotes
+	* getAccountOpportunities
+	* getContactNotes
+	* getLeads
+	* getLeadNotes
+	* getOpportunityNotes
+	* getUserInformationById
