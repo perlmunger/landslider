@@ -35,6 +35,11 @@ This gem requires the following gems:
 	  :version => 2
 	}
 	
+	response = Landslider.login('LOGINTOKEN=' + LS_INSTANCE_NAME)
 	
+	response = Landslider.get_accounts(response[:session_id])
 	
-	more here later..
+	response[:accounts].each do |account| 
+		puts "id: #{account[:account_id]} name: #{account[:account_name]}"
+	end
+
