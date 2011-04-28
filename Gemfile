@@ -5,5 +5,6 @@ gem "handsoap", ">= 1.1.8"
 
 group :development do
 	gem "shoulda"
+	gem "rcov"
 end
 
