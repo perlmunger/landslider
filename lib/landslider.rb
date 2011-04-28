@@ -119,14 +119,14 @@ class Landslider < Handsoap::Service
 		parse_get_account_opportunities_result(node)	
 	end
 
-	def get_contact_notes(session_id, contact_id)
+	def get_contact_notes(session_id, contact_id, first_result_position=1, total_results_requested=25)
 		self.session_id = session_id
 		
 		response = invoke("getContactNotes", :soap_action => :none) do |message|
 			message.add('contactNote') { |ans|
 				ans.add 'contactId', contact_id
-				ans.add 'firstResultPosition', 1
-				ans.add 'totalResultsRequested', 25
+				ans.add 'firstResultPosition', first_result_position
+				ans.add 'totalResultsRequested', total_results_requested
 			}
 		end
 		node = response.document.xpath('//ns:getContactNotesResponse', ns)
@@ -144,29 +144,29 @@ class Landslider < Handsoap::Service
 		parse_get_instance_information_result(node)
 	end
 
-	def get_leads(session_id, account_id)
+	def get_leads(session_id, account_id, first_result_position=1, total_results_requested=25)
 		self.session_id = session_id
 	
 		response = invoke("getLeads", :soap_action => :none) do |message|
 			message.add('leadRequest') { |lr|
 		
-				lr.add 'firstResultPosition', 1
-				lr.add 'totalResultsRequested', 25
+				lr.add 'firstResultPosition', first_result_position
+				lr.add 'totalResultsRequested', total_results_requested
 			}
 		end
 		node = response.document.xpath('//ns:getLeadsResponse', ns)
 		parse_get_leads_result(node)
 	end
 	
-	def get_lead_notes(session_id, lead_id)
+	def get_lead_notes(session_id, lead_id, first_result_position=1, total_results_requested=25)
 		self.session_id = session_id
 	
 		response = invoke("getLeadNotes", :soap_action => :none) do |message|
 			message.add('leadNote') { |ans|
 		
 				ans.add 'leadId', lead_id
-				ans.add 'firstResultPosition', 1
-				ans.add 'totalResultsRequested', 25
+				ans.add 'firstResultPosition', first_result_position
+				ans.add 'totalResultsRequested', total_results_requested
 			}
 		end
 		node = response.document.xpath('//ns:getLeadNotesResponse', ns)
@@ -174,15 +174,15 @@ class Landslider < Handsoap::Service
 	end
 
 
-	def get_opportunity_notes(session_id, opportunity_id)
+	def get_opportunity_notes(session_id, opportunity_id, first_result_position=1, total_results_requested=25)
 		self.session_id = session_id
 	
 		response = invoke("getOpportunityNotes", :soap_action => :none) do |message|
 			message.add('opportunityNote') { |ans|
 		
 				ans.add 'opportunityId', opportunity_id
-				ans.add 'firstResultPosition', 1
-				ans.add 'totalResultsRequested', 25
+				ans.add 'firstResultPosition', first_result_position
+				ans.add 'totalResultsRequested', total_results_requested
 			}
 		end
 		node = response.document.xpath('//ns:getOpportunityNotesResponse', ns)
