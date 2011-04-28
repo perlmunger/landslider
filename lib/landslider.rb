@@ -132,8 +132,47 @@ class Landslider < Handsoap::Service
 		end
 		node = response.document.xpath('//ns:getContactNotesResponse', ns)
 		parse_get_contact_notes_result(node)
+
 	end
-	
+
+	def get_user_information_by_id(session_id, user_id)
+		self.session_id = session_id
+		
+		response = invoke("getUserInformationById", :soap_action => :none) do |message|
+			message.add 'userId', user_id
+		end
+		node = response.document.xpath('//ns:getUserInformationByIdResponse', ns)
+		parse_get_user_information_by_id_result(node)
+		#   <soap:Body>
+		#     <ns2:getUserInformationByIdResponse xmlns:ns2="http://www.landslide.com/webservices/SoapService">
+		#       <WsEmployee>
+		#         <error>false</error>
+		#         <errorCode>0</errorCode>
+		#         <resultMsg>user information retrieved successfully</resultMsg>
+		#         <statusCode>0</statusCode>
+		#         <employee>
+		#           <entityId>0</entityId>
+		#           <entityType>WsEmployee</entityType>
+		#           <companyName>internal test</companyName>
+		#           <emailAddress>jayp@landslide.com</emailAddress>
+		#           <employeeId>12640894</employeeId>
+		#           <firstName>jay</firstName>
+		#           <isAdministrator>true</isAdministrator>
+		#           <lastName>prall</lastName>
+		#           <officePhone>617-555-1212</officePhone>
+		#           <title>test test</title>
+		#           <userId>jayp@landslide.com</userId>
+		#         </employee>
+		#       </WsEmployee>
+		#     </ns2:getUserInformationByIdResponse>
+		#   </soap:Body>
+		# </soap:Envelope>
+	end
+	# 
+	# <soap:getUserInformationById>
+	#        <userId>?</userId>
+	#     </soap:getUserInformationById>
+
 	def get_opportunity_notes(session_id, opportunity_id)
 		self.session_id = session_id
 	
@@ -177,6 +216,7 @@ class Landslider < Handsoap::Service
 		node = response.document.xpath('//ns:getLeadNotesResponse', ns)
 		parse_get_lead_notes_result(node)
 	end
+	
 	
 	private
 
@@ -311,6 +351,18 @@ class Landslider < Handsoap::Service
 		}
 	end
 	
+	def parse_get_user_information_by_id_result(node)
+		{
+		:employee => parse_employee(node.xpath('./WsEmployee/employee')),
+			
+		:error => xml_to_bool(node, './*/error/text()'),
+		:error_code => xml_to_int(node, './*/errorCode/text()'),
+		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
+		:status_code => xml_to_int(node, './*/statusCode/text()')
+		}
+	end
+	
+	
 	# WsAccount
 	def parse_account(node)
 		{
@@ -370,6 +422,19 @@ class Landslider < Handsoap::Service
 		:home_phone => xml_to_str(node, './homePhone/text()'),
 		:email => xml_to_str(node, './email/text()'),
 		:owner_id => xml_to_str(node, './ownerId/text()')
+		}
+	end
+	
+	# WsEmployee
+	def parse_employee(node)
+		{
+		:employee_id => xml_to_int(node, './employeeId/text()'),
+		:company_name => xml_to_str(node, './companyName/text()'),
+		:first_name => xml_to_str(node, './firstName/text()'),
+		:last_name => xml_to_str(node, './lastName/text()'),
+		:email_address => xml_to_str(node, './emailAddress/text()'),
+		:is_administrator => xml_to_bool(node, './isAdministrator/text()'),
+		:office_phone => xml_to_str(node, './officePhone/text()')
 		}
 	end
 	

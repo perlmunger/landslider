@@ -111,6 +111,16 @@ class LandsliderTest < Test::Unit::TestCase
 		validate_at_least_one_note_returned result
 	end
 	
+	
+	def test_landslider_get_user_information_by_id
+	
+		result = Landslider.get_user_information_by_id($sid, 12640894)
+	
+		assert_not_nil result
+		assert_equal false, result[:error]
+		assert_not_nil result[:employee]
+	end
+	
 	private
 	
 	def validate_standard_api_result(result) 
