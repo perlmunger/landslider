@@ -309,8 +309,8 @@ class Landslider < Handsoap::Service
 	
 	
 	def parse_get_leads_result(node)
+		leads = parse_leads(node)
 		{
-		:leads => parse_leads(node),
 		
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
@@ -318,7 +318,7 @@ class Landslider < Handsoap::Service
 		:status_code => xml_to_int(node, './*/statusCode/text()'),
 		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
-		}
+		}.merge(leads)
 	end
 	
 	def parse_get_lead_notes_result(node)

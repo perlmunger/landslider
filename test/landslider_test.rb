@@ -69,6 +69,7 @@ class LandsliderTest < Test::Unit::TestCase
 		result = Landslider.get_account_contacts($sid, 51857822)		
 		
 		validate_standard_api_result result
+		assert_equal Array, result[:contacts].class
 		assert result[:contacts].all? { |con| !con[:last_name].nil? }, "last name required"
 	end
 	
@@ -85,6 +86,8 @@ class LandsliderTest < Test::Unit::TestCase
 		result = Landslider.get_account_opportunities($sid, 51858821)
 	  
 		assert_equal false, result[:error]
+		assert_equal Array, result[:opportunities].class
+		
 		assert result[:opportunities].all? { |opp| 
 			!opp[:account_name].nil? && 
 			!opp[:name].nil? && 
@@ -117,6 +120,7 @@ class LandsliderTest < Test::Unit::TestCase
 		
 		validate_standard_api_result result
 		assert_not_nil result[:leads]
+		assert_equal Array, result[:leads].class
 	end
 	
 	
