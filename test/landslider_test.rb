@@ -34,7 +34,7 @@ class LandsliderTest < Test::Unit::TestCase
 	
 	def test_landslider_get_accounts
 		result = Landslider.get_accounts($sid)
-				
+
 		assert_equal false, result[:error]
 		assert_not_nil result[:accounts]
 		assert result[:accounts].all? { |a| !a[:account_name].nil? }, "account name required"

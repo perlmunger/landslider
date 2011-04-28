@@ -97,12 +97,12 @@ class Landslider < Handsoap::Service
 				ans.add 'firstResultPosition', 1
 				ans.add 'totalResultsRequested', 25
 				
-				ans.add('searchCriteria') { |sc|
-					# just find accounts with an empty main city
-					
-					sc.add 'fieldId', 'MainAddressCity'
-					sc.add 'operator', 'Empty'
-				}
+				# ans.add('searchCriteria') { |sc|
+				# 	# just find accounts with an empty main city
+				# 	
+				# 	sc.add 'fieldId', 'MainAddressCity'
+				# 	sc.add 'operator', 'Empty'
+				# }
 			}
 		end
 		node = response.document.xpath('//ns:getAccountNotesResponse', ns)
