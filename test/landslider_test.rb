@@ -3,6 +3,8 @@ require 'test_helper'
 
 class LandsliderTest < Test::Unit::TestCase
 
+	JAYTEST_ACCOUNT_ID = 55647822
+	
 	def setup
 		# TODO: fetch a session_id once
 		# if $sid.nil?
@@ -42,11 +44,24 @@ class LandsliderTest < Test::Unit::TestCase
 	end
 	
 	def test_landslider_get_account_by_id
-		result = Landslider.get_account_by_id($sid, 51857822)
+		result = Landslider.get_account_by_id($sid, JAYTEST_ACCOUNT_ID)
 		
 		assert_not_nil result
 		assert_equal false, result[:error]
 		assert_not_nil result[:account]
+	end
+	
+	def test_landslider_account_custom_fields
+		result = Landslider.get_account_by_id($sid, JAYTEST_ACCOUNT_ID)
+		
+		assert_not_nil result
+		assert_equal false, result[:error]
+		assert_not_nil result[:account]
+		
+		assert_not_nil result[:account][:custom_fields]
+		assert_equal Array, result[:account][:custom_fields].class
+		assert_operator result[:account][:custom_fields].length, :>=, 2
+		
 	end
 	
 	def test_landslider_get_account_contacts		
@@ -59,7 +74,7 @@ class LandsliderTest < Test::Unit::TestCase
 	
 	def test_landslider_get_account_notes
 		# exists on jaytest
-		result = Landslider.get_account_notes($sid, 55647822)
+		result = Landslider.get_account_notes($sid, JAYTEST_ACCOUNT_ID)
 		
 		validate_standard_api_result result
 		validate_at_least_one_note_returned result

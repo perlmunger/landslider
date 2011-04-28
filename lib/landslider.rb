@@ -73,7 +73,6 @@ class Landslider < Handsoap::Service
 		response = invoke("getAccountById", :soap_action => :none) do |message|
 			message.add 'accountId', account_id
 		end
-		
 		node = response.document.xpath('//ns:getAccountByIdResponse', ns)
 		parse_get_account_by_id_result(node)
 	end
@@ -380,7 +379,8 @@ class Landslider < Handsoap::Service
 		:created_by => xml_to_int(node, './createdBy/text()'),
 		:created_on => xml_to_str(node, './createdOn/text()'),
 		:archived_by => xml_to_str(node, './archivedBy/text()'),
-		:sync_with_quickbooks => xml_to_str(node, './isSyncWithQuickbooks/text()')
+		:sync_with_quickbooks => xml_to_str(node, './isSyncWithQuickbooks/text()'),
+		:custom_fields => node.xpath('./customFields', ns).map { |child| parse_custom_field(child) }
 		}
 		
 	end
@@ -423,6 +423,16 @@ class Landslider < Handsoap::Service
 		}
 	end
 	
+	# WsCustomField
+	def parse_custom_field(node)
+		{
+		:custom_field_id => xml_to_int(node, './customFieldId/text()'),
+		:custom_field_name => xml_to_str(node, './customFieldName/text()'),
+		:custom_field_type => xml_to_str(node, './customFieldType/text()'),
+		:custom_field_value => xml_to_str(node, './customFieldValue/customFieldValue/text()')
+		}
+	end
+	
 	# WsEmployee
 	def parse_employee(node)
 		{
@@ -455,7 +465,6 @@ class Landslider < Handsoap::Service
 		:latest => xml_to_bool(node, './latest/text()'),
 		:note_id => xml_to_int(node, './noteId/text()'),
 		:note_html => xml_to_str(node, './note/text()')
-		
 		}
 	end
 	
@@ -473,7 +482,6 @@ class Landslider < Handsoap::Service
 		:ok_to_email => xml_to_bool(node, './okToEmail/text()'),
 		:hot => xml_to_bool(node, './hot/text()')
 		}
-	
 	end
 	
 	# WsOpportunity
