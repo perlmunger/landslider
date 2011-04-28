@@ -163,7 +163,7 @@ class LandsliderTest < Test::Unit::TestCase
 	def validate_at_least_one_note_returned(result)
 		assert_operator result[:results_returned], :>=, 1
 		assert_not_nil result[:notes], "at least one note should be returned"
-		assert_equal Hash, result[:notes].class
+		assert_equal Array, result[:notes].class
 	end
 
 end

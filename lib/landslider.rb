@@ -248,17 +248,17 @@ class Landslider < Handsoap::Service
 		}	
 	end
 	
-	def parse_get_account_notes_result(node) 
-		{
-		:notes => parse_notes(node),
+	def parse_get_account_notes_result(node)
+		notes = parse_notes(node)
 		
+		{
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
 		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
 		:status_code => xml_to_int(node, './*/statusCode/text()'),
 		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
-		}
+		}.merge(notes)
 	end
 	
 	def parse_get_account_opportunities_result(node)
@@ -282,9 +282,8 @@ class Landslider < Handsoap::Service
 	end
 	
 	def parse_get_contact_notes_result(node)
+		notes = parse_notes(node)
 		{
-		:notes => parse_notes(node),
-			
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
 		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
@@ -292,7 +291,7 @@ class Landslider < Handsoap::Service
 		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
 		
-		}
+		}.merge(notes)
 	end
 	
 	def parse_get_instance_information_result(node)
@@ -323,29 +322,27 @@ class Landslider < Handsoap::Service
 	end
 	
 	def parse_get_lead_notes_result(node)
+		notes = parse_notes(node)
 		{
-		:notes => parse_notes(node),
-		
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
 		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
 		:status_code => xml_to_int(node, './*/statusCode/text()'),
 		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
-		}
+		}.merge(notes)
 	end
 	
 	def parse_get_opportunity_notes_result(node)
+		notes = parse_notes(node)
 		{
-		:notes => parse_notes(node),
-			
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
 		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
 		:status_code => xml_to_int(node, './*/statusCode/text()'),
 		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
-		}
+		}.merge(notes)
 	end
 
 	def parse_get_user_information_by_id_result(node)
