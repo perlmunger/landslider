@@ -53,7 +53,7 @@ class Landslider < Handsoap::Service
 		response = invoke("getAccounts", :soap_action => :none) do |message|
 			message.add('accountsRequest') { |ar|
 				ar.add 'firstResultPosition', 1
-				ar.add 'totalResultsRequested', 10
+				ar.add 'totalResultsRequested', 25
 				ar.add('searchCriteria') { |sc|
 					# just find accounts with an empty main city
 					
@@ -95,7 +95,7 @@ class Landslider < Handsoap::Service
 		
 				ans.add 'accountId', account_id
 				ans.add 'firstResultPosition', 1
-				ans.add 'totalResultsRequested', 10
+				ans.add 'totalResultsRequested', 25
 				
 				ans.add('searchCriteria') { |sc|
 					# just find accounts with an empty main city
@@ -126,7 +126,7 @@ class Landslider < Handsoap::Service
 			message.add('contactNote') { |ans|
 				ans.add 'contactId', contact_id
 				ans.add 'firstResultPosition', 1
-				ans.add 'totalResultsRequested', 10
+				ans.add 'totalResultsRequested', 25
 			}
 		end
 		node = response.document.xpath('//ns:getContactNotesResponse', ns)
@@ -151,7 +151,7 @@ class Landslider < Handsoap::Service
 			message.add('leadRequest') { |lr|
 		
 				lr.add 'firstResultPosition', 1
-				lr.add 'totalResultsRequested', 10
+				lr.add 'totalResultsRequested', 25
 			}
 		end
 		node = response.document.xpath('//ns:getLeadsResponse', ns)
@@ -166,7 +166,7 @@ class Landslider < Handsoap::Service
 		
 				ans.add 'leadId', lead_id
 				ans.add 'firstResultPosition', 1
-				ans.add 'totalResultsRequested', 10
+				ans.add 'totalResultsRequested', 25
 			}
 		end
 		node = response.document.xpath('//ns:getLeadNotesResponse', ns)
@@ -182,7 +182,7 @@ class Landslider < Handsoap::Service
 		
 				ans.add 'opportunityId', opportunity_id
 				ans.add 'firstResultPosition', 1
-				ans.add 'totalResultsRequested', 10
+				ans.add 'totalResultsRequested', 25
 			}
 		end
 		node = response.document.xpath('//ns:getOpportunityNotesResponse', ns)
