@@ -124,10 +124,11 @@ class LandsliderTest < Test::Unit::TestCase
 	def test_landslider_get_user_information_by_id
 	
 		result = Landslider.get_user_information_by_id($sid, 12640894)
-	
+		
 		assert_not_nil result
 		assert_equal false, result[:error]
 		assert_not_nil result[:employee]
+		assert_not_nil result[:employee][:user_id]
 	end
 	
 	private

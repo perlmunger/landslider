@@ -426,7 +426,9 @@ class Landslider < Handsoap::Service
 		:last_name => xml_to_str(node, './lastName/text()'),
 		:email_address => xml_to_str(node, './emailAddress/text()'),
 		:is_administrator => xml_to_bool(node, './isAdministrator/text()'),
-		:office_phone => xml_to_str(node, './officePhone/text()')
+		:office_phone => xml_to_str(node, './officePhone/text()'),
+		:title => xml_to_str(node, './title/text()'),
+		:user_id => xml_to_str(node, './userId/text()')
 		}
 	end
 	
