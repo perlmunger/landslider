@@ -20,6 +20,10 @@ class Landslider < Handsoap::Service
 			sh.add('urn:sessionId', self.session_id)
 		}
 	end
+	
+	def on_after_create_http_request(http_request)
+		http_request.headers.merge!({'user-agent' => ["landslider-ruby-gem-version-0.4.6"]})
+	end
 
 	def on_http_error(response)
 		puts response.inspect
