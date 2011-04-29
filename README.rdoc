@@ -60,6 +60,7 @@ This gem requires the following gems:
 	* getLeads
 	* getLeadCustomFields
 	* getLeadNotes
+	* getOpportunities
 	* getOpportunityCustomFields
 	* getOpportunityNotes
 	* getUserInformation

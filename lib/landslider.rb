@@ -214,6 +214,19 @@ class Landslider < Handsoap::Service
 		node = response.document.xpath('//ns:getLeadNotesResponse', ns)
 		parse_get_lead_notes_result(node)
 	end
+	
+	def get_opportunities(session_id, first_result_position=1, total_results_requested=25)
+		self.session_id = session_id
+		
+		response = invoke("getOpportunities", :soap_action => :none) do |message|
+			message.add('opportunityRequest') { |req|
+				req.add 'firstResultPosition', first_result_position
+				req.add 'totalResultsRequested', total_results_requested
+			}
+		end
+		node = response.document.xpath('//ns:getOpportunitiesResponse', ns)
+		parse_get_opportunities_result(node)
+	end
 
 	def get_opportunity_custom_fields(session_id)
 		self.session_id = session_id
@@ -409,6 +422,19 @@ class Landslider < Handsoap::Service
 		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
 		}.merge(notes)
+	end
+	
+	def parse_get_opportunities_result(node)
+		{
+		:opportunities => node.xpath('./*/opportunityList', ns).map { |child| parse_opportunity(child) },
+			
+		:error => xml_to_bool(node, './*/error/text()'),
+		:error_code => xml_to_int(node, './*/errorCode/text()'),
+		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
+		:status_code => xml_to_int(node, './*/statusCode/text()'),
+		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
+		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
+		}
 	end
 	
 	def parse_get_opportunity_notes_result(node)
