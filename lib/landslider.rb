@@ -23,6 +23,9 @@ class Landslider < Handsoap::Service
 	
 	def on_after_create_http_request(http_request)
 		http_request.headers.merge!({'user-agent' => ["landslider-ruby-gem-version-0.4.6"]})
+		
+		# TODO: use cookies to maintain session state
+		# http_request.headers.merge!({'cookie' => ["JSESSIONID=#{self.session_id}"]})
 	end
 
 	def on_http_error(response)
