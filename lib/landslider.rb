@@ -153,7 +153,7 @@ class Landslider < Handsoap::Service
 				lr.add 'firstResultPosition', first_result_position
 				lr.add 'totalResultsRequested', total_results_requested
 			}
-		end
+		end		
 		node = response.document.xpath('//ns:getLeadsResponse', ns)
 		parse_get_leads_result(node)
 	end
@@ -484,9 +484,16 @@ class Landslider < Handsoap::Service
 	def parse_lead(node)
 		{
 		:name => xml_to_str(node, './name/text()'),
+		:lead_source => xml_to_str(node, './leadSource/source/text()'),
+		:lead_rating => xml_to_str(node, './leadRating/rating/text()'),
+		:lead_status => xml_to_str(node, './leadStatus/status/text()'),
+		:account_id => xml_to_int(node, './accountId/text()'),
+		:primary_owner_id => xml_to_int(node, './primaryOwnerId/text()'),
 		:ok_to_call => xml_to_bool(node, './okToCall/text()'),
 		:ok_to_email => xml_to_bool(node, './okToEmail/text()'),
-		:hot => xml_to_bool(node, './hot/text()')
+		:hot => xml_to_bool(node, './hot/text()'),
+		:converted => xml_to_bool(node, './converted/text()')
+		
 		}
 	end
 	
@@ -510,5 +517,3 @@ class Landslider < Handsoap::Service
 	end
 
 end
-
-

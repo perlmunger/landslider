@@ -117,7 +117,7 @@ class LandsliderTest < Test::Unit::TestCase
 	
 	def test_landslider_get_leads
 		result = Landslider.get_leads($sid, 51857822)
-		
+				
 		validate_standard_api_result result
 		assert_not_nil result[:leads]
 		assert_equal Array, result[:leads].class
