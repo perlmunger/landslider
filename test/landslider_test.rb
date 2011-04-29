@@ -6,16 +6,15 @@ class LandsliderTest < Test::Unit::TestCase
 	JAYTEST_ACCOUNT_ID = 55647822
 	
 	def setup
-		# TODO: fetch a session_id once
-		# if $sid.nil?
+		if $sid.nil?
+			# only get a session once
 			result = Landslider.login('LOGINTOKEN=' + LS_INSTANCE_NAME)
 			$sid = result[:session_id]
-		# end
-		#puts "using #{$sid} to login"
+		end
 	end
 
 	def test_landslider_login
-		# other tests should use $sid for authenticatoin
+		# other tests should use $sid for authentication
 		result = Landslider.login('LOGINTOKEN=' + LS_INSTANCE_NAME)
 		
 		assert_not_nil result
