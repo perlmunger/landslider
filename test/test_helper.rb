@@ -7,7 +7,7 @@ LS_API_PASSWORD = 'Applogin1'
 LS_API_KEY =  Digest::MD5.hexdigest(LS_API_PASSWORD + LS_INSTANCE_NAME)
 LS_API_ENDPOINT = {
   :uri => "https://#{LS_INSTANCE_NAME}.api.landslide.com/webservices/SoapService",
-  :version => 2
+  :version => 1
 }
 
 require 'test/unit'
