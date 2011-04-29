@@ -3,6 +3,8 @@ require 'handsoap'
 
 class Landslider < Handsoap::Service
 
+	LS_API_NAMESPACE='http://www.landslide.com/webservices/SoapService'
+
 	endpoint ::LS_API_ENDPOINT
 
 	def session_id
@@ -14,7 +16,7 @@ class Landslider < Handsoap::Service
 	end
 
 	def on_create_document(doc)
-		doc.alias 'urn', 'http://www.landslide.com/webservices/SoapService'
+		doc.alias 'urn', LS_API_NAMESPACE
 		header = doc.find('Header')
 		header.add('urn:SessionHeader') { |sh|
 			sh.add('urn:sessionId', self.session_id)
@@ -274,7 +276,7 @@ class Landslider < Handsoap::Service
 	private
 
 	def ns
-		{ 'ns' => 'http://www.landslide.com/webservices/SoapService' }
+		{ 'ns' => LS_API_NAMESPACE }
 	end
 
 	def parse_login_result(node)
