@@ -6,14 +6,8 @@ class Landslider < Handsoap::Service
 	LS_API_NAMESPACE='http://www.landslide.com/webservices/SoapService'
 
 	endpoint ::LS_API_ENDPOINT
-
-	def session_id
-		@session_id
-	end
-
-	def session_id=(session_id)
-		@session_id = session_id
-	end
+	
+	attr_accessor :session_id
 
 	def on_create_document(doc)
 		doc.alias 'urn', LS_API_NAMESPACE
