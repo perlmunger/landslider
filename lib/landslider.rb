@@ -94,6 +94,12 @@ class Landslider < Handsoap::Service
 		node = response.document.xpath('//ns:getAccountContactsResponse', ns)
 		parse_get_account_contacts_result(node)
 	end
+	
+	def get_account_custom_fields(session_id)
+		response = invoke("getAccountCustomFields")
+		node = response.document.xpath('//ns:getAccountCustomFieldsResponse', ns)
+		parse_get_entity_custom_fields_result(node)
+	end
 		
 	def get_account_notes(session_id, account_id, first_result_position=1, total_results_requested=25)
 		self.session_id = session_id
@@ -132,7 +138,7 @@ class Landslider < Handsoap::Service
 	
 		response = invoke("getContactCustomFields")
 		node = response.document.xpath('//ns:getContactCustomFieldsResponse', ns)
-		parse_get_contact_custom_fields_result(node)
+		parse_get_entity_custom_fields_result(node)
 	end
 
 	def get_contact_notes(session_id, contact_id, first_result_position=1, total_results_requested=25)
@@ -175,6 +181,12 @@ class Landslider < Handsoap::Service
 		parse_get_leads_result(node)
 	end
 	
+	def get_lead_custom_fields(session_id)
+		response = invoke("getLeadCustomFields")
+		node = response.document.xpath('//ns:getLeadCustomFieldsResponse', ns)
+		parse_get_entity_custom_fields_result(node)
+	end
+	
 	def get_lead_notes(session_id, lead_id, first_result_position=1, total_results_requested=25)
 		self.session_id = session_id
 	
@@ -195,7 +207,7 @@ class Landslider < Handsoap::Service
 
 		response = invoke("getOpportunityCustomFields")
 		node = response.document.xpath('//ns:getOpportunityCustomFieldsResponse', ns)
-		parse_get_opportunity_custom_fields_result(node)
+		parse_get_entity_custom_fields_result(node)
 	end
 
 	def get_opportunity_notes(session_id, opportunity_id, first_result_position=1, total_results_requested=25)
@@ -314,17 +326,6 @@ class Landslider < Handsoap::Service
 		}
 	end
 	
-	def parse_get_contact_custom_fields_result(node)
-		{
-		:custom_fields => node.xpath('./*/customFields', ns).map { |child| parse_custom_field(child) },
-			
-		:error => xml_to_bool(node, './*/error/text()'),
-		:error_code => xml_to_int(node, './*/errorCode/text()'),
-		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
-		:status_code => xml_to_int(node, './*/statusCode/text()')
-		}
-	end
-	
 	def parse_get_contact_notes_result(node)
 		notes = parse_notes(node)
 		{
@@ -338,11 +339,9 @@ class Landslider < Handsoap::Service
 		}.merge(notes)
 	end
 	
-	def parse_get_instance_information_result(node)
+	def parse_get_entity_custom_fields_result(node)
 		{
-		:address => parse_address(node.xpath('./*/address')),
-		:company_name => xml_to_str(node, './*/companyName/text()'),
-		:instance_url => xml_to_str(node, './*/instanceURL/text()'),
+		:custom_fields => node.xpath('./*/customFields', ns).map { |child| parse_custom_field(child) },
 			
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
@@ -351,9 +350,11 @@ class Landslider < Handsoap::Service
 		}
 	end
 	
-	def parse_get_opportunity_custom_fields_result(node)
+	def parse_get_instance_information_result(node)
 		{
-		:custom_fields => node.xpath('./*/customFields', ns).map { |child| parse_custom_field(child) },
+		:address => parse_address(node.xpath('./*/address')),
+		:company_name => xml_to_str(node, './*/companyName/text()'),
+		:instance_url => xml_to_str(node, './*/instanceURL/text()'),
 			
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),

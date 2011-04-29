@@ -49,6 +49,7 @@ This gem requires the following gems:
 	* getApiVersion
 	* getAccounts
 	* getAccountById
+	* getAccountCustomFields
 	* getAccountContacts
 	* getAccountNotes
 	* getAccountOpportunities
@@ -56,6 +57,7 @@ This gem requires the following gems:
 	* getContactNotes
 	* getInstanceInformation
 	* getLeads
+	* getLeadCustomFields
 	* getLeadNotes
 	* getOpportunityCustomFields
 	* getOpportunityNotes

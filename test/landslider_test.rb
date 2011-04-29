@@ -75,6 +75,12 @@ class LandsliderTest < Test::Unit::TestCase
 		assert result[:contacts].all? { |con| !con[:last_name].nil? }, "last name required"
 	end
 	
+	def test_landslider_get_account_custom_fields
+		result = Landslider.get_account_custom_fields($sid)
+		assert_not_nil result[:custom_fields]
+		assert_not_nil result[:custom_fields].first[:custom_field_id]
+	end
+	
 	def test_landslider_get_account_notes
 		result = Landslider.get_account_notes($sid, JAYTEST_ACCOUNT_ID)
 		
@@ -123,7 +129,6 @@ class LandsliderTest < Test::Unit::TestCase
 	
 	def test_landslider_get_opportunity_custom_fields
 		result = Landslider.get_opportunity_custom_fields($sid)
-		
 		assert_not_nil result[:custom_fields]
 		assert_not_nil result[:custom_fields].first[:custom_field_id]
 	end
@@ -134,6 +139,12 @@ class LandsliderTest < Test::Unit::TestCase
 		validate_standard_api_result result
 		assert_not_nil result[:leads]
 		assert_equal Array, result[:leads].class
+	end
+	
+	def test_landslider_get_lead_custom_fields
+		result = Landslider.get_lead_custom_fields($sid)
+		assert_not_nil result[:custom_fields]
+		assert_not_nil result[:custom_fields].first[:custom_field_id]
 	end
 	
 	def test_landslider_get_lead_notes
