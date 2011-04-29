@@ -52,10 +52,12 @@ This gem requires the following gems:
 	* getAccountContacts
 	* getAccountNotes
 	* getAccountOpportunities
+	* getContactCustomFields
 	* getContactNotes
 	* getInstanceInformation
 	* getLeads
 	* getLeadNotes
+	* getOpportunityCustomFields
 	* getOpportunityNotes
 	* getUserInformation
 	* getUserInformationById

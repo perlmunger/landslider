@@ -97,8 +97,13 @@ class LandsliderTest < Test::Unit::TestCase
 		}, "opportunities require a name, account, deal value and selling process"
 	end
 	
+	def test_landslider_get_contact_custom_fields
+		result = Landslider.get_contact_custom_fields($sid)
+		assert_not_nil result[:custom_fields]
+		assert_not_nil result[:custom_fields].first[:custom_field_id]
+	end
+	
 	def test_landslider_get_contact_notes
-		# exists on jaytest
 		result = Landslider.get_contact_notes($sid, 62813411)
 		
 		validate_standard_api_result result
@@ -116,6 +121,13 @@ class LandsliderTest < Test::Unit::TestCase
 		assert_not_nil result[:instance_url]
 	end
 	
+	def test_landslider_get_opportunity_custom_fields
+		result = Landslider.get_opportunity_custom_fields($sid)
+		
+		assert_not_nil result[:custom_fields]
+		assert_not_nil result[:custom_fields].first[:custom_field_id]
+	end
+	
 	def test_landslider_get_leads
 		result = Landslider.get_leads($sid, 51857822)
 		
@@ -123,7 +135,6 @@ class LandsliderTest < Test::Unit::TestCase
 		assert_not_nil result[:leads]
 		assert_equal Array, result[:leads].class
 	end
-	
 	
 	def test_landslider_get_lead_notes
 		# exists on jaytest

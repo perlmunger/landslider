@@ -126,6 +126,14 @@ class Landslider < Handsoap::Service
 		node = response.document.xpath('//ns:getAccountOpportunitiesResponse', ns)
 		parse_get_account_opportunities_result(node)
 	end
+	
+	def get_contact_custom_fields(session_id)
+		self.session_id = session_id
+	
+		response = invoke("getContactCustomFields")
+		node = response.document.xpath('//ns:getContactCustomFieldsResponse', ns)
+		parse_get_contact_custom_fields_result(node)
+	end
 
 	def get_contact_notes(session_id, contact_id, first_result_position=1, total_results_requested=25)
 		self.session_id = session_id
@@ -182,6 +190,13 @@ class Landslider < Handsoap::Service
 		parse_get_lead_notes_result(node)
 	end
 
+	def get_opportunity_custom_fields(session_id)
+		self.session_id = session_id
+
+		response = invoke("getOpportunityCustomFields")
+		node = response.document.xpath('//ns:getOpportunityCustomFieldsResponse', ns)
+		parse_get_opportunity_custom_fields_result(node)
+	end
 
 	def get_opportunity_notes(session_id, opportunity_id, first_result_position=1, total_results_requested=25)
 		self.session_id = session_id
@@ -299,6 +314,17 @@ class Landslider < Handsoap::Service
 		}
 	end
 	
+	def parse_get_contact_custom_fields_result(node)
+		{
+		:custom_fields => node.xpath('./*/customFields', ns).map { |child| parse_custom_field(child) },
+			
+		:error => xml_to_bool(node, './*/error/text()'),
+		:error_code => xml_to_int(node, './*/errorCode/text()'),
+		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
+		:status_code => xml_to_int(node, './*/statusCode/text()')
+		}
+	end
+	
 	def parse_get_contact_notes_result(node)
 		notes = parse_notes(node)
 		{
@@ -325,6 +351,16 @@ class Landslider < Handsoap::Service
 		}
 	end
 	
+	def parse_get_opportunity_custom_fields_result(node)
+		{
+		:custom_fields => node.xpath('./*/customFields', ns).map { |child| parse_custom_field(child) },
+			
+		:error => xml_to_bool(node, './*/error/text()'),
+		:error_code => xml_to_int(node, './*/errorCode/text()'),
+		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
+		:status_code => xml_to_int(node, './*/statusCode/text()')
+		}
+	end
 	
 	def parse_get_leads_result(node)
 		leads = parse_leads(node)
