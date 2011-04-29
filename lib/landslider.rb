@@ -154,7 +154,8 @@ class Landslider < Handsoap::Service
 				lr.add 'firstResultPosition', first_result_position
 				lr.add 'totalResultsRequested', total_results_requested
 			}
-		end		
+		end
+
 		node = response.document.xpath('//ns:getLeadsResponse', ns)
 		parse_get_leads_result(node)
 	end
@@ -396,9 +397,6 @@ class Landslider < Handsoap::Service
 	# WsAccountType
 	def parse_account_type(node)
 		{
-		#:entity_id => xml_to_str(node, './entityId/text()'),
-		#:entity_type => xml_to_str(node, './entityType/text()')
-		#:account_type_id => xml_to_str(node, './accountTypeId/text()'),
 		:account_type => xml_to_str(node, './accountType/text()')
 		}
 	end
@@ -406,9 +404,6 @@ class Landslider < Handsoap::Service
 	# WsAddress 
 	def parse_address(node)
 		{
-		#:entity_id => xml_to_str(node, './entityId/text()'),
-		#:entity_type => xml_to_str(node, './entityType/text()'),
-		#:address_id => xml_to_str(node, './addressId/text()'),
 		:address => xml_to_str(node, './address1/text()'),
 		:city => xml_to_str(node, './city/text()'),
 		:state => xml_to_str(node, './state/text()'),
@@ -468,8 +463,6 @@ class Landslider < Handsoap::Service
 	# WsNote
 	def parse_note(node)
 		{
-		#:entity_id => xml_to_str(node, './entityId/text()'),
-		#:entity_type => xml_to_str(node, './entityType/text()'),
 		:archived_by => xml_to_int(node, './archivedBy/text()'),
 		:created_by => xml_to_int(node, './createdBy/text()'),
 		:created_on => xml_to_date(node, './createdOn/text()'),
@@ -488,36 +481,39 @@ class Landslider < Handsoap::Service
 	# WsLead
 	def parse_lead(node)
 		{
-		:name => xml_to_str(node, './name/text()'),
-		:lead_source => xml_to_str(node, './leadSource/source/text()'),
-		:lead_rating => xml_to_str(node, './leadRating/rating/text()'),
-		:lead_status => xml_to_str(node, './leadStatus/status/text()'),
 		:account_id => xml_to_int(node, './accountId/text()'),
-		:primary_owner_id => xml_to_int(node, './primaryOwnerId/text()'),
+		:converted => xml_to_bool(node, './converted/text()'),
+		:created_by => xml_to_int(node, './createdBy/text()'),
+		:created_on => xml_to_date(node, './createdOn/text()'),
+		:hot => xml_to_bool(node, './hot/text()'),
+		:lead_id => xml_to_int(node, './leadId/text()'),
+		:lead_rating => xml_to_str(node, './leadRating/rating/text()'),
+		:lead_source => xml_to_str(node, './leadSource/source/text()'),
+		:lead_status => xml_to_str(node, './leadStatus/status/text()'),
+		:name => xml_to_str(node, './name/text()'),
 		:ok_to_call => xml_to_bool(node, './okToCall/text()'),
 		:ok_to_email => xml_to_bool(node, './okToEmail/text()'),
-		:hot => xml_to_bool(node, './hot/text()'),
-		:converted => xml_to_bool(node, './converted/text()')
-		
+		:primary_owner_id => xml_to_int(node, './primaryOwnerId/text()')
 		}
 	end
 	
 	# WsOpportunity
 	def parse_opportunity(node)
 		{
-		#:entity_id => xml_to_str(node, './entityId/text()'),
-		#:entity_type => xml_to_str(node, './entityType/text()'),
 		:account_id => xml_to_int(node, './accountId/text()'),
 		:account_name => xml_to_str(node, './accountName/text()'),
-		:opportunity_id => xml_to_int(node, './opportunityId/text()'),
-		:name => xml_to_str(node, './name/text()'),
-		:deal_value => xml_to_str(node, './dealValue/text()'),
 		:confidence => xml_to_str(node, './confidence/text()'),
+		:current_phase_name => xml_to_str(node, './currentPhaseName/text()'),
+		:deal_value => xml_to_str(node, './dealValue/text()'),
+		:description => xml_to_str(node, './description/text()'),
+		:hot => xml_to_bool(node, './hot/text()'),
+		:name => xml_to_str(node, './name/text()'),
+		:opportunity_id => xml_to_int(node, './opportunityId/text()'),
 		:opportunity_status => xml_to_str(node, './opportunityStatus/status/text()'),
+		:primary_owner_id => xml_to_int(node, './primaryOwnerId/text()'),
 		:selling_process => xml_to_str(node, './sellingProcess/sellingProcess/text()'),
 		:selling_process_id => xml_to_int(node, './sellingProcess/sellingProcessId/text()'),
-		:primary_owner_id => xml_to_int(node, './primaryOwnerId/text()'),
-		:current_phase_name => xml_to_str(node, './currentPhaseName/text()')
+		:start_date => xml_to_date(node, './startDate/text()')
 		}
 	end
 
