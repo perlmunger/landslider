@@ -459,16 +459,16 @@ class Landslider < Handsoap::Service
 		:notes => node.xpath('./*/notes', ns).map { |child| parse_note(child) }
 		}
 	end
-	
+
 	# WsNote
 	def parse_note(node)
 		{
-		:archived_by => xml_to_int(node, './archivedBy/text()'),
 		:created_by => xml_to_int(node, './createdBy/text()'),
 		:created_on => xml_to_date(node, './createdOn/text()'),
 		:latest => xml_to_bool(node, './latest/text()'),
+		:note_html => xml_to_str(node, './note/text()'),
 		:note_id => xml_to_int(node, './noteId/text()'),
-		:note_html => xml_to_str(node, './note/text()')
+		:updated_on => xml_to_date(node, './updatedOn/text()'),
 		}
 	end
 	

@@ -77,7 +77,6 @@ class LandsliderTest < Test::Unit::TestCase
 	end
 	
 	def test_landslider_get_account_notes
-		# exists on jaytest
 		result = Landslider.get_account_notes($sid, JAYTEST_ACCOUNT_ID)
 		
 		validate_standard_api_result result
