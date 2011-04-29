@@ -133,6 +133,19 @@ class Landslider < Handsoap::Service
 		parse_get_account_opportunities_result(node)
 	end
 	
+	def get_contacts(session_id, first_result_position=1, total_results_requested=25)
+		self.session_id = session_id
+		
+		response = invoke("getContacts", :soap_action => :none) do |message|
+			message.add('contactsRequest') { |c|
+				c.add 'firstResultPosition', first_result_position
+				c.add 'totalResultsRequested', total_results_requested
+			}
+		end
+		node = response.document.xpath('//ns:getContactsResponse', ns)
+		parse_get_contacts_result(node)
+	end
+	
 	def get_contact_custom_fields(session_id)
 		self.session_id = session_id
 	
@@ -326,6 +339,16 @@ class Landslider < Handsoap::Service
 		}
 	end
 	
+	def parse_get_contacts_result(node)
+		{
+		:contacts => node.xpath('./*/contactList', ns).map { |child| parse_contact(child) },
+		
+		:error => xml_to_bool(node, './*/error/text()'),
+		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
+		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
+		}
+	end
+	
 	def parse_get_contact_notes_result(node)
 		notes = parse_notes(node)
 		{
@@ -469,7 +492,8 @@ class Landslider < Handsoap::Service
 		:title => xml_to_str(node, './homePhone/text()'),
 		:reports_to => xml_to_str(node, './reportsTo/text()'),
 		:owner_id => xml_to_int(node, './ownerId/text()'),
-		:contact_id => xml_to_int(node, './contactId/text()')
+		:contact_id => xml_to_int(node, './contactId/text()'),
+		:custom_fields => node.xpath('./customFields', ns).map { |child| parse_custom_field(child) }
 		}
 	end
 	

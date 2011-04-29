@@ -53,6 +53,7 @@ This gem requires the following gems:
 	* getAccountContacts
 	* getAccountNotes
 	* getAccountOpportunities
+	* getContacts
 	* getContactCustomFields
 	* getContactNotes
 	* getInstanceInformation

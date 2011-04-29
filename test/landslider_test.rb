@@ -103,6 +103,13 @@ class LandsliderTest < Test::Unit::TestCase
 		}, "opportunities require a name, account, deal value and selling process"
 	end
 	
+	def test_landslider_get_contacts
+		result = Landslider.get_contacts($sid)
+		assert_not_nil result
+		assert_not_nil result[:contacts]
+		assert_not_nil result[:contacts].first[:custom_fields]
+	end
+	
 	def test_landslider_get_contact_custom_fields
 		result = Landslider.get_contact_custom_fields($sid)
 		assert_not_nil result[:custom_fields]
