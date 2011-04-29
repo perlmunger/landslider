@@ -141,6 +141,14 @@ class LandsliderTest < Test::Unit::TestCase
 		validate_at_least_one_note_returned result
 	end
 	
+	def test_landslider_get_user_information
+		result = Landslider.get_user_information($sid, 'jayp@landslide.com')
+		
+		assert_not_nil result
+		assert_equal false, result[:error]
+		assert_not_nil result[:employee]
+		assert_not_nil result[:employee][:user_id]
+	end
 	
 	def test_landslider_get_user_information_by_id
 	

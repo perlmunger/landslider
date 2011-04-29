@@ -57,4 +57,5 @@ This gem requires the following gems:
 	* getLeads
 	* getLeadNotes
 	* getOpportunityNotes
+	* getUserInformation
 	* getUserInformationById

@@ -189,6 +189,15 @@ class Landslider < Handsoap::Service
 		parse_get_opportunity_notes_result(node)
 	end
 	
+	def get_user_information(session_id, user_id)
+
+		self.session_id = session_id
+		response = invoke("getUserInformation", :soap_action => :none) do |message|
+			message.add 'userId', user_id
+		end
+		node = response.document.xpath('//ns:getUserInformationResponse', ns)
+		parse_get_user_information_by_id_result(node)
+	end
 
 	def get_user_information_by_id(session_id, user_id)
 		self.session_id = session_id
