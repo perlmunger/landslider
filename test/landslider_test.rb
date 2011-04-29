@@ -49,6 +49,8 @@ class LandsliderTest < Test::Unit::TestCase
 		assert_not_nil result
 		assert_equal false, result[:error]
 		assert_not_nil result[:account]
+		assert_not_nil result[:account][:fax]
+		
 	end
 	
 	def test_landslider_account_custom_fields

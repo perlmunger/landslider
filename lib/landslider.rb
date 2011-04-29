@@ -73,6 +73,7 @@ class Landslider < Handsoap::Service
 		response = invoke("getAccountById", :soap_action => :none) do |message|
 			message.add 'accountId', account_id
 		end
+		
 		node = response.document.xpath('//ns:getAccountByIdResponse', ns)
 		parse_get_account_by_id_result(node)
 	end
@@ -377,6 +378,7 @@ class Landslider < Handsoap::Service
 		:account_owner => xml_to_str(node, './accountOwner/text()'),
 		:url => xml_to_str(node, './url/text()'),
 		:phone => xml_to_str(node, './phone/text()'),
+		:fax => xml_to_str(node, './fax/text()'),
 		:main_address => parse_address(node.xpath('./mainAddress')),
 		:shipping_address => parse_address(node.xpath('./shippingAddress')),
 		:billing_address => parse_address(node.xpath('./billingAddress')),
