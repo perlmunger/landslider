@@ -83,9 +83,9 @@ class Landslider < Handsoap::Service
 		response = invoke("getAccountContacts", :soap_action => :none) do |message|
 			message.add 'accountId', account_id
 		end
-		
+
 		node = response.document.xpath('//ns:getAccountContactsResponse', ns)
-		parse_get_account_contacts_result(node) 
+		parse_get_account_contacts_result(node)
 	end
 		
 	def get_account_notes(session_id, account_id, first_result_position=1, total_results_requested=25)
@@ -117,7 +117,7 @@ class Landslider < Handsoap::Service
 		end
 		
 		node = response.document.xpath('//ns:getAccountOpportunitiesResponse', ns)
-		parse_get_account_opportunities_result(node)	
+		parse_get_account_opportunities_result(node)
 	end
 
 	def get_contact_notes(session_id, contact_id, first_result_position=1, total_results_requested=25)
@@ -427,7 +427,10 @@ class Landslider < Handsoap::Service
 		:work_phone => xml_to_str(node, './workPhone/text()'),
 		:home_phone => xml_to_str(node, './homePhone/text()'),
 		:email => xml_to_str(node, './email/text()'),
-		:owner_id => xml_to_str(node, './ownerId/text()')
+		:title => xml_to_str(node, './homePhone/text()'),
+		:reports_to => xml_to_str(node, './reportsTo/text()'),
+		:owner_id => xml_to_int(node, './ownerId/text()'),
+		:contact_id => xml_to_int(node, './contactId/text()')
 		}
 	end
 	

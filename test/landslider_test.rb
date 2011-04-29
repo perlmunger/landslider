@@ -72,6 +72,7 @@ class LandsliderTest < Test::Unit::TestCase
 		
 		validate_standard_api_result result
 		assert_equal Array, result[:contacts].class
+		assert_not_nil result[:contacts].first[:contact_id]
 		assert result[:contacts].all? { |con| !con[:last_name].nil? }, "last name required"
 	end
 	
