@@ -26,19 +26,17 @@ This gem requires the following gems:
 	Configuration:
 
 	# constants to be set by rails environment config files
+	
 	LS_INSTANCE_NAME = 'jaytest'
-	LS_API_USERNAME = 'XXXXXXXX@landslide.com'
-	LS_API_PASSWORD = 'XXXXXXXX'
-	LS_API_KEY =  Digest::MD5.hexdigest(LS_API_PASSWORD + LS_INSTANCE_NAME)
-	LS_API_ENDPOINT = {
-	  :uri => "https://#{LS_INSTANCE_NAME}.api.landslide.com/webservices/SoapService",
-	  :version => 1
-	}
+	LS_API_USERNAME = 'jayp@landslide.com'
 	
+	# The api key is a md5 hash of the password + instance name
+	# see bin/generate_api_key.rb for an example
+	LS_API_KEY = '53308ccbdcb7f23fbd81a0b2ebcf12a4' 
+	
+	require 'landslider'
 	response = Landslider.login('LOGINTOKEN=' + LS_INSTANCE_NAME)
-	
 	response = Landslider.get_accounts(response[:session_id])
-	
 	response[:accounts].each do |account| 
 		puts "id: #{account[:account_id]} name: #{account[:account_name]}"
 	end

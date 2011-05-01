@@ -4,8 +4,11 @@ require 'handsoap'
 class Landslider < Handsoap::Service
 
 	LS_API_NAMESPACE='http://www.landslide.com/webservices/SoapService'
-
-	endpoint ::LS_API_ENDPOINT
+	LS_API_ENDPOINT = {
+	  :uri => "https://#{LS_INSTANCE_NAME}.api.landslide.com/webservices/SoapService",
+	  :version => 1
+	}
+	endpoint LS_API_ENDPOINT
 	
 	attr_accessor :session_id
 
