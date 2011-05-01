@@ -1,4 +1,3 @@
-require 'digest/md5'
 
 # constants to be set by rails environment config files
 LS_INSTANCE_NAME = 'jaytest'
