@@ -84,12 +84,13 @@ class Landslider < Handsoap::Service
 		parse_get_account_by_id_result(node)
 	end
 
-	def get_account_contacts(session_id, account_id)
+	def get_account_contacts(session_id, account_id, is_primary=false)
 		self.session_id = session_id
 		response = invoke("getAccountContacts", :soap_action => :none) do |message|
 			message.add 'accountId', account_id
+			message.add 'isPrimary', is_primary
 		end
-
+		
 		node = response.document.xpath('//ns:getAccountContactsResponse', ns)
 		parse_get_account_contacts_result(node)
 	end

@@ -66,14 +66,24 @@ class LandsliderTest < Test::Unit::TestCase
 	end
 	
 	def test_landslider_get_account_contacts
-		# exists on jaytest
-		result = Landslider.get_account_contacts($sid, 51857822)
-		
+		result = Landslider.get_account_contacts($sid, 55647822)
+
+		assert_equal 3, result[:results_returned]
 		validate_standard_api_result result
 		assert_equal Array, result[:contacts].class
 		assert_not_nil result[:contacts].first[:contact_id]
 		assert result[:contacts].all? { |con| !con[:last_name].nil? }, "last name required"
 	end
+	
+	def test_landslider_get_account_contacts_primary
+		result = Landslider.get_account_contacts($sid, 55647822, true)
+
+		assert_equal 1, result[:results_returned]
+		assert_equal 'Primary', result[:contacts].first[:first_name]
+		assert_equal 'Contact', result[:contacts].first[:last_name]
+
+	end
+	
 	
 	def test_landslider_get_account_custom_fields
 		result = Landslider.get_account_custom_fields($sid)
