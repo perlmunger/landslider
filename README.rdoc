@@ -4,7 +4,7 @@ Ruby interface to Landslide's SOAP based API
 
 == Pre-requisites
 
-An account with Landslide that has the API enabled. (www.landslide.com)
+An account with Landslide that has the API enabled. (www.landslide.com)  Contact support@landslide.com to have the API enabled.
 
 == Resources
 
@@ -23,15 +23,15 @@ This gem requires the following gems:
 
 == Usage
 
+
 	Configuration:
 
 	# constants to be set by rails environment config files
 	
 	LS_INSTANCE_NAME = 'jaytest'
 	LS_API_USERNAME = 'jayp@landslide.com'
-	
-	# The api key is a md5 hash of the password + instance name
-	# see bin/generate_api_key.rb for an example
+
+	# see bin/generate_api_key.rb for details on how to generate this key
 	LS_API_KEY = '53308ccbdcb7f23fbd81a0b2ebcf12a4' 
 	
 	require 'landslider'
