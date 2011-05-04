@@ -4,18 +4,15 @@ Ruby interface to Landslide's SOAP based API
 
 == Pre-requisites
 
+== Dependencies
+
+=== Landslide account
+
 An account with Landslide that has the API enabled. (www.landslide.com)  Contact support@landslide.com to have the API enabled.
 
-== Resources
+=== Ruby gem dependencies
 
-=== Dependencies
-
-This gem requires the following gems:
-	
-	jeweler
-	handsoap >= 1.1.8
-	
-	You also need to have either curb or httpclient on the load path.
+	gem install jeweler curb handsoap
 
 == Install
 

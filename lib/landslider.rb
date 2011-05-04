@@ -412,7 +412,6 @@ class Landslider < Handsoap::Service
 	
 	def parse_get_lead_notes_result(node)
 		
-		puts node.inspect
 		notes = parse_notes(node)
 		{
 		:error => xml_to_bool(node, './Notes/error/text()'),
