@@ -46,7 +46,14 @@ An account with Landslide that has the API enabled. (www.landslide.com)  Contact
 	
 	Tests are needed here because the API uses a specific XML structure for requests and responses.
 	
-=== Supported API methods
+== Contributing
+
+	Read the github doc on forking:
+	http://help.github.com/forking/
+	
+== API methods
+
+	These are the api methods that can be called.  There are plenty of others to map out.
 
 	* login
 	* getApiVersion
