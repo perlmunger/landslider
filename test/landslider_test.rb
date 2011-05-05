@@ -60,7 +60,7 @@ class LandsliderTest < Test::Unit::TestCase
 		assert_not_nil result[:account]
 		
 		assert_not_nil result[:account][:custom_fields]
-		assert_equal Array, result[:account][:custom_fields].class
+		assert_kind_of Array, result[:account][:custom_fields]
 		assert_operator result[:account][:custom_fields].length, :>=, 2
 		
 	end
@@ -70,7 +70,7 @@ class LandsliderTest < Test::Unit::TestCase
 
 		assert_equal 3, result[:results_returned]
 		validate_standard_api_result result
-		assert_equal Array, result[:contacts].class
+		assert_kind_of Array, result[:contacts]
 		assert_not_nil result[:contacts].first[:contact_id]
 		assert result[:contacts].all? { |con| !con[:last_name].nil? }, "last name required"
 	end
@@ -103,7 +103,7 @@ class LandsliderTest < Test::Unit::TestCase
 		result = Landslider.get_account_opportunities($sid, 51858821)
 
 		assert_equal false, result[:error]
-		assert_equal Array, result[:opportunities].class
+		assert_kind_of Array, result[:opportunities]
 		
 		assert result[:opportunities].all? { |opp| 
 			!opp[:account_name].nil? && 
@@ -155,7 +155,7 @@ class LandsliderTest < Test::Unit::TestCase
 		
 		validate_standard_api_result result
 		assert_not_nil result[:leads]
-		assert_equal Array, result[:leads].class
+		assert_kind_of Array, result[:leads]
 	end
 	
 	def test_landslider_get_lead_custom_fields
@@ -207,7 +207,7 @@ class LandsliderTest < Test::Unit::TestCase
 	private
 	
 	def validate_standard_api_result(result) 
-		assert_equal Hash, result.class, "api method should return a hash"
+		assert_kind_of Hash, result
 		assert_not_nil result[:results_returned], ":results_returned missing"
 		assert_operator result[:results_returned], :>=, 0
 		assert_not_nil result[:total_results_available], ":total_results_available missing"
@@ -219,7 +219,7 @@ class LandsliderTest < Test::Unit::TestCase
 	def validate_at_least_one_note_returned(result)
 		assert_operator result[:results_returned], :>=, 1
 		assert_not_nil result[:notes], "at least one note should be returned"
-		assert_equal Array, result[:notes].class
+		assert_kind_of Array, result[:notes]
 	end
 
 end
