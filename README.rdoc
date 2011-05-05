@@ -14,7 +14,7 @@ An account with Landslide that has the API enabled. (www.landslide.com)  Contact
 
 	gem install jeweler curb handsoap
 
-== Install
+== Installation
 
 	gem install landslider
 
@@ -38,6 +38,14 @@ An account with Landslide that has the API enabled. (www.landslide.com)  Contact
 		puts "id: #{account[:account_id]} name: #{account[:account_name]}"
 	end
 
+== Testing
+
+	The default rake task is set to run the tests.
+	
+	$ rake
+	
+	Tests are needed here because the API uses a specific XML structure for requests and responses.
+	
 === Supported API methods
 
 	* login
