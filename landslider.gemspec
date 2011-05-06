@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{landslider}
-  s.version = "0.5.3"
+  s.version = "0.5.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jay Prall"]
@@ -31,6 +31,10 @@ Gem::Specification.new do |s|
     "lib/landslider.rb",
     "test/landslider_test.rb",
     "test/test_helper.rb",
+    "test/ws_account_note_search_test.rb",
+    "test/ws_contact_note_search_test.rb",
+    "test/ws_lead_note_search_test.rb",
+    "test/ws_opportunity_note_search_test.rb",
     "test/ws_search_test.rb"
   ]
   s.homepage = %q{https://github.com/j4y/landslider}
@@ -41,6 +45,10 @@ Gem::Specification.new do |s|
   s.test_files = [
     "test/landslider_test.rb",
     "test/test_helper.rb",
+    "test/ws_account_note_search_test.rb",
+    "test/ws_contact_note_search_test.rb",
+    "test/ws_lead_note_search_test.rb",
+    "test/ws_opportunity_note_search_test.rb",
     "test/ws_search_test.rb"
   ]
 
