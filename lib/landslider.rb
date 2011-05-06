@@ -214,6 +214,13 @@ class Landslider < Handsoap::Service
 			message.add('opportunityRequest') { |req|
 				req.add 'firstResultPosition', first_result_position
 				req.add 'totalResultsRequested', total_results_requested
+				unless search_criteria.nil?
+					req.add('searchCriteria') { |sc|
+						sc.add 'fieldId', search_criteria.field_id
+						sc.add 'operator', search_criteria.operator
+						sc.add 'queryValue', search_criteria.query_value
+					}
+				end
 			}
 		end
 		node = response.document.xpath('//ns:getOpportunitiesResponse', ns)
