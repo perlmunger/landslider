@@ -54,18 +54,19 @@ class Landslider < Handsoap::Service
 		parse_api_version_result(node)
 	end
 	
-	def get_accounts(session_id, first_result_position=1, total_results_requested=25)
+	def get_accounts(session_id, first_result_position=1, total_results_requested=25, search_criteria=nil)
 		self.session_id = session_id
 		response = invoke('getAccounts', :soap_action => :none) do |message|
 			message.add('accountsRequest') { |ar|
 				ar.add 'firstResultPosition', first_result_position
 				ar.add 'totalResultsRequested', total_results_requested
-				# ar.add('searchCriteria') { |sc|
-				# 	# just find accounts with an empty main city
-				# 	
-				# 	sc.add 'fieldId', 'MainAddressCity'
-				# 	sc.add 'operator', 'Empty'
-				# }
+				unless search_criteria.nil?
+					ar.add('searchCriteria') { |sc|
+						sc.add 'fieldId', search_criteria.field_id
+						sc.add 'operator', search_criteria.operator
+						sc.add 'queryValue', search_criteria.query_value
+					}
+				end
 			}
 		end
 		
@@ -110,13 +111,6 @@ class Landslider < Handsoap::Service
 				ans.add 'accountId', account_id
 				ans.add 'firstResultPosition', first_result_position
 				ans.add 'totalResultsRequested', total_results_requested
-				
-				# ans.add('searchCriteria') { |sc|
-				# 	# just find accounts with an empty main city
-				# 	
-				# 	sc.add 'fieldId', 'MainAddressCity'
-				# 	sc.add 'operator', 'Empty'
-				# }
 			}
 		end
 		node = response.document.xpath('//ns:getAccountNotesResponse', ns)
@@ -213,7 +207,7 @@ class Landslider < Handsoap::Service
 		parse_get_lead_notes_result(node)
 	end
 	
-	def get_opportunities(session_id, first_result_position=1, total_results_requested=25)
+	def get_opportunities(session_id, first_result_position=1, total_results_requested=25, search_criteria=nil)
 		self.session_id = session_id
 		
 		response = invoke('getOpportunities', :soap_action => :none) do |message|
@@ -610,6 +604,16 @@ class Landslider < Handsoap::Service
 		:selling_process_id => xml_to_int(node, './sellingProcess/sellingProcessId/text()'),
 		:start_date => xml_to_date(node, './startDate/text()')
 		}
+	end
+	
+	class WsSearch
+		attr_reader :field_id, :operator, :query_value
+    
+		def initialize(field_id, operator, query_value)
+			@field_id = field_id
+			@operator = operator
+			@query_value = query_value
+		end
 	end
 
 end
