@@ -145,15 +145,11 @@ class Landslider < Handsoap::Service
 		parse_get_entity_custom_fields_result(node)
 	end
 
-	def get_contact_notes(session_id, contact_id, first_result_position=1, total_results_requested=25)
+	def get_contact_notes(session_id, search)
 		self.session_id = session_id
 		
 		response = invoke('getContactNotes', :soap_action => :none) do |message|
-			message.add('contactNote') { |ans|
-				ans.add 'contactId', contact_id
-				ans.add 'firstResultPosition', first_result_position
-				ans.add 'totalResultsRequested', total_results_requested
-			}
+			search.soapify_for(message)
 		end
 		node = response.document.xpath('//ns:getContactNotesResponse', ns)
 		parse_get_contact_notes_result(node)
@@ -637,6 +633,26 @@ class Landslider < Handsoap::Service
 		def soapify_for(msg)
 			msg.add('accountNoteSearch') { |crit|
 				crit.add 'accountId', @account_id
+				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
+				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
+				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
+			}
+		end
+	end
+	
+	class WsContactNoteSearch
+		attr_reader :contact_id
+		attr_writer :first_result_position, :total_results_requested, :updated_on
+
+		def initialize(contact_id)
+			@contact_id = contact_id
+		end
+
+		# @param [Handsoap::XmlMason::Node] msg
+		# @return [Handsoap::XmlMason::Node]
+		def soapify_for(msg)
+			msg.add('contactNote') { |crit|
+				crit.add 'contactId', @contact_id
 				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
 				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
 				crit.add 'updatedOn', @updated_on unless @updated_on.nil?

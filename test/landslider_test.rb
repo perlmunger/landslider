@@ -115,13 +115,6 @@ class LandsliderTest < Test::Unit::TestCase
 		assert_not_nil result[:custom_fields].first[:custom_field_id]
 	end
 	
-	def test_landslider_get_contact_notes
-		result = Landslider.get_contact_notes($sid, 62813411)
-		
-		validate_standard_api_result result
-		validate_at_least_one_note_returned result
-	end
-	
 	def test_landslider_get_instance_information
 		# Landslide API doc bug..  integer user_id doesn't work
 		result = Landslider.get_instance_information($sid, 'jayp@landslide.com')
