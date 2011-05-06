@@ -4,11 +4,7 @@ require 'test_helper'
 class WsSearchTest < Test::Unit::TestCase
 
 	def setup
-		if $sid2.nil?
-			# only get a session once
-			result = Landslider.login('LOGINTOKEN=' + LS_INSTANCE_NAME)
-			$sid2 = result[:session_id]
-		end
+		$sid2 ||= Landslider.login('LOGINTOKEN=' + LS_INSTANCE_NAME)[:session_id]
 	end
 	
 	def test_ws_search_object

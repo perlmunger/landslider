@@ -33,7 +33,6 @@ class Landslider < Handsoap::Service
 
 	def login(session_id)
 		self.session_id = session_id
-		
 		response = invoke('login', :soap_action => :none) do |message|
 			message.add('wsUser') { |u|
 				u.add 'username', ::LS_API_USERNAME 
@@ -43,15 +42,6 @@ class Landslider < Handsoap::Service
 		
 		node = response.document.xpath('//ns:loginResponse/loginResponse', ns)
 		parse_login_result(node)
-	end
-	
-	def get_api_version(session_id)
-		self.session_id = session_id
-		
-		response = invoke('getApiVersion', :soap_action => :none)
-		
-		node = response.document.xpath('//ns:getApiVersionResponse', ns)
-		parse_api_version_result(node)
 	end
 	
 	def get_accounts(session_id, first_result_position=1, total_results_requested=25, search_criteria=nil)
@@ -125,6 +115,15 @@ class Landslider < Handsoap::Service
 		
 		node = response.document.xpath('//ns:getAccountOpportunitiesResponse', ns)
 		parse_get_account_opportunities_result(node)
+	end
+	
+	def get_api_version(session_id)
+		self.session_id = session_id
+		
+		response = invoke('getApiVersion', :soap_action => :none)
+		
+		node = response.document.xpath('//ns:getApiVersionResponse', ns)
+		parse_api_version_result(node)
 	end
 	
 	def get_contacts(session_id, first_result_position=1, total_results_requested=25)
