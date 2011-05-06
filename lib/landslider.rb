@@ -189,15 +189,11 @@ class Landslider < Handsoap::Service
 		parse_get_entity_custom_fields_result(node)
 	end
 	
-	def get_lead_notes(session_id, lead_id, first_result_position=1, total_results_requested=25)
+	def get_lead_notes(session_id, search)
 		self.session_id = session_id
 	
 		response = invoke('getLeadNotes', :soap_action => :none) do |message|
-			message.add('leadNote') { |ans|
-				ans.add 'leadId', lead_id
-				ans.add 'firstResultPosition', first_result_position
-				ans.add 'totalResultsRequested', total_results_requested
-			}
+			search.soapify_for(message)
 		end
 		node = response.document.xpath('//ns:getLeadNotesResponse', ns)
 		parse_get_lead_notes_result(node)
@@ -658,6 +654,27 @@ class Landslider < Handsoap::Service
 				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
 			}
 		end
+	end
+	
+	class WsLeadNoteSearch
+		attr_reader :lead_id
+		attr_writer :first_result_position, :total_results_requested, :updated_on
+
+		def initialize(lead_id)
+			@lead_id = lead_id
+		end
+
+		# @param [Handsoap::XmlMason::Node] msg
+		# @return [Handsoap::XmlMason::Node]
+		def soapify_for(msg)
+			msg.add('leadNote') { |crit|
+				crit.add 'leadId', @lead_id
+				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
+				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
+				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
+			}
+		end
+		
 	end
 	
 	class WsOpportunityNoteSearch
