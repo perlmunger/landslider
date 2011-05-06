@@ -11,7 +11,7 @@ class WsAccountNoteSearchTest < Test::Unit::TestCase
 		search = Landslider::WsAccountNoteSearch.new(55647822)
 		result = Landslider.get_account_notes($sid3, search)
 		assert_equal false, result[:error]
-		assert_equal 7, result[:results_returned]
+		assert_equal 8, result[:results_returned]
 	end
 	
 	def test_account_note_search_limit_by_updated_on

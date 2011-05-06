@@ -2,6 +2,107 @@
 require 'handsoap'
 
 class Landslider < Handsoap::Service
+	
+	class WsSearch
+		attr_reader :field_id, :operator, :query_value
+    
+		def initialize(field_id, operator, query_value)
+			@field_id = field_id
+			@operator = operator
+			@query_value = query_value
+		end
+		
+		# @param [Handsoap::XmlMason::Node] msg
+		# @return [Handsoap::XmlMason::Node]
+		def soapify_for(msg)
+			msg.add('searchCriteria') { |crit|
+				crit.add 'fieldId', @field_id
+				crit.add 'operator', @operator
+				crit.add 'queryValue', @query_value unless @query_value.nil?
+			}
+		end
+	end
+
+	class WsAccountNoteSearch
+		attr_reader :account_id
+		attr_writer :first_result_position, :total_results_requested, :updated_on
+
+		def initialize(account_id)
+			@account_id = account_id
+		end
+		
+		# @param [Handsoap::XmlMason::Node] msg
+		# @return [Handsoap::XmlMason::Node]
+		def soapify_for(msg)
+			msg.add('accountNoteSearch') { |crit|
+				crit.add 'accountId', @account_id
+				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
+				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
+				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
+			}
+		end
+	end
+	
+	class WsContactNoteSearch
+		attr_reader :contact_id
+		attr_writer :first_result_position, :total_results_requested, :updated_on
+
+		def initialize(contact_id)
+			@contact_id = contact_id
+		end
+
+		# @param [Handsoap::XmlMason::Node] msg
+		# @return [Handsoap::XmlMason::Node]
+		def soapify_for(msg)
+			msg.add('contactNote') { |crit|
+				crit.add 'contactId', @contact_id
+				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
+				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
+				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
+			}
+		end
+	end
+	
+	class WsLeadNoteSearch
+		attr_reader :lead_id
+		attr_writer :first_result_position, :total_results_requested, :updated_on
+
+		def initialize(lead_id)
+			@lead_id = lead_id
+		end
+
+		# @param [Handsoap::XmlMason::Node] msg
+		# @return [Handsoap::XmlMason::Node]
+		def soapify_for(msg)
+			msg.add('leadNote') { |crit|
+				crit.add 'leadId', @lead_id
+				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
+				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
+				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
+			}
+		end
+		
+	end
+	
+	class WsOpportunityNoteSearch
+		attr_reader :opportunity_id
+		attr_writer :first_result_position, :total_results_requested, :updated_on
+
+		def initialize(opportunity_id)
+			@opportunity_id = opportunity_id
+		end
+
+		# @param [Handsoap::XmlMason::Node] msg
+		# @return [Handsoap::XmlMason::Node]
+		def soapify_for(msg)
+			msg.add('opportunityNote') { |crit|
+				crit.add 'opportunityId', @opportunity_id
+				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
+				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
+				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
+			}
+		end
+	end
 
 	LS_API_NAMESPACE='http://www.landslide.com/webservices/SoapService'
 	LS_API_ENDPOINT = {
@@ -594,107 +695,6 @@ class Landslider < Handsoap::Service
 		:selling_process_id => xml_to_int(node, './sellingProcess/sellingProcessId/text()'),
 		:start_date => xml_to_date(node, './startDate/text()')
 		}
-	end
-	
-	class WsSearch
-		attr_reader :field_id, :operator, :query_value
-    
-		def initialize(field_id, operator, query_value)
-			@field_id = field_id
-			@operator = operator
-			@query_value = query_value
-		end
-		
-		# @param [Handsoap::XmlMason::Node] msg
-		# @return [Handsoap::XmlMason::Node]
-		def soapify_for(msg)
-			msg.add('searchCriteria') { |crit|
-				crit.add 'fieldId', @field_id
-				crit.add 'operator', @operator
-				crit.add 'queryValue', @query_value unless @query_value.nil?
-			}
-		end
-	end
-
-	class WsAccountNoteSearch
-		attr_reader :account_id
-		attr_writer :first_result_position, :total_results_requested, :updated_on
-
-		def initialize(account_id)
-			@account_id = account_id
-		end
-		
-		# @param [Handsoap::XmlMason::Node] msg
-		# @return [Handsoap::XmlMason::Node]
-		def soapify_for(msg)
-			msg.add('accountNoteSearch') { |crit|
-				crit.add 'accountId', @account_id
-				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
-				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
-				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
-			}
-		end
-	end
-	
-	class WsContactNoteSearch
-		attr_reader :contact_id
-		attr_writer :first_result_position, :total_results_requested, :updated_on
-
-		def initialize(contact_id)
-			@contact_id = contact_id
-		end
-
-		# @param [Handsoap::XmlMason::Node] msg
-		# @return [Handsoap::XmlMason::Node]
-		def soapify_for(msg)
-			msg.add('contactNote') { |crit|
-				crit.add 'contactId', @contact_id
-				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
-				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
-				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
-			}
-		end
-	end
-	
-	class WsLeadNoteSearch
-		attr_reader :lead_id
-		attr_writer :first_result_position, :total_results_requested, :updated_on
-
-		def initialize(lead_id)
-			@lead_id = lead_id
-		end
-
-		# @param [Handsoap::XmlMason::Node] msg
-		# @return [Handsoap::XmlMason::Node]
-		def soapify_for(msg)
-			msg.add('leadNote') { |crit|
-				crit.add 'leadId', @lead_id
-				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
-				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
-				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
-			}
-		end
-		
-	end
-	
-	class WsOpportunityNoteSearch
-		attr_reader :opportunity_id
-		attr_writer :first_result_position, :total_results_requested, :updated_on
-
-		def initialize(opportunity_id)
-			@opportunity_id = opportunity_id
-		end
-
-		# @param [Handsoap::XmlMason::Node] msg
-		# @return [Handsoap::XmlMason::Node]
-		def soapify_for(msg)
-			msg.add('opportunityNote') { |crit|
-				crit.add 'opportunityId', @opportunity_id
-				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
-				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
-				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
-			}
-		end
 	end
 
 end
