@@ -8,6 +8,10 @@ class Landslider < Handsoap::Service
 	  :uri => "https://#{LS_INSTANCE_NAME}.api.landslide.com/webservices/SoapService",
 	  :version => 1
 	}
+	
+	DEFAULT_FIRST_RESULT_POSITION=1
+	DEFAULT_TOTAL_RESULTS_REQUESTED=25
+	
 	endpoint LS_API_ENDPOINT
 	
 	attr_accessor :session_id
@@ -88,16 +92,11 @@ class Landslider < Handsoap::Service
 		parse_get_entity_custom_fields_result(node)
 	end
 		
-	def get_account_notes(session_id, account_id, first_result_position=1, total_results_requested=25)
+	def get_account_notes(session_id, search)
 		self.session_id = session_id
 
 		response = invoke('getAccountNotes', :soap_action => :none) do |message|
-			message.add('accountNoteSearch') { |ans|
-		
-				ans.add 'accountId', account_id
-				ans.add 'firstResultPosition', first_result_position
-				ans.add 'totalResultsRequested', total_results_requested
-			}
+			search.soapify_for(message)
 		end
 		node = response.document.xpath('//ns:getAccountNotesResponse', ns)
 		parse_get_account_notes_result(node)
@@ -232,16 +231,11 @@ class Landslider < Handsoap::Service
 		parse_get_entity_custom_fields_result(node)
 	end
 
-	def get_opportunity_notes(session_id, opportunity_id, first_result_position=1, total_results_requested=25)
+	def get_opportunity_notes(session_id, search)
 		self.session_id = session_id
 	
 		response = invoke('getOpportunityNotes', :soap_action => :none) do |message|
-			message.add('opportunityNote') { |ans|
-		
-				ans.add 'opportunityId', opportunity_id
-				ans.add 'firstResultPosition', first_result_position
-				ans.add 'totalResultsRequested', total_results_requested
-			}
+			search.soapify_for(message)
 		end
 		node = response.document.xpath('//ns:getOpportunityNotesResponse', ns)
 		parse_get_opportunity_notes_result(node)
@@ -622,14 +616,52 @@ class Landslider < Handsoap::Service
 		# @param [Handsoap::XmlMason::Node] msg
 		# @return [Handsoap::XmlMason::Node]
 		def soapify_for(msg)
-			
 			msg.add('searchCriteria') { |crit|
 				crit.add 'fieldId', @field_id
 				crit.add 'operator', @operator
 				crit.add 'queryValue', @query_value unless @query_value.nil?
 			}
 		end
+	end
 
+	class WsAccountNoteSearch
+		attr_reader :account_id
+		attr_writer :first_result_position, :total_results_requested, :updated_on
+
+		def initialize(account_id)
+			@account_id = account_id
+		end
+		
+		# @param [Handsoap::XmlMason::Node] msg
+		# @return [Handsoap::XmlMason::Node]
+		def soapify_for(msg)
+			msg.add('accountNoteSearch') { |crit|
+				crit.add 'accountId', @account_id
+				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
+				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
+				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
+			}
+		end
+	end
+	
+	class WsOpportunityNoteSearch
+		attr_reader :opportunity_id
+		attr_writer :first_result_position, :total_results_requested, :updated_on
+
+		def initialize(opportunity_id)
+			@opportunity_id = opportunity_id
+		end
+
+		# @param [Handsoap::XmlMason::Node] msg
+		# @return [Handsoap::XmlMason::Node]
+		def soapify_for(msg)
+			msg.add('opportunityNote') { |crit|
+				crit.add 'opportunityId', @opportunity_id
+				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
+				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
+				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
+			}
+		end
 	end
 
 end

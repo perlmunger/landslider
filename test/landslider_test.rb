@@ -86,14 +86,7 @@ class LandsliderTest < Test::Unit::TestCase
 		assert_not_nil result[:custom_fields]
 		assert_not_nil result[:custom_fields].first[:custom_field_id]
 	end
-	
-	def test_landslider_get_account_notes
-		result = Landslider.get_account_notes($sid, JAYTEST_ACCOUNT_ID)
 		
-		validate_standard_api_result result
-		validate_at_least_one_note_returned result
-	end
-	
 	def test_landslider_get_account_opportunities
 		# exists on jaytest
 		result = Landslider.get_account_opportunities($sid, 51858821)
@@ -171,14 +164,6 @@ class LandsliderTest < Test::Unit::TestCase
 	def test_landslider_get_opportunities
 		result = Landslider.get_opportunities($sid)
 		assert_not_nil result[:opportunities]
-	end
-	
-	def test_landslider_get_opportunity_notes
-		# exists on jaytest
-		result = Landslider.get_opportunity_notes($sid, 55952453)
-		
-		validate_standard_api_result result
-		validate_at_least_one_note_returned result
 	end
 	
 	def test_landslider_get_user_information
