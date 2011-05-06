@@ -47,15 +47,11 @@ class Landslider < Handsoap::Service
 	def get_accounts(session_id, first_result_position=1, total_results_requested=25, search_criteria=nil)
 		self.session_id = session_id
 		response = invoke('getAccounts', :soap_action => :none) do |message|
-			message.add('accountsRequest') { |ar|
-				ar.add 'firstResultPosition', first_result_position
-				ar.add 'totalResultsRequested', total_results_requested
+			message.add('accountsRequest') { |req|
+				req.add 'firstResultPosition', first_result_position
+				req.add 'totalResultsRequested', total_results_requested
 				unless search_criteria.nil?
-					ar.add('searchCriteria') { |sc|
-						sc.add 'fieldId', search_criteria.field_id
-						sc.add 'operator', search_criteria.operator
-						sc.add 'queryValue', search_criteria.query_value
-					}
+					search_criteria.soapify_for(req)
 				end
 			}
 		end
@@ -214,11 +210,7 @@ class Landslider < Handsoap::Service
 				req.add 'firstResultPosition', first_result_position
 				req.add 'totalResultsRequested', total_results_requested
 				unless search_criteria.nil?
-					req.add('searchCriteria') { |sc|
-						sc.add 'fieldId', search_criteria.field_id
-						sc.add 'operator', search_criteria.operator
-						sc.add 'queryValue', search_criteria.query_value
-					}
+					search_criteria.soapify_for(req)
 				end
 			}
 		end
@@ -620,6 +612,18 @@ class Landslider < Handsoap::Service
 			@operator = operator
 			@query_value = query_value
 		end
+		
+		# @param [Handsoap::XmlMason::Node] msg
+		# @return [Handsoap::XmlMason::Node]
+		def soapify_for(msg)
+			
+			msg.add('searchCriteria') { |crit|
+				crit.add 'fieldId', @field_id
+				crit.add 'operator', @operator
+				crit.add 'queryValue', @query_value unless @query_value.nil?
+			}
+		end
+
 	end
 
 end
