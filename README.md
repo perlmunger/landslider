@@ -15,12 +15,12 @@ If you already have a landslide account, contact support to enable the API.  You
 Dependencies
 ------------
 
-	gem install jeweler curb handsoap
+	$ gem install jeweler curb handsoap
 
 Installation
 ------------
 
-	gem install landslider
+	$ gem install landslider
 
 Configuration
 -------------
@@ -71,26 +71,26 @@ API methods
 
 	Here is a list of API methods that have been added:
 
-	* login
-	* getApiVersion
-	* getAccounts
-	* getAccountById
-	* getAccountCustomFields
-	* getAccountContacts
-	* getAccountNotes
-	* getAccountOpportunities
-	* getContacts
-	* getContactCustomFields
-	* getContactNotes
-	* getInstanceInformation
-	* getLeads
-	* getLeadCustomFields
-	* getLeadNotes
-	* getOpportunities
-	* getOpportunityCustomFields
-	* getOpportunityNotes
-	* getUserInformation
-	* getUserInformationById
+* login
+* getApiVersion
+* getAccounts
+* getAccountById
+* getAccountCustomFields
+* getAccountContacts
+* getAccountNotes
+* getAccountOpportunities
+* getContacts
+* getContactCustomFields
+* getContactNotes
+* getInstanceInformation
+* getLeads
+* getLeadCustomFields
+* getLeadNotes
+* getOpportunities
+* getOpportunityCustomFields
+* getOpportunityNotes
+* getUserInformation
+* getUserInformationById
 
 TODO
 ----
