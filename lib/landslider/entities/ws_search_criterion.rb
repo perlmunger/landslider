@@ -5,7 +5,6 @@ class Landslider
 		attr_reader :field_id, :operator
 		attr_reader :query_value
 
-		
 		# @param [String] field_id 
 		#
 		# Currently Searchable Account Fields:
@@ -44,19 +43,56 @@ class Landslider
 		# * ShippingAddressState
 		# * ShippingAddressStreet
 		# * ShippingAddressZip
-		# * SourceSystemId, SyncWithQuickBooks
+		# * SourceSystemId
+		# * SyncWithQuickBooks
 		# * Ticker
 		# * Url
 		#
 		# Currently Searchable Opportunity Fields:
 		# * AccountId
-		# * AccountName, ArchivedOn, ClosedDate, ComputedConfidence, ComputedForecastDate, CreatedById, CreatedDate, CurrentPhaseId, CurrentPhaseName, DealValue, Description, IsHot, LastUpdatedById, LastUpdatedDate, LeadSource, LeadSourceId, Name, OpportunityId, OverriddenConfidence, OverriddenForecastDate, OverrideComments, OwnerId, PaymentTerms, PaymentTermsId, QuickbooksLastSynced, QuickbooksTransactionType, SellingProcess, SellingProcessId, SourceSystemId, StartDate, Status, StatusId, StatusReason, StatusReasonId, SuspendedDate]
+		# * AccountName
+		# * ArchivedOn, ClosedDate
+		# * ComputedConfidence
+		# * ComputedForecastDate
+		# * CreatedById
+		# * CreatedDate
+		# * CurrentPhaseId
+		# * CurrentPhaseName
+		# * DealValue
+		# * Description
+		# * IsHot
+		# * LastUpdatedById, 
+		# * LastUpdatedDate
+		# * LeadSource
+		# * LeadSourceId
+		# * Name, OpportunityId
+		# * OverriddenConfidence
+		# * OverriddenForecastDate
+		# * OverrideComments
+		# * OwnerId
+		# * PaymentTerms
+		# * PaymentTermsId
+		# * QuickbooksLastSyncedQuickbooksTransactionType
+		# * SellingProcess
+		# * SellingProcessId
+		# * SourceSystemId
+		# * StartDate
+		# * Status
+		# * StatusId
+		# * StatusReason
+		# * StatusReasonId
+		# * SuspendedDate
 		#
 		# Currently Searchable Duration Type Fields:
 		# * DurationType
-		# * DurationTypeId]
+		# * DurationTypeId
+		#
 		# Currently Searchable Product Family Fields:
-		# 	[Description, ParentProductFamily, ParentProductFamilyId, ProductFamily, ProductFamilyId]
+		# * Description
+		# * ParentProductFamily
+		# * ParentProductFamilyId
+		# * ProductFamily
+		# * ProductFamilyId
 		# @param [String, WsSearchOperator] operator Contains,SoundsLike,Equals,NotEquals,LessThan,LessThanOrEqual,GreaterThan,GreaterThanOrEqual,Empty,NotEmpty,True,False,In,NotIn
 		# @param [String, WsSearchOperator] query_value string to search for
 		def initialize(field_id, operator, query_value)
