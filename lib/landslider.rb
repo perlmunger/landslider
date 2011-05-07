@@ -3,7 +3,7 @@ require 'handsoap'
 
 class Landslider < Handsoap::Service
 	
-	class WsSearch
+	class WsSearchCriterion
 		attr_reader :field_id, :operator, :query_value
     
 		def initialize(field_id, operator, query_value)

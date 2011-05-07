@@ -8,7 +8,7 @@ class WsSearchTest < Test::Unit::TestCase
 	end
 	
 	def test_ws_search_object
-		search = Landslider::WsSearch.new('AccountName', 'Equals', 'Boston')
+		search = Landslider::WsSearchCriterion.new('AccountName', 'Equals', 'Boston')
 		assert_equal 'AccountName', search.field_id
 		assert_equal 'Equals', search.operator
 		assert_equal 'Boston', search.query_value
@@ -22,7 +22,7 @@ class WsSearchTest < Test::Unit::TestCase
 	end
 
 	def test_get_accounts_with_search_criteria
-		search = Landslider::WsSearch.new('AccountName', 'Equals', 'Boston')
+		search = Landslider::WsSearchCriterion.new('AccountName', 'Equals', 'Boston')
 		result = Landslider.get_accounts($sid2, 1, 25, search)
 		
 		assert_equal false, result[:error]
@@ -38,7 +38,7 @@ class WsSearchTest < Test::Unit::TestCase
 
 	def test_get_opportunities_with_search_criteria
 		target_phase_name = 'Prospect'
-		search = Landslider::WsSearch.new('CurrentPhaseName', 'Contains', target_phase_name)
+		search = Landslider::WsSearchCriterion.new('CurrentPhaseName', 'Contains', target_phase_name)
 		result = Landslider.get_opportunities($sid2, 1, 25, search)
 		
 		assert_equal false, result[:error]
