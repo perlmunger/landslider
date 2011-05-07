@@ -3,6 +3,22 @@ require 'handsoap'
 
 class Landslider < Handsoap::Service
 	
+	class WsSearch
+		attr_writer :first_result_position, :total_results_requested, :updated_on
+		
+		def initialize
+		end
+		
+		# @param [Handsoap::XmlMason::Node] msg
+		# @return [Handsoap::XmlMason::Node]
+		def soapify_for(msg)
+			msg.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
+			msg.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
+			msg.add 'updatedOn', @updated_on unless @updated_on.nil?
+		end
+	
+	end
+	
 	class WsSearchCriterion
 		attr_reader :field_id, :operator, :query_value
     
@@ -23,9 +39,10 @@ class Landslider < Handsoap::Service
 		end
 	end
 
-	class WsAccountNoteSearch
+	class WsAccountNoteSearch < WsSearch
 		attr_reader :account_id
-		attr_writer :first_result_position, :total_results_requested, :updated_on
+		
+		# alias :super_soapify_for :soapify_for
 
 		def initialize(account_id)
 			@account_id = account_id
@@ -43,9 +60,8 @@ class Landslider < Handsoap::Service
 		end
 	end
 	
-	class WsContactNoteSearch
+	class WsContactNoteSearch < WsSearch
 		attr_reader :contact_id
-		attr_writer :first_result_position, :total_results_requested, :updated_on
 
 		def initialize(contact_id)
 			@contact_id = contact_id
@@ -63,9 +79,8 @@ class Landslider < Handsoap::Service
 		end
 	end
 	
-	class WsLeadNoteSearch
+	class WsLeadNoteSearch < WsSearch
 		attr_reader :lead_id
-		attr_writer :first_result_position, :total_results_requested, :updated_on
 
 		def initialize(lead_id)
 			@lead_id = lead_id
@@ -84,9 +99,8 @@ class Landslider < Handsoap::Service
 		
 	end
 	
-	class WsOpportunityNoteSearch
+	class WsOpportunityNoteSearch < WsSearch
 		attr_reader :opportunity_id
-		attr_writer :first_result_position, :total_results_requested, :updated_on
 
 		def initialize(opportunity_id)
 			@opportunity_id = opportunity_id
