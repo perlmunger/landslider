@@ -94,8 +94,9 @@ API methods
 
 TODO
 ----
-	* Modify configuration to be rails 3 friendly.  The configuation was needed before the environment finished loading. See landslide-rails
-	* add more API calls
-	* use HTTP cookies to maintain session state. maybe something like http_request.headers.merge!({'cookie' => ["JSESSIONID=#{self.session_id}"]})
-	* eliminate slow inefficient XPath queries
-	* eliminate test data dependency on the jaytest instance
+
+* Modify configuration to be rails 3 friendly.  The configuation was needed before the environment finished loading. See landslide-rails
+* add more API calls
+* use HTTP cookies to maintain session state. maybe something like http_request.headers.merge!({'cookie' => ["JSESSIONID=#{self.session_id}"]})
+* eliminate slow inefficient XPath queries
+* eliminate test data dependency on the jaytest instance
