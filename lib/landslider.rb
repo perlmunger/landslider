@@ -5,6 +5,7 @@ class Landslider < Handsoap::Service
 	
 	class WsSearch
 		attr_writer :first_result_position, :total_results_requested, :updated_on
+		attr_writer :search_criteria
 		
 		def initialize
 		end
@@ -15,6 +16,10 @@ class Landslider < Handsoap::Service
 			msg.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
 			msg.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
 			msg.add 'updatedOn', @updated_on unless @updated_on.nil?
+			unless @search_criteria.nil?
+				@search_criteria.soapify_for(msg)
+			end
+			
 		end
 	
 	end
@@ -153,15 +158,11 @@ class Landslider < Handsoap::Service
 		parse_login_result(node)
 	end
 	
-	def get_accounts(session_id, first_result_position=1, total_results_requested=25, search_criteria=nil)
+	def get_accounts(session_id, search)
 		self.session_id = session_id
 		response = invoke('getAccounts', :soap_action => :none) do |message|
 			message.add('accountsRequest') { |req|
-				req.add 'firstResultPosition', first_result_position
-				req.add 'totalResultsRequested', total_results_requested
-				unless search_criteria.nil?
-					search_criteria.soapify_for(req)
-				end
+				search.soapify_for(req)
 			}
 		end
 		
@@ -304,16 +305,12 @@ class Landslider < Handsoap::Service
 		parse_get_lead_notes_result(node)
 	end
 	
-	def get_opportunities(session_id, first_result_position=1, total_results_requested=25, search_criteria=nil)
+	def get_opportunities(session_id, search)
 		self.session_id = session_id
 		
 		response = invoke('getOpportunities', :soap_action => :none) do |message|
 			message.add('opportunityRequest') { |req|
-				req.add 'firstResultPosition', first_result_position
-				req.add 'totalResultsRequested', total_results_requested
-				unless search_criteria.nil?
-					search_criteria.soapify_for(req)
-				end
+				search.soapify_for(req)
 			}
 		end
 		node = response.document.xpath('//ns:getOpportunitiesResponse', ns)

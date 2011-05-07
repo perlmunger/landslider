@@ -27,16 +27,6 @@ class LandsliderTest < Test::Unit::TestCase
 		assert_operator result[:revision_version], :>=, 0
 	end
 	
-	def test_landslider_get_accounts
-		result = Landslider.get_accounts($sid)
-
-		assert_equal false, result[:error]
-		assert_not_nil result[:accounts]
-		assert result[:accounts].all? { |a| !a[:account_name].nil? }, "account name required"
-		assert_operator result[:results_returned], :>=, 0
-		assert_operator result[:total_results_available], :>=, 0
-		assert_not_nil result[:result_msg]
-	end
 	
 	def test_landslider_get_account_by_id
 		result = Landslider.get_account_by_id($sid, JAYTEST_ACCOUNT_ID)
@@ -144,11 +134,6 @@ class LandsliderTest < Test::Unit::TestCase
 		result = Landslider.get_lead_custom_fields($sid)
 		assert_not_nil result[:custom_fields]
 		assert_not_nil result[:custom_fields].first[:custom_field_id]
-	end
-	
-	def test_landslider_get_opportunities
-		result = Landslider.get_opportunities($sid)
-		assert_not_nil result[:opportunities]
 	end
 	
 	def test_landslider_get_user_information
