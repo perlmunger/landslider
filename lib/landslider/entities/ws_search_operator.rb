@@ -5,9 +5,11 @@ class Landslider
 
 		# returns values that contain the given search string
 		CONTAINS='Contains'
-		# returns values that “sound like” the given search string (smythe = smith)
+		# returns values that "sound like" the given search string (smythe = smith)
 		SOUNDS_LIKE='SoundsLike'
+		#
 		STARTS_WITH='StartsWith'
+		#
 		ENDS_WITH='EndsWith'
 		DOES_NOT_CONTAIN='DoesNotContain'
 		# returns values that are identically equal (case-insensitive) the given search value
