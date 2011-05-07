@@ -158,7 +158,7 @@ class Landslider < Handsoap::Service
 		parse_login_result(node)
 	end
 	
-	def get_accounts(session_id, search)
+	def get_accounts(session_id, search=WsSearch.new)
 		self.session_id = session_id
 		response = invoke('getAccounts', :soap_action => :none) do |message|
 			message.add('accountsRequest') { |req|
@@ -227,16 +227,12 @@ class Landslider < Handsoap::Service
 		parse_api_version_result(node)
 	end
 	
-	def get_contacts(session_id, first_result_position=1, total_results_requested=25, search_criteria=nil)
+	def get_contacts(session_id, search=WsSearch.new)
 		self.session_id = session_id
 		
 		response = invoke('getContacts', :soap_action => :none) do |message|
 			message.add('contactsRequest') { |req|
-				req.add 'firstResultPosition', first_result_position
-				req.add 'totalResultsRequested', total_results_requested
-				unless search_criteria.nil?
-					search_criteria.soapify_for(req)
-				end
+				search.soapify_for(req)
 			}
 		end
 		node = response.document.xpath('//ns:getContactsResponse', ns)
@@ -272,16 +268,12 @@ class Landslider < Handsoap::Service
 		parse_get_instance_information_result(node)
 	end
 
-	def get_leads(session_id, account_id, first_result_position=1, total_results_requested=25, search_criteria=nil)
+	def get_leads(session_id, search=WsSearch.new)
 		self.session_id = session_id
 	
 		response = invoke('getLeads', :soap_action => :none) do |message|
 			message.add('leadRequest') { |req|
-				req.add 'firstResultPosition', first_result_position
-				req.add 'totalResultsRequested', total_results_requested
-				unless search_criteria.nil?
-					search_criteria.soapify_for(req)
-				end
+				search.soapify_for(req)
 			}
 		end
 
@@ -305,7 +297,7 @@ class Landslider < Handsoap::Service
 		parse_get_lead_notes_result(node)
 	end
 	
-	def get_opportunities(session_id, search)
+	def get_opportunities(session_id, search=WsSearch.new)
 		self.session_id = session_id
 		
 		response = invoke('getOpportunities', :soap_action => :none) do |message|

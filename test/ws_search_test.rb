@@ -16,7 +16,7 @@ class WsSearchTest < Test::Unit::TestCase
 	end
 
 	def test_get_accounts_without_search_criteria
-		result = Landslider.get_accounts($sid2, Landslider::WsSearch.new)
+		result = Landslider.get_accounts($sid2)
 
 		assert_equal false, result[:error]
 		assert_equal 6, result[:results_returned]
@@ -32,7 +32,7 @@ class WsSearchTest < Test::Unit::TestCase
 	end
 
 	def test_get_opportunities_without_search_criteria
-		result = Landslider.get_opportunities($sid2, Landslider::WsSearch.new)
+		result = Landslider.get_opportunities($sid2)
 	
 		assert_equal false, result[:error]
 		assert_equal 4, result[:results_returned]
