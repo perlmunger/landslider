@@ -2,8 +2,9 @@ class Landslider
 	
 	class WsSearchCriterion
 		
+		# @return [String]
 		attr_reader :field_id, :operator
-		# [String]
+		# @return [String]
 		attr_reader :query_value
 
 		# @param [String] field_id 
