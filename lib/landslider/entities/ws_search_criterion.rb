@@ -17,6 +17,14 @@ class Landslider
 		# 	[Description, ParentProductFamily, ParentProductFamilyId, ProductFamily, ProductFamilyId]
 		attr_reader :field_id
 		
+
+		attr_reader :operator
+
+		# @param [String] query_value
+		attr_reader :query_value
+
+	  # @param [String] field_id 
+	  # @param [String, WsSearchOperator] operator 
 		# Contains: returns values that contain the given search string
 		# SoundsLike: returns values that “sound like” the given search string (smythe = smith)
 		# Equals: returns values that are identically equal (case-insensitive) the given search value
@@ -31,18 +39,14 @@ class Landslider
 		# False: returns values that are logically False,
 		# In: returns values that are in the specified list
 		# NotIn: returns values that are not in the specified list
-		attr_reader :operator
-
-		# @param [String] query_value
-		attr_reader :query_value
-
+		# @param [String] query_value the group ID
 		def initialize(field_id, operator, query_value)
 			@field_id = field_id
 			@operator = operator
 			@query_value = query_value
 		end
 	
-		# @param [Handsoap::XmlMason::Node] msg
+		# @param [Handsoap::XmlMason::Node] msg xml node
 		# @return [Handsoap::XmlMason::Node]
 		def soapify_for(msg)
 			msg.add('searchCriteria') { |crit|
