@@ -1,4 +1,15 @@
 
+# Landslider is a soap client to the Landslide CRM SOAP-based API
+# Example:
+#
+# require 'landslider'
+# response = Landslider.login('LOGINTOKEN=' + LS_INSTANCE_NAME)
+# response = Landslider.get_accounts(response[:session_id])
+# response[:accounts].each do |account| 
+# 	puts "id: #{account[:account_id]} name: #{account[:account_name]}"
+# end
+#
+
 require 'handsoap'
 
 class Landslider < Handsoap::Service

@@ -18,7 +18,7 @@ class Landslider
 		# 	[DurationType, DurationTypeId]
 		# Currently Searchable Product Family Fields:
 		# 	[Description, ParentProductFamily, ParentProductFamilyId, ProductFamily, ProductFamilyId]
-		# @param [String, WsSearchOperator] query_value Contains,SoundsLike,Equals,NotEquals,LessThan,LessThanOrEqual,GreaterThan,GreaterThanOrEqual,Empty,NotEmpty,True,False,In,NotIn
+		# @param [String, WsSearchOperator] operator Contains,SoundsLike,Equals,NotEquals,LessThan,LessThanOrEqual,GreaterThan,GreaterThanOrEqual,Empty,NotEmpty,True,False,In,NotIn
 		# @param [String, WsSearchOperator] query_value string to search for
 		def initialize(field_id, operator, query_value)
 			@field_id = field_id
@@ -26,6 +26,7 @@ class Landslider
 			@query_value = query_value
 		end
 	
+		# Build the XML
 		# @param [Handsoap::XmlMason::Node] msg xml node
 		# @return [Handsoap::XmlMason::Node]
 		def soapify_for(msg)
