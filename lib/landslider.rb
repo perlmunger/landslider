@@ -46,6 +46,7 @@ class Landslider < Handsoap::Service
 		puts response.inspect
 	end
 
+	# @return [Hash] a hash of the xml response
 	def login(session_id)
 		self.session_id = session_id
 		response = invoke('login', :soap_action => :none) do |message|
@@ -59,6 +60,7 @@ class Landslider < Handsoap::Service
 		parse_login_result(node)
 	end
 	
+	# @return [Hash] a hash of the xml response
 	def get_accounts(session_id, search=WsSearch.new)
 		self.session_id = session_id
 		response = invoke('getAccounts', :soap_action => :none) do |message|
@@ -71,6 +73,7 @@ class Landslider < Handsoap::Service
 		parse_get_accounts_result(node)
 	end
 	
+	# @return [Hash] a hash of the xml response
 	def get_account_by_id(session_id, account_id)
 		self.session_id = session_id
 		
