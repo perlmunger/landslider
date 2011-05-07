@@ -93,7 +93,9 @@ class Landslider
 		# * ParentProductFamilyId
 		# * ProductFamily
 		# * ProductFamilyId
-		# @param [String, WsSearchOperator] operator Contains,SoundsLike,Equals,NotEquals,LessThan,LessThanOrEqual,GreaterThan,GreaterThanOrEqual,Empty,NotEmpty,True,False,In,NotIn
+		# @param [String, WsSearchOperator] operator Contains,SoundsLike,Equals,NotEquals
+		# 	LessThan,LessThanOrEqual,GreaterThan,GreaterThanOrEqual
+		# 		Empty,NotEmpty,True,False,In,NotIn
 		# @param [String, WsSearchOperator] query_value string to search for
 		def initialize(field_id, operator, query_value)
 			@field_id = field_id
