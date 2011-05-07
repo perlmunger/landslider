@@ -112,6 +112,10 @@ class Landslider < Handsoap::Service
 			}
 		end
 	end
+	
+	class WsResult
+		attr_reader :error, :result_msg, :error_code_id
+	end
 
 	LS_API_NAMESPACE='http://www.landslide.com/webservices/SoapService'
 	LS_API_ENDPOINT = {
