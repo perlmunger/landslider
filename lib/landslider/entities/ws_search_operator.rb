@@ -1,6 +1,7 @@
 
 class Landslider
 	
+	# A list of operators that can be used with WsSearchCriterion
 	class WsSearchOperator
 
 		# returns values that contain the given search string
