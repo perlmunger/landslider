@@ -2,10 +2,7 @@ class Landslider
 	
 	class WsSearchCriterion
 		
-		attr_reader :field_id
-		
-		attr_reader :operator
-
+		attr_reader :field_id, :operator
 		attr_reader :query_value
 
 		
@@ -26,7 +23,7 @@ class Landslider
 			@query_value = query_value
 		end
 	
-		# Build the XML
+		# Adds the search criteria xml
 		# @param [Handsoap::XmlMason::Node] msg xml node
 		# @return [Handsoap::XmlMason::Node]
 		def soapify_for(msg)

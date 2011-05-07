@@ -3,23 +3,28 @@ class Landslider
 	
 	class WsSearch
 		
+		# @param [Integer] value num
 		# Sets the starting index of records you want to retrieve. defaults to 1
 		attr_writer :first_result_position
 		
+		# @param [Integer] value num
 		# Sets the maximum number of records to retrieve. defaults to 25
 		attr_writer :total_results_requested
 		
+		# @param [String] value date
 		# Sets a Date to search records updated on or after
 		attr_writer :updated_on
 		
 		# @param [WsSearchCriterion] value 
-		# only available for getAccounts, getOpportunities, getProductFamilies, and GetDurationTypes APIs
+		# only available for getAccounts, 
+		# * getOpportunities, getProductFamilies, and GetDurationTypes APIs
 		attr_writer :search_criteria
 	
 		# Create a new search obj
 		def initialize
 		end
 
+		# Adds the search xml
 		# @param [Handsoap::XmlMason::Node] msg
 		# @return [Handsoap::XmlMason::Node]
 		def soapify_for(msg)
