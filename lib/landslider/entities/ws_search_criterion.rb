@@ -7,6 +7,7 @@ class Landslider
 
 		
 		# @param [String] field_id 
+		#
 		# Currently Searchable Account Fields:
 		# * AccountId
 		# * AccountName
@@ -18,7 +19,34 @@ class Landslider
 		# * BillingAddressCity
 		# * BillingAddressCountry
 		# * BillingAddressState
-		# * BillingAddressStreet, BillingAddressZip, CreatedById, CreatedDate, Division, Fax, LastUpdatedById, LastUpdatedDate, MainAddressCity, MainAddressCountry, MainAddressState, MainAddressStreet, MainAddressZip, NewsKeywords, OwnerId, ParentAccount, ParentAccountId, Phone, PrimaryContactId, QuickbooksLastSynced, ShippingAddressCity, ShippingAddressCountry, ShippingAddressState, ShippingAddressStreet, ShippingAddressZip, SourceSystemId, SyncWithQuickBooks, Ticker, Url]
+		# * BillingAddressStreet
+		# * BillingAddressZip
+		# * CreatedById
+		# * CreatedDate
+		# * Division
+		# * Fax
+		# * LastUpdatedById
+		# * LastUpdatedDate
+		# * MainAddressCity
+		# * MainAddressCountry
+		# * MainAddressState
+		# * MainAddressStreet
+		# * MainAddressZip
+		# * NewsKeywords
+		# * OwnerId
+		# * ParentAccount
+		# * ParentAccountId
+		# * Phone
+		# * PrimaryContactId, 
+		# * QuickbooksLastSynced
+		# * ShippingAddressCity
+		# * ShippingAddressCountry
+		# * ShippingAddressState
+		# * ShippingAddressStreet
+		# * ShippingAddressZip
+		# * SourceSystemId, SyncWithQuickBooks
+		# * Ticker
+		# * Url
 		#
 		# Currently Searchable Opportunity Fields:
 		# * AccountId
