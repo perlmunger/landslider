@@ -10,7 +10,7 @@ This gem can be used to communicate with Landslide's SOAP-based API using ruby c
 	
 [WSDL](https://jaytest.api.landslide.com/webservices/SoapService?wsdl) endpoint url: https://jaytest.api.landslide.com/webservices/SoapService?wsdl
 
-If you already have landslide account contact support to enable the API.  You can also start a 30-day trial account [here](http://www.landslide.com/~jayp/en/trial).
+If you already have a landslide account, contact support to enable the API.  You can also start a 30-day trial account [here](http://www.landslide.com/~jayp/en/trial).
 
 Dependencies
 ------------
@@ -25,7 +25,7 @@ Installation
 Configuration
 -------------
 
-	See bin/genarate_api_key.rb for details on generating your API key
+See bin/genarate_api_key.rb for details on generating your API key
 	
 	LS_INSTANCE_NAME = 'jaytest'
 	LS_API_USERNAME = 'jayp@landslide.com'
@@ -33,7 +33,8 @@ Configuration
 
 Usage
 -----
-	This is calling login to get a session id which is then used to get a list of accounts.
+
+This is calling login to get a session id which is then used to get a list of accounts.
 		
 	require 'landslider'
 	response = Landslider.login('LOGINTOKEN=' + LS_INSTANCE_NAME)
@@ -48,20 +49,20 @@ Usage
 Testing
 -------
 
-	The default rake task is set to run the tests.
+The default rake task is set to run the tests.
 	
 	$ rake
 	
-	Tests are needed here because the API uses a specific XML structure for requests and responses.
+Tests are needed here because the API uses a specific XML structure for requests and responses.
 	
 Contributing
 ------------
 
-	1. Fork it.
-	2. Create a branch (`git checkout -b my_markup`)
-	3. Commit your changes (`git commit -am "Added Snarkdown"`)
-	4. Push to the branch (`git push origin my_markup`)
-	5. Create an [Issue][1] with a link to your branch
+1. Fork it.
+2. Create a branch (git checkout -b my_markup)
+3. Commit your changes (git commit -am "Added Snarkdown")
+4. Push to the branch (git push origin my_markup)
+5. Create an [Issue][1] with a link to your branch
 
 	
 API methods
