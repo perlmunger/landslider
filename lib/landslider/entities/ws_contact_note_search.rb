@@ -3,6 +3,7 @@ class Landslider
 	class WsContactNoteSearch < WsSearch
 		attr_reader :contact_id
 
+		# @param [Integer] contact_id a contact id
 		def initialize(contact_id)
 			@contact_id = contact_id
 		end

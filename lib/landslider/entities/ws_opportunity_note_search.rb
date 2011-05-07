@@ -3,6 +3,7 @@ class Landslider
 	class WsOpportunityNoteSearch < WsSearch
 		attr_reader :opportunity_id
 
+		# @param [Integer] opportunity_id an opportunity id
 		def initialize(opportunity_id)
 			@opportunity_id = opportunity_id
 		end
