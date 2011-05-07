@@ -1,3 +1,7 @@
+
+# landslider 0.5.7 2011-05-07
+ * added support for WsSearch, WsSearchCriterion, Ws*NoteSearch
+
 # landslider 0.3.2 2011-04-28
 
  * add in custom field data for accounts
