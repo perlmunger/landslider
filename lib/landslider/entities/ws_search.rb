@@ -16,8 +16,11 @@ class Landslider
 		attr_writer :updated_on
 		
 		# @param [WsSearchCriterion] value 
-		# only available for getAccounts, 
-		# * getOpportunities, getProductFamilies, and GetDurationTypes APIs
+		# WsSearchCriterion is only documented to work with these APIs
+		# * getAccounts
+		# * getOpportunities
+		# * getProductFamilies
+		# * GetDurationTypes
 		attr_writer :search_criteria
 	
 		# Create a new search obj
