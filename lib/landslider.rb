@@ -42,8 +42,6 @@ class Landslider < Handsoap::Service
 	class WsAccountNoteSearch < WsSearch
 		attr_reader :account_id
 		
-		# alias :super_soapify_for :soapify_for
-
 		def initialize(account_id)
 			@account_id = account_id
 		end
@@ -53,9 +51,7 @@ class Landslider < Handsoap::Service
 		def soapify_for(msg)
 			msg.add('accountNoteSearch') { |crit|
 				crit.add 'accountId', @account_id
-				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
-				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
-				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
+				super(crit)
 			}
 		end
 	end
@@ -72,9 +68,7 @@ class Landslider < Handsoap::Service
 		def soapify_for(msg)
 			msg.add('contactNote') { |crit|
 				crit.add 'contactId', @contact_id
-				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
-				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
-				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
+				super(crit)
 			}
 		end
 	end
@@ -91,9 +85,7 @@ class Landslider < Handsoap::Service
 		def soapify_for(msg)
 			msg.add('leadNote') { |crit|
 				crit.add 'leadId', @lead_id
-				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
-				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
-				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
+				super(crit)
 			}
 		end
 		
@@ -111,9 +103,7 @@ class Landslider < Handsoap::Service
 		def soapify_for(msg)
 			msg.add('opportunityNote') { |crit|
 				crit.add 'opportunityId', @opportunity_id
-				crit.add 'firstResultPosition', @first_result_position || DEFAULT_FIRST_RESULT_POSITION
-				crit.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
-				crit.add 'updatedOn', @updated_on unless @updated_on.nil?
+				super(crit)
 			}
 		end
 	end

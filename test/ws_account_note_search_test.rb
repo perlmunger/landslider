@@ -4,6 +4,7 @@ require 'test_helper'
 class WsAccountNoteSearchTest < Test::Unit::TestCase
 
 	def setup
+		# Landslider.logger = $stdout
 		$sid3 ||= Landslider.login('LOGINTOKEN=' + LS_INSTANCE_NAME)[:session_id]
 	end
 	
