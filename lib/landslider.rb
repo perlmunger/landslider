@@ -46,7 +46,7 @@ class Landslider < Handsoap::Service
 		puts response.inspect
 	end
 
-	# @return [Hash] a hash of the xml response
+	# @return [Hash]
 	def login(session_id)
 		self.session_id = session_id
 		response = invoke('login', :soap_action => :none) do |message|
@@ -60,7 +60,7 @@ class Landslider < Handsoap::Service
 		parse_login_result(node)
 	end
 	
-	# @return [Hash] a hash of the xml response
+	# @return [Hash]
 	def get_accounts(session_id, search=WsSearch.new)
 		self.session_id = session_id
 		response = invoke('getAccounts', :soap_action => :none) do |message|
@@ -73,7 +73,7 @@ class Landslider < Handsoap::Service
 		parse_get_accounts_result(node)
 	end
 	
-	# @return [Hash] a hash of the xml response
+	# @return [Hash]
 	def get_account_by_id(session_id, account_id)
 		self.session_id = session_id
 		
@@ -85,6 +85,7 @@ class Landslider < Handsoap::Service
 		parse_get_account_by_id_result(node)
 	end
 
+	# @return [Hash]
 	def get_account_contacts(session_id, account_id, is_primary=false)
 		self.session_id = session_id
 		response = invoke('getAccountContacts', :soap_action => :none) do |message|
@@ -96,12 +97,14 @@ class Landslider < Handsoap::Service
 		parse_get_account_contacts_result(node)
 	end
 	
+	# @return [Hash]
 	def get_account_custom_fields(session_id)
 		response = invoke('getAccountCustomFields')
 		node = response.document.xpath('//ns:getAccountCustomFieldsResponse', ns)
 		parse_get_entity_custom_fields_result(node)
 	end
-		
+	
+	# @return [Hash]
 	def get_account_notes(session_id, search)
 		self.session_id = session_id
 
@@ -111,7 +114,8 @@ class Landslider < Handsoap::Service
 		node = response.document.xpath('//ns:getAccountNotesResponse', ns)
 		parse_get_account_notes_result(node)
 	end
-	
+
+	# @return [Hash]
 	def get_account_opportunities(session_id, account_id)
 		self.session_id = session_id
 		response = invoke('getAccountOpportunities', :soap_action => :none) do |message|
@@ -122,6 +126,7 @@ class Landslider < Handsoap::Service
 		parse_get_account_opportunities_result(node)
 	end
 	
+	# @return [Hash]
 	def get_api_version(session_id)
 		self.session_id = session_id
 		
@@ -131,6 +136,7 @@ class Landslider < Handsoap::Service
 		parse_api_version_result(node)
 	end
 	
+	# @return [Hash]
 	def get_contacts(session_id, search=WsSearch.new)
 		self.session_id = session_id
 		
@@ -143,6 +149,7 @@ class Landslider < Handsoap::Service
 		parse_get_contacts_result(node)
 	end
 	
+	# @return [Hash]
 	def get_contact_custom_fields(session_id)
 		self.session_id = session_id
 	
@@ -151,6 +158,7 @@ class Landslider < Handsoap::Service
 		parse_get_entity_custom_fields_result(node)
 	end
 
+	# @return [Hash]
 	def get_contact_notes(session_id, search)
 		self.session_id = session_id
 		
@@ -162,6 +170,7 @@ class Landslider < Handsoap::Service
 
 	end
 
+	# @return [Hash]
 	def get_instance_information(session_id, user_id)
 		self.session_id = session_id
 		
@@ -172,6 +181,7 @@ class Landslider < Handsoap::Service
 		parse_get_instance_information_result(node)
 	end
 
+	# @return [Hash]
 	def get_leads(session_id, search=WsSearch.new)
 		self.session_id = session_id
 	
@@ -185,12 +195,14 @@ class Landslider < Handsoap::Service
 		parse_get_leads_result(node)
 	end
 	
+	# @return [Hash]
 	def get_lead_custom_fields(session_id)
 		response = invoke('getLeadCustomFields')
 		node = response.document.xpath('//ns:getLeadCustomFieldsResponse', ns)
 		parse_get_entity_custom_fields_result(node)
 	end
 	
+	# @return [Hash]
 	def get_lead_notes(session_id, search)
 		self.session_id = session_id
 	
@@ -201,6 +213,7 @@ class Landslider < Handsoap::Service
 		parse_get_lead_notes_result(node)
 	end
 	
+	# @return [Hash]
 	def get_opportunities(session_id, search=WsSearch.new)
 		self.session_id = session_id
 		
@@ -213,6 +226,7 @@ class Landslider < Handsoap::Service
 		parse_get_opportunities_result(node)
 	end
 
+	# @return [Hash]
 	def get_opportunity_custom_fields(session_id)
 		self.session_id = session_id
 
@@ -221,6 +235,7 @@ class Landslider < Handsoap::Service
 		parse_get_entity_custom_fields_result(node)
 	end
 
+	# @return [Hash]
 	def get_opportunity_notes(session_id, search)
 		self.session_id = session_id
 	
@@ -231,6 +246,7 @@ class Landslider < Handsoap::Service
 		parse_get_opportunity_notes_result(node)
 	end
 	
+	# @return [Hash]
 	def get_user_information(session_id, user_id)
 
 		self.session_id = session_id
@@ -241,6 +257,7 @@ class Landslider < Handsoap::Service
 		parse_get_user_information_by_id_result(node)
 	end
 
+	# @return [Hash]
 	def get_user_information_by_id(session_id, user_id)
 		self.session_id = session_id
 		
