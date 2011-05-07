@@ -12,7 +12,7 @@ class Landslider
 		# Sets a Date to search records updated on or after
 		attr_writer :updated_on
 		
-		# @param [WsSearchCriterion] search_criteria criteria 
+		# @param [WsSearchCriterion] value 
 		# only available for getAccounts, getOpportunities, getProductFamilies, and GetDurationTypes APIs
 		attr_writer :search_criteria
 	
