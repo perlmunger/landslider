@@ -3,6 +3,7 @@ class Landslider
 	class WsLeadNoteSearch < WsSearch
 		attr_reader :lead_id
 
+		# @param [Integer] lead_id Lead ID
 		def initialize(lead_id)
 			@lead_id = lead_id
 		end
