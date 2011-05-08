@@ -1,6 +1,8 @@
 class Landslider
 	
 	class WsLeadNoteSearch < WsSearch
+		
+		# @return [Integer]
 		attr_reader :lead_id
 
 		# @param [Integer] lead_id a lead id

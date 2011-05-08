@@ -1,6 +1,8 @@
 class Landslider
 	
 	class WsOpportunityNoteSearch < WsSearch
+		
+		# @return [Integer]
 		attr_reader :opportunity_id
 
 		# @param [Integer] opportunity_id an opportunity id

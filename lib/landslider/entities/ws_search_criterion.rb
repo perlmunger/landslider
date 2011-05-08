@@ -4,6 +4,7 @@ class Landslider
 		
 		# @return [String]
 		attr_reader :field_id, :operator
+		
 		# @return [String]
 		attr_reader :query_value
 

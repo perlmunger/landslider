@@ -1,6 +1,8 @@
 class Landslider
 
 	class WsAccountNoteSearch < WsSearch
+		
+		# @return [Integer]
 		attr_reader :account_id
 		
 		# @param [Integer] account_id an account id

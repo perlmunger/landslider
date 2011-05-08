@@ -1,6 +1,8 @@
 class Landslider
 	
 	class WsContactNoteSearch < WsSearch
+		
+		# @return [Integer]
 		attr_reader :contact_id
 
 		# @param [Integer] contact_id a contact id
