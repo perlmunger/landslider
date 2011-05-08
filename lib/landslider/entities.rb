@@ -3,8 +3,10 @@ require 'landslider/entities/ws_employee'
 
 
 require 'landslider/entities/ws_search'
+require 'landslider/entities/ws_contact_search'
 
 require 'landslider/entities/ws_contact_search'
+require 'landslider/entities/ws_payment_term'
 
 
 require 'landslider/entities/ws_search_criterion'
