@@ -61,6 +61,7 @@ class Landslider < Handsoap::Service
 		parse_login_result(node)
 	end
 	
+	# @param [WsAccountSearch] search
 	# @param [String] session_id
 	# @return [Hash]
 	def get_accounts(session_id, search=WsSearch.new)
@@ -184,6 +185,7 @@ class Landslider < Handsoap::Service
 
 	end
 
+	# @param [String] user_id
 	# @param [String] session_id
 	# @return [Hash]
 	def get_instance_information(session_id, user_id)
@@ -232,6 +234,7 @@ class Landslider < Handsoap::Service
 		parse_get_lead_notes_result(node)
 	end
 	
+	# @param [WsOpportunitySearch] search
 	# @param [String] session_id
 	# @return [Hash]
 	def get_opportunities(session_id, search=WsSearch.new)
