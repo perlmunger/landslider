@@ -12,8 +12,8 @@ class Landslider
 		# @return [String]
 		attr_reader :first_name, :home_phone, :last_name, :office_phone
 		
-		# @return [Streing]
-		attr_reader :titl, :user_id
+		# @return [String]
+		attr_reader :title, :user_id
 		
 		# @return [Boolean]
 		attr_reader :administrator

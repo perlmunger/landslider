@@ -1,6 +1,7 @@
 
 class Landslider
 
+	# @todo Expose note type
 	class WsNote < WsEntity
 		
 		# @return [Integer]
@@ -8,8 +9,6 @@ class Landslider
 		
 		# @return [String]
 		attr_reader :note, :sourceId
-		
-		# @todo Expose note type
 		
 		# @return [Boolean]
 		attr_reader :latest
