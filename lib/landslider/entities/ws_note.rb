@@ -9,6 +9,8 @@ class Landslider
 		# @return [String]
 		attr_reader :note, :sourceId
 		
+		# @todo Expose note type
+		
 		# @return [Boolean]
 		attr_reader :latest
 		
