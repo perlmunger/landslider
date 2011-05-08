@@ -29,6 +29,7 @@ class Landslider < Handsoap::Service
 	
 	attr_accessor :session_id
 
+	# @param [Handsoap::XmlMason::Document] doc
 	def on_create_document(doc)
 		doc.alias 'urn', LS_API_NAMESPACE
 		header = doc.find('Header')
@@ -37,9 +38,9 @@ class Landslider < Handsoap::Service
 		}
 	end
 	
+	# @param [Handsoap::Http::Request] http_request
 	def on_after_create_http_request(http_request)
-		http_request.headers.merge!({'user-agent' => ['landslider-ruby-gem-version-0.4.6']})
-		
+		http_request.headers.merge!({'user-agent' => ['landslider-ruby-gem']})
 	end
 
 	def on_http_error(response)
