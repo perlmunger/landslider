@@ -8,7 +8,7 @@ class Landslider
 		attr_reader :note_id, :archived_by, :created_by
 		
 		# @return [String]
-		attr_reader :note, :sourceId
+		attr_reader :note, :source_id
 		
 		# @return [Boolean]
 		attr_reader :latest
