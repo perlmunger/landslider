@@ -1,17 +1,21 @@
 
 class Landslider
 
-	# search criteria for getContacts
-	class WsContactSearch < WsSearch
+	# search criteria for getLeads
+	class WsLeadSearch < WsSearch
 		
-		# @return [String]
-		attr_writer :city, :company_name, :email, :title, :first_name
+		# @return [Integer]
+		attr_writer :account_id, :company_id, :primary_owner_id, :status_id
 		
+		# @return [Boolean]
+		attr_writer :hot
+
+		# @return [Date]
+		attr_writer :updated_on
+
 		# @return [String]
-		attr_writer :middle_initial, :last_name, :home_phone, :work_phone, :cell_phone
+		attr_writer :name
 		
-		# @return [String]
-		attr_writer :other_phone, :state, :postal_code, :country
 		
 		# @param [Handsoap::XmlMason::Node] msg
 		# @return [Handsoap::XmlMason::Node]
