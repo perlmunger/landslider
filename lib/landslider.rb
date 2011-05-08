@@ -40,7 +40,7 @@ class Landslider < Handsoap::Service
 	
 	# @param [Handsoap::Http::Request] http_request
 	def on_after_create_http_request(http_request)
-		http_request.headers.merge!({'user-agent' => ['landslider-ruby-gem']})
+		http_request.headers.merge!({'user-agent' => ['landslider-ruby-gem-version-0.4.6']})
 	end
 
 	def on_http_error(response)
