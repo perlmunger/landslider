@@ -173,6 +173,7 @@ class Landslider < Handsoap::Service
 	end
 
 	# @param [String] session_id
+	# @param [WsSearch] search
 	# @return [Hash]
 	def get_contact_notes(session_id, search)
 		self.session_id = session_id
@@ -223,6 +224,7 @@ class Landslider < Handsoap::Service
 	end
 	
 	# @param [String] session_id
+	# @param [WsSearch] search
 	# @return [Hash]
 	def get_lead_notes(session_id, search)
 		self.session_id = session_id
@@ -260,6 +262,7 @@ class Landslider < Handsoap::Service
 	end
 
 	# @param [String] session_id
+	# @param [WsSearch] search
 	# @return [Hash]
 	def get_opportunity_notes(session_id, search)
 		self.session_id = session_id
