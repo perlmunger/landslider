@@ -28,4 +28,3 @@ class Landslider
 	end
 	
 end
-s
