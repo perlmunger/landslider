@@ -90,6 +90,8 @@ class Landslider < Handsoap::Service
 	end
 
 	# @param [String] session_id
+	# @param [String] account_id
+	# @param [Boolean] is_primary
 	# @return [Hash]
 	def get_account_contacts(session_id, account_id, is_primary=false)
 		self.session_id = session_id
@@ -111,6 +113,7 @@ class Landslider < Handsoap::Service
 	end
 	
 	# @param [String] session_id
+	# @param [WsSearch] search
 	# @return [Hash]
 	def get_account_notes(session_id, search)
 		self.session_id = session_id
