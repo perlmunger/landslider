@@ -137,7 +137,8 @@ class Landslider < Handsoap::Service
 	end
 	
 	
-	# public WsContactResultSet getContacts(WsContactSearch request) 
+	# @param [String] session_id
+	# @param [WsContactSearch] search
 	# @return [Hash]
 	def get_contacts(session_id, search=WsSearch.new)
 		self.session_id = session_id
