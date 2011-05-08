@@ -1,4 +1,6 @@
 require 'landslider/entities/ws_entity'
+require 'landslider/entities/ws_employee'
+
 
 require 'landslider/entities/ws_search'
 require 'landslider/entities/ws_search_criterion'
