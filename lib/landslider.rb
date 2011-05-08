@@ -136,10 +136,13 @@ class Landslider < Handsoap::Service
 		parse_api_version_result(node)
 	end
 	
+	
+	# public WsContactResultSet getContacts(WsContactSearch request) 
 	# @return [Hash]
 	def get_contacts(session_id, search=WsSearch.new)
 		self.session_id = session_id
 		
+		# public WsContactResultSet getContacts(WsContactSearch request) 
 		response = invoke('getContacts', :soap_action => :none) do |message|
 			message.add('contactsRequest') { |req|
 				search.soapify_for(req)
