@@ -1,24 +1,16 @@
 
 class Landslider
 
-	# private String city;
-	# private String companyName;
-	# private String email;
-	# private String title;
-	# private String firstName;
-	# private String middleInitial;
-	# private String lastName;
-	# private String homePhone;
-	# private String workPhone;
-	# private String cellPhone;
-	# private String otherPhone;
-	# private String state;
-	# private String postalCode;
-	# private String country;	
 	class WsContactSearch < WsSearch
 		
 		# @return [String]
-		attr_reader :first_name, :last_name, :email
+		attr_reader :city, :company_name, :email, :title, :first_name
+		
+		# @return [String]
+		attr_reader :middle_initial, :last_name, :home_phone, :work_phone, :cell_phone
+		
+		# @return [String]
+		attr_reader :other_phone, :state, :postal_code, :country
 		
 		# @param [Handsoap::XmlMason::Node] msg
 		# @return [Handsoap::XmlMason::Node]
@@ -28,6 +20,7 @@ class Landslider
 				crit.add 'firstName', @first_name unless @first_name.nil?
 				crit.add 'lastName', @last_name unless @last_name.nil?
 				crit.add 'email', @email unless @email.nil?
+				crit.add 'state', @state unless @state.nil?
 			}
 		end
 		
