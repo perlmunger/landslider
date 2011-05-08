@@ -1,6 +1,7 @@
 
 class Landslider
 
+	# search criteria for getContacts
 	class WsContactSearch < WsSearch
 		
 		# @return [String]
