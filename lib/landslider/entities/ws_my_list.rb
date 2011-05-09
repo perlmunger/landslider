@@ -6,7 +6,7 @@ class Landslider
 		# @return [Integer]
 		attr_reader :my_list_id, :created_by
 		
-		# @return [Strin]
+		# @return [String]
 		attr_reader :title, :description, :base_table
 		
 		# @return [Date]
