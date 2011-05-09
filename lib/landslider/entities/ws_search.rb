@@ -1,6 +1,6 @@
 
 class Landslider
-	
+
 	class WsSearch
 		
 		# @param [Integer] value num
@@ -15,6 +15,13 @@ class Landslider
 		# Sets a Date to search records updated on or after
 		attr_writer :updated_on
 		
+		# @param [String] value
+		# system source id search?
+		attr_writer :source_id
+		
+		# @param [Boolean] value
+		attr_writer :return_deleted_records, :allow_duplicate_criterion
+		
 		# @param [WsSearchCriterion] value 
 		# WsSearchCriterion is only documented to work with these APIs
 		# * getAccounts
@@ -23,10 +30,6 @@ class Landslider
 		# * GetDurationTypes
 		attr_writer :search_criteria
 	
-		# Create a new search obj
-		def initialize
-		end
-
 		# Adds the search xml
 		# @param [Handsoap::XmlMason::Node] msg
 		# @return [Handsoap::XmlMason::Node]
