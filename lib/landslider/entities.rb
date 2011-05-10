@@ -30,7 +30,17 @@ require 'landslider/entities/ws_opportunity_note'
 require 'landslider/entities/ws_opportunity_note_search'
 require 'landslider/entities/ws_opportunity_status'
 
-
 require 'landslider/entities/ws_payment_term'
+
+require 'landslider/entities/ws_pick_list_item'
+require 'landslider/entities/ws_product'
+require 'landslider/entities/ws_product_family'
+require 'landslider/entities/ws_product_result'
+
+
+require 'landslider/entities/ws_search'
+require 'landslider/entities/ws_selling_process'
+require 'landslider/entities/ws_user'
+
 
 
