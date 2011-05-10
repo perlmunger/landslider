@@ -10,7 +10,7 @@ This gem can be used to communicate with Landslide's SOAP-based API using ruby c
 	
 [WSDL](https://jaytest.api.landslide.com/webservices/SoapService?wsdl) endpoint url: [https://jaytest.api.landslide.com/webservices/SoapService?wsdl](https://jaytest.api.landslide.com/webservices/SoapService?wsdl)
 
-If you already have a landslide account, contact support to enable the API.  You can also start a 30-day trial account [here](http://www.landslide.com/~jayp/en/trial).
+If you already have a landslide account, contact support to enable the API.  You can also start a 30-day trial account [here](http://www.landslide.com/~jayp/en/trial).  
 
 Dependencies
 ------------
@@ -20,7 +20,13 @@ Dependencies
 Installation
 ------------
 
+
 	$ gem install landslider
+
+Documentation
+-------------
+
+	Read the [ruby doc](http://www.rubydoc.info/github/j4y/landslider/master/frames).
 
 Configuration
 -------------
