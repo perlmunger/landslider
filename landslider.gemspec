@@ -5,30 +5,66 @@
 
 Gem::Specification.new do |s|
   s.name = %q{landslider}
-  s.version = "0.5.7"
+  s.version = "0.5.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jay Prall"]
-  s.date = %q{2011-05-07}
+  s.date = %q{2011-05-11}
   s.default_executable = %q{generate_api_key.rb}
   s.description = %q{Landslider is a ruby interface to the Landslide SOAP-based API}
   s.email = %q{jay@j4y.net}
   s.executables = ["generate_api_key.rb"]
   s.extra_rdoc_files = [
     "LICENSE",
-    "README.rdoc"
+    "README.md"
   ]
   s.files = [
-    "CHANGELOG.markdown",
     "Gemfile",
+    "HISTORY.md",
     "LICENSE",
-    "README.rdoc",
+    "README.md",
     "Rakefile",
     "VERSION.yml",
     "bin/generate_api_key.rb",
     "init.rb",
     "landslider.gemspec",
     "lib/landslider.rb",
+    "lib/landslider/entities.rb",
+    "lib/landslider/entities/ws_account.rb",
+    "lib/landslider/entities/ws_account_note.rb",
+    "lib/landslider/entities/ws_account_note_search.rb",
+    "lib/landslider/entities/ws_address.rb",
+    "lib/landslider/entities/ws_contact.rb",
+    "lib/landslider/entities/ws_contact_note.rb",
+    "lib/landslider/entities/ws_contact_note_search.rb",
+    "lib/landslider/entities/ws_contact_search.rb",
+    "lib/landslider/entities/ws_employee.rb",
+    "lib/landslider/entities/ws_entity.rb",
+    "lib/landslider/entities/ws_lead.rb",
+    "lib/landslider/entities/ws_lead_contact.rb",
+    "lib/landslider/entities/ws_lead_note.rb",
+    "lib/landslider/entities/ws_lead_note_search.rb",
+    "lib/landslider/entities/ws_lead_search.rb",
+    "lib/landslider/entities/ws_my_list.rb",
+    "lib/landslider/entities/ws_note.rb",
+    "lib/landslider/entities/ws_opportunity.rb",
+    "lib/landslider/entities/ws_opportunity_note.rb",
+    "lib/landslider/entities/ws_opportunity_note_search.rb",
+    "lib/landslider/entities/ws_opportunity_status.rb",
+    "lib/landslider/entities/ws_payment_term.rb",
+    "lib/landslider/entities/ws_pick_list_item.rb",
+    "lib/landslider/entities/ws_primary_entity.rb",
+    "lib/landslider/entities/ws_product.rb",
+    "lib/landslider/entities/ws_product_family.rb",
+    "lib/landslider/entities/ws_product_result.rb",
+    "lib/landslider/entities/ws_record_upsert_result.rb",
+    "lib/landslider/entities/ws_result.rb",
+    "lib/landslider/entities/ws_search.rb",
+    "lib/landslider/entities/ws_search_criterion.rb",
+    "lib/landslider/entities/ws_search_operator.rb",
+    "lib/landslider/entities/ws_selling_process.rb",
+    "lib/landslider/entities/ws_user.rb",
+    "lib/landslider/entities/ws_user_search.rb",
     "test/landslider_test.rb",
     "test/test_helper.rb",
     "test/ws_account_note_search_test.rb",
