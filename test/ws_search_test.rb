@@ -51,5 +51,18 @@ class WsSearchTest < Test::Unit::TestCase
 		assert_equal target_phase_name, result[:opportunities][2][:current_phase_name]
 	end
 
+	def test_ws_search_attr_writers
+		search = Landslider::WsSearch.new
+		search.first_result_position = 2
+		search.total_results_requested = 4
+		assert_equal 2, search.instance_variable_get(:@first_result_position)
+		assert_equal 4, search.instance_variable_get(:@total_results_requested)
+	end
 
+	def test_ws_search_attr_writers
+		search = Landslider::WsSearch.new({:first_result_position => 25, :total_results_requested => 50})
+		assert_equal 25, search.instance_variable_get(:@first_result_position)
+		assert_equal 50, search.instance_variable_get(:@total_results_requested)
+	end
+	
 end

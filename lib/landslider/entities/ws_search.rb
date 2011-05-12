@@ -3,6 +3,10 @@ class Landslider
 
 	class WsSearch
 		
+		# @param [Hash] params
+		def initialize(params)
+		end
+		
 		# @param [Integer] value num
 		# Sets the starting index of records you want to retrieve. defaults to 1
 		attr_writer :first_result_position
