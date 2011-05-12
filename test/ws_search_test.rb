@@ -60,7 +60,7 @@ class WsSearchTest < Test::Unit::TestCase
 	end
 
 	def test_ws_search_initialized_with_params
-		search = Landslider::WsSearch.new({:first_result_position => 25, :total_results_requested => 50)
+		search = Landslider::WsSearch.new({:first_result_position => 25, :total_results_requested => 50})
 		assert_equal 25, search.instance_variable_get(:@first_result_position)
 		assert_equal 50, search.instance_variable_get(:@total_results_requested)
 	end
