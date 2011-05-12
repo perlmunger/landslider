@@ -4,7 +4,7 @@ class Landslider
 	class WsSearch
 		
 		# @param [Hash] params
-		def initialize(params)
+		def initialize(params={})
 		end
 		
 		# @param [Integer] value num
