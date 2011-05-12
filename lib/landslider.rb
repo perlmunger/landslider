@@ -5,7 +5,7 @@
 # require 'landslider'
 # response = Landslider.login('LOGINTOKEN=' + LS_INSTANCE_NAME)
 # response = Landslider.get_accounts(response[:session_id])
-# response[:accounts].each do |account| 
+# response[:accounts].each do |account|
 # 	puts "id: #{account[:account_id]} name: #{account[:account_name]}"
 # end
 #
@@ -13,7 +13,7 @@
 require 'handsoap'
 
 class Landslider < Handsoap::Service
-	
+
 	require 'landslider/entities'
 
 	LS_API_NAMESPACE='http://www.landslide.com/webservices/SoapService'
@@ -21,12 +21,12 @@ class Landslider < Handsoap::Service
 	  :uri => "https://#{LS_INSTANCE_NAME}.api.landslide.com/webservices/SoapService",
 	  :version => 1
 	}
-	
+
 	DEFAULT_FIRST_RESULT_POSITION = 1
 	DEFAULT_TOTAL_RESULTS_REQUESTED = 25
-	
+
 	endpoint LS_API_ENDPOINT
-	
+
 	attr_accessor :session_id
 
 	# @param [Handsoap::XmlMason::Document] doc
@@ -37,7 +37,7 @@ class Landslider < Handsoap::Service
 			sh.add('urn:sessionId', self.session_id)
 		}
 	end
-	
+
 	# @param [Handsoap::Http::Request] http_request
 	def on_after_create_http_request(http_request)
 		http_request.headers.merge!({'user-agent' => ['landslider-ruby-gem-version-0.4.6']})
@@ -53,15 +53,15 @@ class Landslider < Handsoap::Service
 		self.session_id = session_id
 		response = invoke('login', :soap_action => :none) do |message|
 			message.add('wsUser') { |u|
-				u.add 'username', ::LS_API_USERNAME 
+				u.add 'username', ::LS_API_USERNAME
 				u.add 'password', ::LS_API_KEY
 			}
 		end
-		
+
 		node = response.document.xpath('//ns:loginResponse/loginResponse', ns)
 		parse_login_result(node)
 	end
-	
+
 	# @param [WsAccountSearch] search
 	# @param [String] session_id
 	# @return [Hash]
@@ -72,20 +72,20 @@ class Landslider < Handsoap::Service
 				search.soapify_for(req)
 			}
 		end
-		
+
 		node = response.document.xpath('//ns:getAccountsResponse', ns)
 		parse_get_accounts_result(node)
 	end
-	
+
 	# @param [String] session_id
 	# @return [Hash]
 	def get_account_by_id(session_id, account_id)
 		self.session_id = session_id
-		
+
 		response = invoke('getAccountById', :soap_action => :none) do |message|
 			message.add 'accountId', account_id
 		end
-		
+
 		node = response.document.xpath('//ns:getAccountByIdResponse', ns)
 		parse_get_account_by_id_result(node)
 	end
@@ -100,11 +100,11 @@ class Landslider < Handsoap::Service
 			message.add 'accountId', account_id
 			message.add 'isPrimary', is_primary
 		end
-		
+
 		node = response.document.xpath('//ns:getAccountContactsResponse', ns)
 		parse_get_account_contacts_result(node)
 	end
-	
+
 	# @param [String] session_id
 	# @return [Hash]
 	def get_account_custom_fields(session_id)
@@ -112,7 +112,7 @@ class Landslider < Handsoap::Service
 		node = response.document.xpath('//ns:getAccountCustomFieldsResponse', ns)
 		parse_get_entity_custom_fields_result(node)
 	end
-	
+
 	# @param [String] session_id
 	# @param [WsSearch] search
 	# @return [Hash]
@@ -133,30 +133,30 @@ class Landslider < Handsoap::Service
 		response = invoke('getAccountOpportunities', :soap_action => :none) do |message|
 			message.add 'accountId', account_id
 		end
-		
+
 		node = response.document.xpath('//ns:getAccountOpportunitiesResponse', ns)
 		parse_get_account_opportunities_result(node)
 	end
-	
+
 	# @param [String] session_id
 	# @return [Hash]
 	def get_api_version(session_id)
 		self.session_id = session_id
-		
+
 		response = invoke('getApiVersion', :soap_action => :none)
-		
+
 		node = response.document.xpath('//ns:getApiVersionResponse', ns)
 		parse_api_version_result(node)
 	end
-	
-	
+
+
 	# @param [String] session_id
 	# @param [WsContactSearch] search
 	# @return [Hash]
 	def get_contacts(session_id, search=WsSearch.new)
 		self.session_id = session_id
-		
-		# public WsContactResultSet getContacts(WsContactSearch request) 
+
+		# public WsContactResultSet getContacts(WsContactSearch request)
 		response = invoke('getContacts', :soap_action => :none) do |message|
 			message.add('contactsRequest') { |req|
 				search.soapify_for(req)
@@ -165,12 +165,12 @@ class Landslider < Handsoap::Service
 		node = response.document.xpath('//ns:getContactsResponse', ns)
 		parse_get_contacts_result(node)
 	end
-	
+
 	# @param [String] session_id
 	# @return [Hash]
 	def get_contact_custom_fields(session_id)
 		self.session_id = session_id
-	
+
 		response = invoke('getContactCustomFields')
 		node = response.document.xpath('//ns:getContactCustomFieldsResponse', ns)
 		parse_get_entity_custom_fields_result(node)
@@ -181,7 +181,7 @@ class Landslider < Handsoap::Service
 	# @return [Hash]
 	def get_contact_notes(session_id, search)
 		self.session_id = session_id
-		
+
 		response = invoke('getContactNotes', :soap_action => :none) do |message|
 			search.soapify_for(message)
 		end
@@ -195,7 +195,7 @@ class Landslider < Handsoap::Service
 	# @return [Hash]
 	def get_instance_information(session_id, user_id)
 		self.session_id = session_id
-		
+
 		response = invoke('getInstanceInformation', :soap_action => :none) do |message|
 			message.add 'userId', user_id
 		end
@@ -206,9 +206,9 @@ class Landslider < Handsoap::Service
 	# @param [String] session_id
 	# @param [WsLeadSearch] search
 	# @return [Hash]
-	def get_leads(session_id, search=WsSearch.new)
+	def get_leads(session_id, search=WsLeadSearch.new)
 		self.session_id = session_id
-	
+
 		response = invoke('getLeads', :soap_action => :none) do |message|
 			message.add('leadRequest') { |req|
 				search.soapify_for(req)
@@ -218,7 +218,7 @@ class Landslider < Handsoap::Service
 		node = response.document.xpath('//ns:getLeadsResponse', ns)
 		parse_get_leads_result(node)
 	end
-	
+
 	# @param [String] session_id
 	# @return [Hash]
 	def get_lead_custom_fields(session_id)
@@ -226,26 +226,26 @@ class Landslider < Handsoap::Service
 		node = response.document.xpath('//ns:getLeadCustomFieldsResponse', ns)
 		parse_get_entity_custom_fields_result(node)
 	end
-	
+
 	# @param [String] session_id
 	# @param [WsSearch] search
 	# @return [Hash]
 	def get_lead_notes(session_id, search)
 		self.session_id = session_id
-	
+
 		response = invoke('getLeadNotes', :soap_action => :none) do |message|
 			search.soapify_for(message)
 		end
 		node = response.document.xpath('//ns:getLeadNotesResponse', ns)
 		parse_get_lead_notes_result(node)
 	end
-	
+
 	# @param [WsOpportunitySearch] search
 	# @param [String] session_id
 	# @return [Hash]
 	def get_opportunities(session_id, search=WsSearch.new)
 		self.session_id = session_id
-		
+
 		response = invoke('getOpportunities', :soap_action => :none) do |message|
 			message.add('opportunityRequest') { |req|
 				search.soapify_for(req)
@@ -270,14 +270,14 @@ class Landslider < Handsoap::Service
 	# @return [Hash]
 	def get_opportunity_notes(session_id, search)
 		self.session_id = session_id
-	
+
 		response = invoke('getOpportunityNotes', :soap_action => :none) do |message|
 			search.soapify_for(message)
 		end
 		node = response.document.xpath('//ns:getOpportunityNotesResponse', ns)
 		parse_get_opportunity_notes_result(node)
 	end
-	
+
 	# @param [String] session_id
 	# @return [Hash]
 	def get_user_information(session_id, user_id)
@@ -294,14 +294,14 @@ class Landslider < Handsoap::Service
 	# @return [Hash]
 	def get_user_information_by_id(session_id, user_id)
 		self.session_id = session_id
-		
+
 		response = invoke('getUserInformationById', :soap_action => :none) do |message|
 			message.add 'userId', user_id
 		end
 		node = response.document.xpath('//ns:getUserInformationByIdResponse', ns)
 		parse_get_user_information_by_id_result(node)
 	end
-	
+
 	private
 
 	def ns
@@ -310,7 +310,7 @@ class Landslider < Handsoap::Service
 
 	def parse_login_result(node)
 		{
-		:error => xml_to_bool(node, './error/text()'),	
+		:error => xml_to_bool(node, './error/text()'),
 		:error_code => xml_to_int(node, './errorCode/text()'),
 		:result_msg => xml_to_str(node, './resultMsg/text()'),
 		:status_code => xml_to_int(node, './statusCode/text()'),
@@ -318,7 +318,7 @@ class Landslider < Handsoap::Service
 		:session_id => xml_to_str(node, './sessionId/text()')
 		}
 	end
-	
+
 	def parse_api_version_result(node)
 		{
 		:internal_name => xml_to_str(node, '//ApiVersion/internalName/text()'),
@@ -332,7 +332,7 @@ class Landslider < Handsoap::Service
 	def parse_get_accounts_result(node)
 		{
 		:accounts => node.xpath('//Accounts/accountList', ns).map { |child| parse_account(child) },
-		
+
 		:error => xml_to_bool(node, '//Accounts/error/text()'),
 		:error_code => xml_to_int(node, '//Accounts/errorCode/text()'),
 		:result_msg => xml_to_str(node, '//Accounts/resultMsg/text()'),
@@ -340,19 +340,19 @@ class Landslider < Handsoap::Service
 		:total_results_available => xml_to_int(node, '//Accounts/totalResultsAvailable/text()')
 		}
 	end
-	
+
 	def parse_get_account_by_id_result(node)
 		{
 		:account => parse_account(node.xpath('./Account/account')),
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
 		:result_msg => xml_to_str(node, './*/resultMsg/text()')
-		}	
+		}
 	end
-	
+
 	def parse_get_account_notes_result(node)
 		notes = parse_notes(node)
-		
+
 		{
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
@@ -362,11 +362,11 @@ class Landslider < Handsoap::Service
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
 		}.merge(notes)
 	end
-	
+
 	def parse_get_account_opportunities_result(node)
 		{
 		:opportunities => node.xpath('./*/opportunityList', ns).map { |child| parse_opportunity(child) },
-		
+
 		:error => xml_to_bool(node, './*/error/text()'),
 		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
@@ -376,23 +376,23 @@ class Landslider < Handsoap::Service
 	def parse_get_account_contacts_result(node)
 		{
 		:contacts => node.xpath('./*/contactList', ns).map { |child| parse_contact(child) },
-		
+
 		:error => xml_to_bool(node, './*/error/text()'),
 		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
 		}
 	end
-	
+
 	def parse_get_contacts_result(node)
 		{
 		:contacts => node.xpath('./*/contactList', ns).map { |child| parse_contact(child) },
-		
+
 		:error => xml_to_bool(node, './*/error/text()'),
 		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
 		}
 	end
-	
+
 	def parse_get_contact_notes_result(node)
 		notes = parse_notes(node)
 		{
@@ -402,38 +402,38 @@ class Landslider < Handsoap::Service
 		:status_code => xml_to_int(node, './*/statusCode/text()'),
 		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
-		
+
 		}.merge(notes)
 	end
-	
+
 	def parse_get_entity_custom_fields_result(node)
 		{
 		:custom_fields => node.xpath('./*/customFields', ns).map { |child| parse_custom_field(child) },
-			
+
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
 		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
 		:status_code => xml_to_int(node, './*/statusCode/text()')
 		}
 	end
-	
+
 	def parse_get_instance_information_result(node)
 		{
 		:address => parse_address(node.xpath('./*/address')),
 		:company_name => xml_to_str(node, './*/companyName/text()'),
 		:instance_url => xml_to_str(node, './*/instanceURL/text()'),
-			
+
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
 		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
 		:status_code => xml_to_int(node, './*/statusCode/text()')
 		}
 	end
-	
+
 	def parse_get_leads_result(node)
 		leads = parse_leads(node)
 		{
-		
+
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
 		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
@@ -442,9 +442,9 @@ class Landslider < Handsoap::Service
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
 		}.merge(leads)
 	end
-	
+
 	def parse_get_lead_notes_result(node)
-		
+
 		notes = parse_notes(node)
 		{
 		:error => xml_to_bool(node, './Notes/error/text()'),
@@ -455,11 +455,11 @@ class Landslider < Handsoap::Service
 		:total_results_available => xml_to_int(node, './Notes/totalResultsAvailable/text()')
 		}.merge(notes)
 	end
-	
+
 	def parse_get_opportunities_result(node)
 		{
 		:opportunities => node.xpath('./*/opportunityList', ns).map { |child| parse_opportunity(child) },
-			
+
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
 		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
@@ -468,7 +468,7 @@ class Landslider < Handsoap::Service
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
 		}
 	end
-	
+
 	def parse_get_opportunity_notes_result(node)
 		notes = parse_notes(node)
 		{
@@ -484,15 +484,15 @@ class Landslider < Handsoap::Service
 	def parse_get_user_information_by_id_result(node)
 		{
 		:employee => parse_employee(node.xpath('./WsEmployee/employee')),
-			
+
 		:error => xml_to_bool(node, './*/error/text()'),
 		:error_code => xml_to_int(node, './*/errorCode/text()'),
 		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
 		:status_code => xml_to_int(node, './*/statusCode/text()')
 		}
 	end
-	
-	
+
+
 	# WsAccount
 	def parse_account(node)
 		{
@@ -516,17 +516,17 @@ class Landslider < Handsoap::Service
 		:sync_with_quickbooks => xml_to_str(node, './isSyncWithQuickbooks/text()'),
 		:custom_fields => node.xpath('./customFields', ns).map { |child| parse_custom_field(child) }
 		}
-		
+
 	end
-	
+
 	# WsAccountType
 	def parse_account_type(node)
 		{
 		:account_type => xml_to_str(node, './accountType/text()')
 		}
 	end
-	
-	# WsAddress 
+
+	# WsAddress
 	def parse_address(node)
 		{
 		:address => xml_to_str(node, './address1/text()'),
@@ -536,7 +536,7 @@ class Landslider < Handsoap::Service
 		:country => xml_to_str(node, './country/text()')
 		}
 	end
-	
+
 	# WsContact
 	def parse_contact(node)
 		{
@@ -554,7 +554,7 @@ class Landslider < Handsoap::Service
 		:custom_fields => node.xpath('./customFields', ns).map { |child| parse_custom_field(child) }
 		}
 	end
-	
+
 	# WsCustomField
 	def parse_custom_field(node)
 		{
@@ -564,7 +564,7 @@ class Landslider < Handsoap::Service
 		:custom_field_value => xml_to_str(node, './customFieldValue/customFieldValue/text()')
 		}
 	end
-	
+
 	# WsEmployee
 	def parse_employee(node)
 		{
@@ -579,7 +579,7 @@ class Landslider < Handsoap::Service
 		:user_id => xml_to_str(node, './userId/text()')
 		}
 	end
-	
+
 	def parse_notes(node)
 		{
 		:notes => node.xpath('./*/notes', ns).map { |child| parse_note(child) }
@@ -597,13 +597,13 @@ class Landslider < Handsoap::Service
 		:updated_on => xml_to_date(node, './updatedOn/text()'),
 		}
 	end
-	
+
 	def parse_leads(node)
 		{
 		:leads => node.xpath('./*/leadList', ns).map { |child| parse_lead(child) }
 		}
 	end
-	
+
 	# WsLead
 	def parse_lead(node)
 		{
@@ -621,10 +621,10 @@ class Landslider < Handsoap::Service
 		:ok_to_email => xml_to_bool(node, './okToEmail/text()'),
 		:primary_owner_id => xml_to_int(node, './primaryOwnerId/text()'),
 		:custom_fields => node.xpath('./customFields', ns).map { |child| parse_custom_field(child) }
-		
+
 		}
 	end
-	
+
 	# WsOpportunity
 	def parse_opportunity(node)
 		{
@@ -646,3 +646,4 @@ class Landslider < Handsoap::Service
 	end
 
 end
+
