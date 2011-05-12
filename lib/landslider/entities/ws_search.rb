@@ -4,7 +4,10 @@ class Landslider
 	class WsSearch
 		
 		# @param [Hash] params
+		# An optional Hash to specify first_result_position and total_results_requested
 		def initialize(params={})
+		    @first_result_position = params.fetch(:first_result_position) if params.key?(:first_result_position)
+		    @total_results_requested = params.fetch(:total_results_requested) if params.key?(:total_results_requested)
 		end
 		
 		# @param [Integer] value num
