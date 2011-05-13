@@ -26,7 +26,7 @@ Installation
 Documentation
 -------------
 
-Read the [ruby doc](http://www.rubydoc.info/github/j4y/landslider/master/frames).
+Read the [ruby doc](http://rdoc.info/github/j4y/landslider).
 
 Configuration
 -------------
