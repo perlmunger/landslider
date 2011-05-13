@@ -4,8 +4,8 @@ class Landslider
 	class WsSearch
 
 		# @param [Hash] params the params to use for the search
-		# @option opts [Integer] :first_result_position Sets the starting index of records you want to retrieve. defaults to 1
-		# @option opts [Integer] :total_results_requested Sets the maximum number of records to retrieve. defaults to 25
+		# @option params [Integer] :first_result_position Sets the starting index of records you want to retrieve. defaults to 1
+		# @option params [Integer] :total_results_requested Sets the maximum number of records to retrieve. defaults to 25
 		def initialize(params = {})
 		    @first_result_position = params.fetch(:first_result_position) if params.key?(:first_result_position)
 		    @total_results_requested = params.fetch(:total_results_requested) if params.key?(:total_results_requested)
