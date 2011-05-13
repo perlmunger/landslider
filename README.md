@@ -26,7 +26,7 @@ Installation
 Documentation
 -------------
 
-	Read the [ruby doc](http://www.rubydoc.info/github/j4y/landslider/master/frames).
+Read the [ruby doc](http://www.rubydoc.info/github/j4y/landslider/master/frames).
 
 Configuration
 -------------
@@ -85,6 +85,7 @@ API methods
 * getAccountContacts
 * getAccountNotes
 * getAccountOpportunities
+* getAccountTypes
 * getContacts
 * getContactCustomFields
 * getContactNotes

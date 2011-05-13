@@ -140,6 +140,16 @@ class Landslider < Handsoap::Service
 
 	# @param [String] session_id
 	# @return [Hash]
+	def get_account_types(session_id)
+		self.session_id = session_id
+		response = invoke('getAccountTypes')
+		
+		node = response.document.xpath('//ns:getAccountTypesResponse', ns)
+		parse_get_account_types_result(node)
+	end
+
+	# @param [String] session_id
+	# @return [Hash]
 	def get_api_version(session_id)
 		self.session_id = session_id
 
@@ -382,6 +392,13 @@ class Landslider < Handsoap::Service
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
 		}
 	end
+	
+	def parse_get_account_types_result(node)
+		{
+			:account_types => node.xpath('AccountTypes/accountTypes', ns).map { |child| parse_account_type(child) },
+			:error => xml_to_bool(node, 'AccountTypes/error/text()')
+		}
+	end
 
 	def parse_get_contacts_result(node)
 		{
@@ -492,7 +509,6 @@ class Landslider < Handsoap::Service
 		}
 	end
 
-
 	# WsAccount
 	def parse_account(node)
 		{
@@ -522,7 +538,8 @@ class Landslider < Handsoap::Service
 	# WsAccountType
 	def parse_account_type(node)
 		{
-		:account_type => xml_to_str(node, './accountType/text()')
+		:account_type_id => xml_to_str(node, 'accountTypeId/text()'),
+		:account_type => xml_to_str(node, 'accountType/text()')
 		}
 	end
 
