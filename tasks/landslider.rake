@@ -1,20 +1,23 @@
 require 'digest/md5'
 
-namespace :landslider  do
+namespace :landslider do
 
-	desc "generate api key for use with the landslider gem"
-	task :config do
+	desc "generate configuration for the landslide api"
+	task :gen_config do
 
-		# TODO: refactor into helper for testability
+		# TODO: refactor and test
+		def get_input
+			$stdin.gets.to_s.chomp
+		end
 
 		print "Enter a Landslide instance name: "
-		instance_name = $stdin.gets.to_s.chomp
+		instance_name = get_input
 
 		print "Enter your api username:"
-		api_user = $stdin.gets.to_s.chomp
+		api_user = get_input
 
 		print "Enter your api password:"
-		api_password = $stdin.gets.to_s.chomp
+		api_password = get_input
 
 		puts "LS_INSTANCE_NAME = '#{instance_name}'"
 		puts "LS_API_USERNAME = '#{api_user}'"

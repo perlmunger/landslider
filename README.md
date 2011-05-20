@@ -31,8 +31,10 @@ Read the [ruby doc](http://rdoc.info/github/j4y/landslider).
 Configuration
 -------------
 
-See bin/genarate_api_key.rb for details on generating your API key
-	
+There is a rake task to generate the configuration settings.
+	$ rake landslider:gen_config
+
+Example config:
 	LS_INSTANCE_NAME = 'jaytest'
 	LS_API_USERNAME = 'jayp@landslide.com'
 	LS_API_KEY = '53308ccbdcb7f23fbd81a0b2ebcf12a4'
@@ -41,15 +43,13 @@ Usage
 -----
 
 This is calling login to get a session id which is then used to get a list of accounts.
-		
+
 	require 'landslider'
 	response = Landslider.login('LOGINTOKEN=' + LS_INSTANCE_NAME)
 	response = Landslider.get_accounts(response[:session_id])
 	response[:accounts].each do |account| 
 		puts "id: #{account[:account_id]} name: #{account[:account_name]}"
 	end
-
-
 
 
 Testing
