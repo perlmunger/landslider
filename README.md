@@ -1,7 +1,7 @@
 Landslider
 ==========
 
-Ruby interface to Landslide's SOAP-based API
+A Ruby library for interacting with Landslide’s SOAP-based API
 
 Introduction
 ------------
@@ -32,9 +32,11 @@ Configuration
 -------------
 
 There is a rake task to generate the configuration settings.
+
 	$ rake landslider:gen_config
 
 Example config:
+
 	LS_INSTANCE_NAME = 'jaytest'
 	LS_API_USERNAME = 'jayp@landslide.com'
 	LS_API_KEY = '53308ccbdcb7f23fbd81a0b2ebcf12a4'
