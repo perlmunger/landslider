@@ -8,7 +8,7 @@ Introduction
 
 This gem can be used to communicate with Landslide's SOAP-based API using ruby code.
 	
-[WSDL](https://jaytest.api.landslide.com/webservices/SoapService?wsdl) endpoint url: [https://jaytest.api.landslide.com/webservices/SoapService?wsdl](https://jaytest.api.landslide.com/webservices/SoapService?wsdl)
+[WSDL](https://instance_name.api.landslide.com/webservices/SoapService?wsdl) endpoint url: [https://instance_name.api.landslide.com/webservices/SoapService?wsdl](https://instance_name.api.landslide.com/webservices/SoapService?wsdl)
 
 If you already have a landslide account, contact support to enable the API.  You can also start a 30-day trial account [here](http://www.landslide.com/~jayp/en/trial).  
 
