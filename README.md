@@ -97,6 +97,7 @@ API methods
 * getOpportunityNotes
 * getUserInformation
 * getUserInformationById
+* runMyListbyId
 
 TODO
 ----

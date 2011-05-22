@@ -277,7 +277,7 @@ class Landslider < Handsoap::Service
 		node = response.document.xpath('//ns:getOpportunityNotesResponse', ns)
 		parse_get_opportunity_notes_result(node)
 	end
-	
+
 	# @param [String] session_id
 	# @return [Hash]
 	def get_user_information(session_id, user_id)
@@ -302,10 +302,23 @@ class Landslider < Handsoap::Service
 		parse_get_user_information_by_id_result(node)
 	end
 	
+	# @param [String] session_id
+	# @param [Integer] mylist_id
+	# @return [Hash]
+	def run_mylist_by_id(session_id, mylist_id)
+		self.session_id = session_id
+	
+		response = invoke('runMyListbyId', :soap_action => :none) do |message|
+			message.add 'myListId', mylist_id
+		end
+		node = response.document.xpath('//ns:runMyListbyIdResponse', ns)
+		parse_run_mylist_by_id_result(node)
+	end
+	
 	private
 
 	def ns
-		{ 'ns' => LS_API_NAMESPACE }
+		{ 'ns' => LS_API_NAMESPACE, 'xsi' => 'http://www.w3.org/2001/XMLSchema-instance' }
 	end
 
 	def parse_login_result(node)
@@ -491,8 +504,17 @@ class Landslider < Handsoap::Service
 		:status_code => xml_to_int(node, './*/statusCode/text()')
 		}
 	end
-	
-	
+
+	def parse_run_mylist_by_id_result(node)
+		{
+		:results => node.xpath('MyListQueryResultSet/myList', ns).map { |child| parse_mylist_result(child) },
+			
+		:error => xml_to_bool(node, 'MyListQueryResultSet/error/text()'),
+		:results_returned => xml_to_int(node, 'MyListQueryResultSet/resultsReturned/text()'),
+		:total_results_available => xml_to_int(node, 'MyListQueryResultSet/totalResultsAvailable/text()')
+		}
+	end
+
 	# WsAccount
 	def parse_account(node)
 		{
@@ -518,14 +540,14 @@ class Landslider < Handsoap::Service
 		}
 		
 	end
-	
+
 	# WsAccountType
 	def parse_account_type(node)
 		{
 		:account_type => xml_to_str(node, './accountType/text()')
 		}
 	end
-	
+
 	# WsAddress 
 	def parse_address(node)
 		{
@@ -624,7 +646,24 @@ class Landslider < Handsoap::Service
 		
 		}
 	end
-	
+
+	# There are two dynamic pieces of the mylist results
+	# 1) A mylist result has type which is either WsAccount, WsContact, WsOpportunity, WsLead, WsNote, etc.
+	# 2) The fields available in the mylist result are selected as fields to display when the user builds the mylist
+	def parse_mylist_result(node)
+		result_type = xml_to_str(node, '@xsi:type')
+		case result_type
+		when "ns2:wsContact"
+			parse_contact(node)
+		when "ns2:wsLead"
+			parse_lead(node)
+		when "ns2:wsOpportunity"
+			parse_opportunity(node)
+		else
+			raise NotImplementedError.new result_type
+		end
+	end	
+
 	# WsOpportunity
 	def parse_opportunity(node)
 		{
