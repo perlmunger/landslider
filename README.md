@@ -50,8 +50,6 @@ This is calling login to get a session id which is then used to get a list of ac
 	end
 
 
-
-
 Testing
 -------
 
@@ -60,7 +58,7 @@ The default rake task is set to run the tests.
 	$ rake
 	
 Tests are needed here because the API uses a specific XML structure for requests and responses.
-	
+
 
 Contributing
 ------------
