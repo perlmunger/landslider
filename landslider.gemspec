@@ -5,15 +5,13 @@
 
 Gem::Specification.new do |s|
   s.name = %q{landslider}
-  s.version = "0.5.12"
+  s.version = "0.5.15"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jay Prall"]
-  s.date = %q{2011-05-18}
-  s.default_executable = %q{generate_api_key.rb}
+  s.date = %q{2011-05-22}
   s.description = %q{Landslider is a ruby interface to the Landslide SOAP-based API}
   s.email = %q{jay@j4y.net}
-  s.executables = ["generate_api_key.rb"]
   s.extra_rdoc_files = [
     "LICENSE",
     "README.md"
@@ -26,7 +24,6 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION.yml",
-    "bin/generate_api_key.rb",
     "init.rb",
     "landslider.gemspec",
     "lib/landslider.rb",
@@ -34,6 +31,7 @@ Gem::Specification.new do |s|
     "lib/landslider/entities/ws_account.rb",
     "lib/landslider/entities/ws_account_note.rb",
     "lib/landslider/entities/ws_account_note_search.rb",
+    "lib/landslider/entities/ws_account_search.rb",
     "lib/landslider/entities/ws_address.rb",
     "lib/landslider/entities/ws_contact.rb",
     "lib/landslider/entities/ws_contact_note.rb",
@@ -51,6 +49,7 @@ Gem::Specification.new do |s|
     "lib/landslider/entities/ws_opportunity.rb",
     "lib/landslider/entities/ws_opportunity_note.rb",
     "lib/landslider/entities/ws_opportunity_note_search.rb",
+    "lib/landslider/entities/ws_opportunity_search.rb",
     "lib/landslider/entities/ws_opportunity_status.rb",
     "lib/landslider/entities/ws_payment_term.rb",
     "lib/landslider/entities/ws_pick_list_item.rb",
@@ -66,9 +65,11 @@ Gem::Specification.new do |s|
     "lib/landslider/entities/ws_selling_process.rb",
     "lib/landslider/entities/ws_user.rb",
     "lib/landslider/entities/ws_user_search.rb",
+    "tasks/landslider.rake",
     "test/get_account_types_test.rb",
     "test/get_accounts_test.rb",
     "test/landslider_test.rb",
+    "test/run_mylist_by_id_test.rb",
     "test/test_helper.rb",
     "test/ws_account_note_search_test.rb",
     "test/ws_contact_note_search_test.rb",
@@ -81,17 +82,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.6.2}
   s.summary = %q{Landslide Ruby}
-  s.test_files = [
-    "test/get_account_types_test.rb",
-    "test/get_accounts_test.rb",
-    "test/landslider_test.rb",
-    "test/test_helper.rb",
-    "test/ws_account_note_search_test.rb",
-    "test/ws_contact_note_search_test.rb",
-    "test/ws_lead_note_search_test.rb",
-    "test/ws_opportunity_note_search_test.rb",
-    "test/ws_search_test.rb"
-  ]
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
