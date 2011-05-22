@@ -1,4 +1,6 @@
 
+require 'handsoap'
+
 # Landslider is a soap client to the Landslide CRM SOAP-based API
 # Example:
 #
@@ -8,10 +10,6 @@
 # response[:accounts].each do |account| 
 # 	puts "id: #{account[:account_id]} name: #{account[:account_name]}"
 # end
-#
-
-require 'handsoap'
-
 class Landslider < Handsoap::Service
 	
 	require 'landslider/entities'
@@ -279,6 +277,7 @@ class Landslider < Handsoap::Service
 	end
 
 	# @param [String] session_id
+	# @param [String] user_id usually in the form of user@example.com
 	# @return [Hash]
 	def get_user_information(session_id, user_id)
 
@@ -291,6 +290,7 @@ class Landslider < Handsoap::Service
 	end
 
 	# @param [String] session_id
+	# @param [Integer] user_id
 	# @return [Hash]
 	def get_user_information_by_id(session_id, user_id)
 		self.session_id = session_id
