@@ -552,7 +552,8 @@ class Landslider < Handsoap::Service
 		:created_by => xml_to_int(node, './createdBy/text()'),
 		:created_on => xml_to_str(node, './createdOn/text()'),
 		:archived_by => xml_to_str(node, './archivedBy/text()'),
-		:sync_with_quickbooks => xml_to_str(node, './isSyncWithQuickbooks/text()'),
+		:account_type => xml_to_str(node, './accountType/accountType/text()'),
+		:account_type_id => xml_to_int(node, './accountType/accountTypeId/text()'),
 		:custom_fields => node.xpath('./customFields', ns).map { |child| parse_custom_field(child) }
 		}
 

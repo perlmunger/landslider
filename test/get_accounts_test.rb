@@ -12,7 +12,7 @@ class GetAccountsTest < Test::Unit::TestCase
 	def test_get_accounts_without_search
 	
 		result = Landslider.get_accounts($sesson_id1)
-	
+
 		assert_not_nil result
 		assert_equal false, result[:error]
 		assert_kind_of Array, result[:accounts]
@@ -36,11 +36,12 @@ class GetAccountsTest < Test::Unit::TestCase
 		search = Landslider::WsSearch.new
 		search.search_criteria = Landslider::WsSearchCriterion.new('AccountTypeId', 'Equals', '1539484')
 		result = Landslider.get_accounts($sesson_id1, search)
-		
+
 		assert_not_nil result
 		assert_equal false, result[:error]
 		assert_kind_of Array, result[:accounts]
 		assert_equal 2, result[:accounts].size
+		assert result[:accounts].all? { |a| a[:account_type_id] == 1539484}, "account type id should match search crit"
 	
 	end
 	
