@@ -16,7 +16,7 @@ begin
 	end
 	Jeweler::GemcutterTasks.new
 rescue LoadError
-	puts "Jeweler not available.  Please install the jeweler gem"
+	puts 'Jeweler not available.  Please install the jeweler gem'
 end
 
 # Load any rake files that exist
@@ -31,3 +31,9 @@ Rake::TestTask.new(:test) do |test|
 	test.verbose = false
 end
 
+begin
+	require 'yard'
+	YARD::Rake::YardocTask.new
+rescue LoadError
+	puts 'Yard not available. Please install the yard gem'
+end
