@@ -152,6 +152,7 @@ class Landslider < Handsoap::Service
 	end
 
 	# @param [String] session_id
+	# @param [Integer] contact_id
 	# @return [Hash]
 	def get_contact_by_id(session_id, contact_id)
 		self.session_id = session_id
