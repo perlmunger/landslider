@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{landslider}
-  s.version = "0.5.16"
+  s.version = "0.5.17"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jay Prall"]
-  s.date = %q{2011-05-23}
+  s.date = %q{2011-05-25}
   s.description = %q{Landslider is a ruby interface to the Landslide SOAP-based API}
   s.email = %q{jay@j4y.net}
   s.extra_rdoc_files = [
@@ -68,6 +68,7 @@ Gem::Specification.new do |s|
     "tasks/landslider.rake",
     "test/get_account_types_test.rb",
     "test/get_accounts_test.rb",
+    "test/get_contact_test.rb",
     "test/landslider_test.rb",
     "test/run_mylist_by_id_test.rb",
     "test/test_helper.rb",
@@ -85,6 +86,7 @@ Gem::Specification.new do |s|
   s.test_files = [
     "test/get_account_types_test.rb",
     "test/get_accounts_test.rb",
+    "test/get_contact_test.rb",
     "test/landslider_test.rb",
     "test/run_mylist_by_id_test.rb",
     "test/test_helper.rb",
@@ -101,17 +103,20 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<jeweler>, [">= 0"])
       s.add_runtime_dependency(%q<handsoap>, [">= 1.1.8"])
+      s.add_development_dependency(%q<yard>, [">= 0"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
     else
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<handsoap>, [">= 1.1.8"])
+      s.add_dependency(%q<yard>, [">= 0"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<rcov>, [">= 0"])
     end
   else
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<handsoap>, [">= 1.1.8"])
+    s.add_dependency(%q<yard>, [">= 0"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<rcov>, [">= 0"])
   end
