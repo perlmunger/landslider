@@ -88,6 +88,7 @@ API methods
 * getAccountNotes
 * getAccountOpportunities
 * getAccountTypes
+* getContactById
 * getContacts
 * getContactCustomFields
 * getContactNotes

@@ -151,6 +151,18 @@ class Landslider < Handsoap::Service
 		parse_api_version_result(node)
 	end
 
+	# @param [String] session_id
+	# @return [Hash]
+	def get_contact_by_id(session_id, contact_id)
+		self.session_id = session_id
+
+		response = invoke('getContactById', :soap_action => :none) do |message|
+			message.add 'contactId', contact_id
+		end
+
+		node = response.document.xpath('//ns:getContactByIdResponse', ns)
+		parse_get_contact_by_id_result(node)
+	end
 
 	# @param [String] session_id
 	# @param [WsContactSearch] search
@@ -402,8 +414,15 @@ class Landslider < Handsoap::Service
 	
 	def parse_get_account_types_result(node)
 		{
-			:account_types => node.xpath('AccountTypes/accountTypes', ns).map { |child| parse_account_type(child) },
-			:error => xml_to_bool(node, 'AccountTypes/error/text()')
+		:account_types => node.xpath('AccountTypes/accountTypes', ns).map { |child| parse_account_type(child) },
+		:error => xml_to_bool(node, 'AccountTypes/error/text()')
+		}
+	end
+	
+	def parse_get_contact_by_id_result(node)
+		{
+		:contact => parse_contact(node.xpath('Contact/contact')),	
+		:error => xml_to_bool(node, 'Contact/error/text()')
 		}
 	end
 
