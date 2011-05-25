@@ -1,11 +1,13 @@
 class Landslider
+	
+	# represents a contact
 	class WsContact < WsEntity
 		
 		# @return [Integer]
 		attr_reader :contact_id, :owner_id, :create_by, :update_by, :archived_by
 		
 		# @return [String]
-		attr_reader :namae, :account_name, :description, :source_system_id
+		attr_reader :name, :account_name, :description, :source_system_id
 
 		# @return [Date]
 		attr_reader :archived_on, :created_on, :updated_on

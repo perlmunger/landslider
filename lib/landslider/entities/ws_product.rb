@@ -25,6 +25,7 @@ class Landslider
 
 		# @param [Handsoap::XmlMason::Node] msg
 		# @return [Handsoap::XmlMason::Node]
+		# @todo implementation
 		def soapify_for(msg)
 		end
 		

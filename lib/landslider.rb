@@ -1,15 +1,7 @@
 
 require 'handsoap'
 
-# Landslider is a soap client to the Landslide CRM SOAP-based API
-# Example:
-#
-# require 'landslider'
-# response = Landslider.login('LOGINTOKEN=' + LS_INSTANCE_NAME)
-# response = Landslider.get_accounts(response[:session_id])
-# response[:accounts].each do |account|
-# 	puts "id: #{account[:account_id]} name: #{account[:account_name]}"
-# end
+# landslider gem main class
 class Landslider < Handsoap::Service
 
 	require 'landslider/entities'
@@ -41,6 +33,7 @@ class Landslider < Handsoap::Service
 		http_request.headers.merge!({'user-agent' => ['landslider-ruby-gem-version-0.4.6']})
 	end
 
+	# @param [Object] response
 	def on_http_error(response)
 		puts response.inspect
 	end
@@ -76,6 +69,7 @@ class Landslider < Handsoap::Service
 	end
 
 	# @param [String] session_id
+	# @param [Integer] account_id
 	# @return [Hash]
 	def get_account_by_id(session_id, account_id)
 		self.session_id = session_id
@@ -89,7 +83,7 @@ class Landslider < Handsoap::Service
 	end
 
 	# @param [String] session_id
-	# @param [String] account_id
+	# @param [Integer] account_id
 	# @param [Boolean] is_primary
 	# @return [Hash]
 	def get_account_contacts(session_id, account_id, is_primary=false)
