@@ -1,4 +1,3 @@
-
 require 'handsoap'
 
 # landslider gem main class
@@ -7,7 +6,7 @@ class Landslider < Handsoap::Service
 	require 'landslider/entities'
 
 	LS_API_NAMESPACE='http://www.landslide.com/webservices/SoapService'
-	LS_API_ENDPOINT = {
+	LS_API_ENDPOINT ||= {
 	  :uri => "https://#{LS_INSTANCE_NAME}.api.landslide.com/webservices/SoapService",
 	  :version => 1
 	}
