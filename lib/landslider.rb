@@ -601,7 +601,7 @@ class Landslider < Handsoap::Service
 		:work_phone => xml_to_str(node, './workPhone/text()'),
 		:home_phone => xml_to_str(node, './homePhone/text()'),
 		:email => xml_to_str(node, './email/text()'),
-		:title => xml_to_str(node, './homePhone/text()'),
+		:title => xml_to_str(node, './title/text()'),
 		:reports_to => xml_to_str(node, './reportsTo/text()'),
 		:owner_id => xml_to_int(node, './ownerId/text()'),
 		:contact_id => xml_to_int(node, './contactId/text()'),
