@@ -46,7 +46,15 @@ class Landslider
 			msg.add 'totalResultsRequested', @total_results_requested || DEFAULT_TOTAL_RESULTS_REQUESTED
 			msg.add 'updatedOn', @updated_on unless @updated_on.nil?
 			unless @search_criteria.nil?
-				@search_criteria.soapify_for(msg)
+				if @search_criteria.kind_of?(Array)
+
+					msg.add 'allowDuplicateCriterion', true
+					@search_criteria.each do |sc|
+						sc.soapify_for(msg)
+					end
+				else
+					@search_criteria.soapify_for(msg)
+				end
 			end
 		
 		end
