@@ -16,7 +16,7 @@ class GetAccountsTest < Test::Unit::TestCase
 		assert_not_nil result
 		assert_equal false, result[:error]
 		assert_kind_of Array, result[:accounts]
-		assert_equal 6, result[:accounts].size
+		assert_equal 7, result[:accounts].size
 		
 	end
 	

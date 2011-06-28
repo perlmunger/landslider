@@ -19,12 +19,23 @@ class WsSearchTest < Test::Unit::TestCase
 		result = Landslider.get_accounts($sid2)
 
 		assert_equal false, result[:error]
-		assert_equal 6, result[:results_returned]
+		assert_equal 7, result[:results_returned]
 	end
 
 	def test_get_accounts_with_search_criteria
 		search = Landslider::WsSearch.new
 		search.search_criteria = Landslider::WsSearchCriterion.new('AccountName', 'Equals', 'Boston')
+		result = Landslider.get_accounts($sid2, search)
+		
+		assert_equal false, result[:error]
+		assert_equal 1, result[:results_returned]
+	end
+	
+	def test_get_accounts_with_more_than_one_search_criteria
+		search = Landslider::WsSearch.new
+		search.search_criteria = [Landslider::WsSearchCriterion.new('AccountName', 'Equals', "Jay's master account"),
+			Landslider::WsSearchCriterion.new('AccountTypeId', 'Equals', '1539484')]
+
 		result = Landslider.get_accounts($sid2, search)
 		
 		assert_equal false, result[:error]

@@ -20,7 +20,7 @@ class WsAccountNoteSearchTest < Test::Unit::TestCase
 		search.updated_on = '2011-04-21'
 		result = Landslider.get_account_notes($sid3, search)
 		assert_equal false, result[:error]
-		assert_equal 2, result[:results_returned]
+		assert_equal 3, result[:results_returned]
 	end
 	
 	def test_account_note_search_limit_by_results_requested
