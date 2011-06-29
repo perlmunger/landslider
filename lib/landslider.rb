@@ -649,6 +649,7 @@ class Landslider < Handsoap::Service
 		:latest => xml_to_bool(node, './latest/text()'),
 		:note_html => xml_to_str(node, './note/text()'),
 		:note_id => xml_to_int(node, './noteId/text()'),
+		:account_id => xml_to_int(node, './accountId/text()'),
 		:updated_on => xml_to_date(node, './updatedOn/text()'),
 		}
 	end
