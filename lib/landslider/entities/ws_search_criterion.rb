@@ -50,6 +50,7 @@ class Landslider
 		# * SyncWithQuickBooks
 		# * Ticker
 		# * Url
+		# * acc_<custom_field_id>
 		#
 		# Currently Searchable Opportunity Fields:
 		# * AccountId
@@ -85,6 +86,7 @@ class Landslider
 		# * StatusReason
 		# * StatusReasonId
 		# * SuspendedDate
+		# * opp_<custom_field_id>
 		#
 		# Currently Searchable Duration Type Fields:
 		# * DurationType
