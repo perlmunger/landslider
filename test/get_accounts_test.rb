@@ -16,7 +16,7 @@ class GetAccountsTest < Test::Unit::TestCase
 		assert_not_nil result
 		assert_equal false, result[:error]
 		assert_kind_of Array, result[:accounts]
-		assert_equal 7, result[:accounts].size
+		assert_equal 8, result[:accounts].size
 		
 	end
 	
@@ -40,7 +40,7 @@ class GetAccountsTest < Test::Unit::TestCase
 		assert_not_nil result
 		assert_equal false, result[:error]
 		assert_kind_of Array, result[:accounts]
-		assert_equal 2, result[:accounts].size
+		assert_equal 3, result[:accounts].size
 		assert result[:accounts].all? { |a| a[:account_type_id] == 1539484}, "account type id should match search crit"
 	
 	end
