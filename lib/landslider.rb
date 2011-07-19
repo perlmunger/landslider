@@ -606,6 +606,7 @@ class Landslider < Handsoap::Service
 		:owner_id => xml_to_int(node, './ownerId/text()'),
 		:contact_id => xml_to_int(node, './contactId/text()'),
 		:account_id => xml_to_int(node, './accountId/text()'),
+		:updated_on => xml_to_date(node, './updatedOn/text()'),
 		:custom_fields => node.xpath('./customFields', ns).map { |child| parse_custom_field(child) }
 		}
 	end
