@@ -41,7 +41,7 @@ class Landslider < Handsoap::Service
 	# @return [Hash]
 	def login(session_id)
 		self.session_id = session_id
-		response = invoke('login', :soap_action => :none) do |message|
+		response = invoke('urn:login', :soap_action => :none) do |message|
 			message.add('wsUser') { |u|
 				u.add 'username', ::LS_API_USERNAME
 				u.add 'password', ::LS_API_KEY
@@ -57,7 +57,7 @@ class Landslider < Handsoap::Service
 	# @return [Hash]
 	def get_accounts(session_id, search=WsSearch.new)
 		self.session_id = session_id
-		response = invoke('getAccounts', :soap_action => :none) do |message|
+		response = invoke('urn:getAccounts', :soap_action => :none) do |message|
 			message.add('accountsRequest') { |req|
 				search.soapify_for(req)
 			}
@@ -73,7 +73,7 @@ class Landslider < Handsoap::Service
 	def get_account_by_id(session_id, account_id)
 		self.session_id = session_id
 
-		response = invoke('getAccountById', :soap_action => :none) do |message|
+		response = invoke('urn:getAccountById', :soap_action => :none) do |message|
 			message.add 'accountId', account_id
 		end
 
@@ -133,7 +133,7 @@ class Landslider < Handsoap::Service
 	# @return [Hash]
 	def get_account_types(session_id)
 		self.session_id = session_id
-		response = invoke('getAccountTypes')
+		response = invoke('urn:getAccountTypes')
 		
 		node = response.document.xpath('//ns:getAccountTypesResponse', ns)
 		parse_get_account_types_result(node)
@@ -144,7 +144,7 @@ class Landslider < Handsoap::Service
 	def get_api_version(session_id)
 		self.session_id = session_id
 
-		response = invoke('getApiVersion', :soap_action => :none)
+		response = invoke('urn:getApiVersion', :soap_action => :none)
 
 		node = response.document.xpath('//ns:getApiVersionResponse', ns)
 		parse_api_version_result(node)
@@ -156,7 +156,7 @@ class Landslider < Handsoap::Service
 	def get_contact_by_id(session_id, contact_id)
 		self.session_id = session_id
 
-		response = invoke('getContactById', :soap_action => :none) do |message|
+		response = invoke('urn:getContactById', :soap_action => :none) do |message|
 			message.add 'contactId', contact_id
 		end
 
@@ -171,7 +171,7 @@ class Landslider < Handsoap::Service
 		self.session_id = session_id
 
 		# public WsContactResultSet getContacts(WsContactSearch request)
-		response = invoke('getContacts', :soap_action => :none) do |message|
+		response = invoke('urn:getContacts', :soap_action => :none) do |message|
 			message.add('contactsRequest') { |req|
 				search.soapify_for(req)
 			}
@@ -185,7 +185,7 @@ class Landslider < Handsoap::Service
 	def get_contact_custom_fields(session_id)
 		self.session_id = session_id
 
-		response = invoke('getContactCustomFields')
+		response = invoke('urn:getContactCustomFields')
 		node = response.document.xpath('//ns:getContactCustomFieldsResponse', ns)
 		parse_get_entity_custom_fields_result(node)
 	end
@@ -196,7 +196,7 @@ class Landslider < Handsoap::Service
 	def get_contact_notes(session_id, search)
 		self.session_id = session_id
 
-		response = invoke('getContactNotes', :soap_action => :none) do |message|
+		response = invoke('urn:getContactNotes', :soap_action => :none) do |message|
 			search.soapify_for(message)
 		end
 		node = response.document.xpath('//ns:getContactNotesResponse', ns)
@@ -210,7 +210,7 @@ class Landslider < Handsoap::Service
 	def get_instance_information(session_id, user_id)
 		self.session_id = session_id
 
-		response = invoke('getInstanceInformation', :soap_action => :none) do |message|
+		response = invoke('urn:getInstanceInformation', :soap_action => :none) do |message|
 			message.add 'userId', user_id
 		end
 		node = response.document.xpath('//ns:getInstanceInformationResponse', ns)
@@ -223,7 +223,7 @@ class Landslider < Handsoap::Service
 	def get_leads(session_id, search=WsLeadSearch.new)
 		self.session_id = session_id
 
-		response = invoke('getLeads', :soap_action => :none) do |message|
+		response = invoke('urn:getLeads', :soap_action => :none) do |message|
 			message.add('leadRequest') { |req|
 				search.soapify_for(req)
 			}
@@ -236,7 +236,7 @@ class Landslider < Handsoap::Service
 	# @param [String] session_id
 	# @return [Hash]
 	def get_lead_custom_fields(session_id)
-		response = invoke('getLeadCustomFields')
+		response = invoke('urn:getLeadCustomFields')
 		node = response.document.xpath('//ns:getLeadCustomFieldsResponse', ns)
 		parse_get_entity_custom_fields_result(node)
 	end
@@ -247,7 +247,7 @@ class Landslider < Handsoap::Service
 	def get_lead_notes(session_id, search)
 		self.session_id = session_id
 
-		response = invoke('getLeadNotes', :soap_action => :none) do |message|
+		response = invoke('urn:getLeadNotes', :soap_action => :none) do |message|
 			search.soapify_for(message)
 		end
 		node = response.document.xpath('//ns:getLeadNotesResponse', ns)
@@ -260,7 +260,7 @@ class Landslider < Handsoap::Service
 	def get_opportunities(session_id, search=WsSearch.new)
 		self.session_id = session_id
 
-		response = invoke('getOpportunities', :soap_action => :none) do |message|
+		response = invoke('urn:getOpportunities', :soap_action => :none) do |message|
 			message.add('opportunityRequest') { |req|
 				search.soapify_for(req)
 			}
@@ -274,7 +274,7 @@ class Landslider < Handsoap::Service
 	def get_opportunity_custom_fields(session_id)
 		self.session_id = session_id
 
-		response = invoke('getOpportunityCustomFields')
+		response = invoke('urn:getOpportunityCustomFields')
 		node = response.document.xpath('//ns:getOpportunityCustomFieldsResponse', ns)
 		parse_get_entity_custom_fields_result(node)
 	end
@@ -285,7 +285,7 @@ class Landslider < Handsoap::Service
 	def get_opportunity_notes(session_id, search)
 		self.session_id = session_id
 
-		response = invoke('getOpportunityNotes', :soap_action => :none) do |message|
+		response = invoke('urn:getOpportunityNotes', :soap_action => :none) do |message|
 			search.soapify_for(message)
 		end
 		node = response.document.xpath('//ns:getOpportunityNotesResponse', ns)
@@ -298,7 +298,7 @@ class Landslider < Handsoap::Service
 	def get_user_information(session_id, user_id)
 
 		self.session_id = session_id
-		response = invoke('getUserInformation', :soap_action => :none) do |message|
+		response = invoke('urn:getUserInformation', :soap_action => :none) do |message|
 			message.add 'userId', user_id
 		end
 		node = response.document.xpath('//ns:getUserInformationResponse', ns)
@@ -311,7 +311,7 @@ class Landslider < Handsoap::Service
 	def get_user_information_by_id(session_id, user_id)
 		self.session_id = session_id
 
-		response = invoke('getUserInformationById', :soap_action => :none) do |message|
+		response = invoke('urn:getUserInformationById', :soap_action => :none) do |message|
 			message.add 'userId', user_id
 		end
 		node = response.document.xpath('//ns:getUserInformationByIdResponse', ns)
@@ -324,7 +324,7 @@ class Landslider < Handsoap::Service
 	def run_mylist_by_id(session_id, mylist_id)
 		self.session_id = session_id
 	
-		response = invoke('runMyListbyId', :soap_action => :none) do |message|
+		response = invoke('urn:runMyListbyId', :soap_action => :none) do |message|
 			message.add 'myListId', mylist_id
 		end
 		node = response.document.xpath('//ns:runMyListbyIdResponse', ns)
