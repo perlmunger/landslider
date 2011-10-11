@@ -87,7 +87,7 @@ class Landslider < Handsoap::Service
 	# @return [Hash]
 	def get_account_contacts(session_id, account_id, is_primary=false)
 		self.session_id = session_id
-		response = invoke('getAccountContacts', :soap_action => :none) do |message|
+		response = invoke('urn:getAccountContacts', :soap_action => :none) do |message|
 			message.add 'accountId', account_id
 			message.add 'isPrimary', is_primary
 		end
@@ -99,7 +99,7 @@ class Landslider < Handsoap::Service
 	# @param [String] session_id
 	# @return [Hash]
 	def get_account_custom_fields(session_id)
-		response = invoke('getAccountCustomFields')
+		response = invoke('urn:getAccountCustomFields')
 		node = response.document.xpath('//ns:getAccountCustomFieldsResponse', ns)
 		parse_get_entity_custom_fields_result(node)
 	end
@@ -110,7 +110,7 @@ class Landslider < Handsoap::Service
 	def get_account_notes(session_id, search)
 		self.session_id = session_id
 
-		response = invoke('getAccountNotes', :soap_action => :none) do |message|
+		response = invoke('urn:getAccountNotes', :soap_action => :none) do |message|
 			search.soapify_for(message)
 		end
 		node = response.document.xpath('//ns:getAccountNotesResponse', ns)
@@ -121,7 +121,7 @@ class Landslider < Handsoap::Service
 	# @return [Hash]
 	def get_account_opportunities(session_id, account_id)
 		self.session_id = session_id
-		response = invoke('getAccountOpportunities', :soap_action => :none) do |message|
+		response = invoke('urn:getAccountOpportunities', :soap_action => :none) do |message|
 			message.add 'accountId', account_id
 		end
 

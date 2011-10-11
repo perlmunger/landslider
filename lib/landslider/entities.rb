@@ -7,6 +7,7 @@ require 'landslider/entities/ws_search_criterion'
 require 'landslider/entities/ws_search_operator'
 
 require 'landslider/entities/ws_account'
+require 'landslider/entities/ws_account_contact_search'
 require 'landslider/entities/ws_account_note'
 require 'landslider/entities/ws_account_note_search'
 require 'landslider/entities/ws_address'

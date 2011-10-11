@@ -19,7 +19,7 @@ class WsSearchTest < Test::Unit::TestCase
 		result = Landslider.get_accounts($sid2)
 
 		assert_equal false, result[:error]
-		assert_equal 8, result[:results_returned]
+		assert_equal 12, result[:results_returned]
 	end
 
 	def test_get_accounts_with_search_criteria
@@ -46,7 +46,7 @@ class WsSearchTest < Test::Unit::TestCase
 		result = Landslider.get_opportunities($sid2)
 	
 		assert_equal false, result[:error]
-		assert_equal 4, result[:results_returned]
+		assert_equal 7, result[:results_returned]
 	end
 	
 	def test_get_opportunities_with_search_criteria
@@ -56,7 +56,7 @@ class WsSearchTest < Test::Unit::TestCase
 		result = Landslider.get_opportunities($sid2, search)
 		
 		assert_equal false, result[:error]
-		assert_equal 3, result[:results_returned]
+		assert_equal 6, result[:results_returned]
 		assert_equal target_phase_name, result[:opportunities][0][:current_phase_name]
 		assert_equal target_phase_name, result[:opportunities][1][:current_phase_name]
 		assert_equal target_phase_name, result[:opportunities][2][:current_phase_name]
