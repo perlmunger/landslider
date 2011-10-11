@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{landslider}
-  s.version = "0.5.24"
+  s.version = "0.5.26"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jay Prall"]
-  s.date = %q{2011-07-19}
+  s.date = %q{2011-10-11}
   s.description = %q{Landslider is a ruby interface to the Landslide SOAP-based API}
   s.email = %q{jay@j4y.net}
   s.extra_rdoc_files = [
@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
     "lib/landslider.rb",
     "lib/landslider/entities.rb",
     "lib/landslider/entities/ws_account.rb",
+    "lib/landslider/entities/ws_account_contact_search.rb",
     "lib/landslider/entities/ws_account_note.rb",
     "lib/landslider/entities/ws_account_note_search.rb",
     "lib/landslider/entities/ws_account_search.rb",
@@ -72,6 +73,7 @@ Gem::Specification.new do |s|
     "test/landslider_test.rb",
     "test/run_mylist_by_id_test.rb",
     "test/test_helper.rb",
+    "test/ws_account_contact_search_test.rb",
     "test/ws_account_note_search_test.rb",
     "test/ws_contact_note_search_test.rb",
     "test/ws_lead_note_search_test.rb",
@@ -90,6 +92,7 @@ Gem::Specification.new do |s|
     "test/landslider_test.rb",
     "test/run_mylist_by_id_test.rb",
     "test/test_helper.rb",
+    "test/ws_account_contact_search_test.rb",
     "test/ws_account_note_search_test.rb",
     "test/ws_contact_note_search_test.rb",
     "test/ws_lead_note_search_test.rb",
