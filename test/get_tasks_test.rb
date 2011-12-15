@@ -16,16 +16,20 @@ class GetTasksTest < Test::Unit::TestCase
 		assert_not_nil result
 		assert_equal false, result[:error]
 		assert_kind_of Array, result[:tasks]
-		#assert_equal 25, result[:tasks].size
-		
 	end
 	
 	
 	def test_add_task
+		
+		user_info = Landslider.get_user_information($sesson_idt7, LS_API_USERNAME)
+		
+		# TODO: come up with a better way for constructing objects
 		task = Landslider::WsTask.new
 		dt = DateTime.strptime("2011-12-25T11:25:56-05:00")
 		task.task_name='task for ' + dt.to_s
 		task.due_date= dt
+		task.assigned_to = user_info[:employee][:employee_id]
+		
 		result = Landslider.add_task($sesson_idt7, task)
 		assert_not_nil result
 		assert_equal false, result[:error]

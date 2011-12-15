@@ -138,7 +138,6 @@ class LandsliderTest < Test::Unit::TestCase
 		
 	def test_landslider_get_user_information
 		result = Landslider.get_user_information($sid, 'jayp@landslide.com')
-		
 		assert_not_nil result
 		assert_equal false, result[:error]
 		assert_not_nil result[:employee]
