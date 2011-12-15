@@ -8,7 +8,7 @@ class Landslider
 		
 		# Required
 		# @return [String]
-		attr_writer :task_name
+		attr_writer :task_name, :due_date
 		
 		# @return [Boolean]
 		attr_reader :completed
@@ -18,6 +18,7 @@ class Landslider
 		def soapify_for(msg)
 			super(msg)
 			msg.add 'taskName', @task_name unless @task_name.nil?
+			msg.add 'dueDate', @due_date unless @due_date.nil?
 			msg.add 'completed', @completed
 
 		end

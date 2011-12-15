@@ -1,5 +1,7 @@
 require 'test_helper'
 
+require 'date'
+
 class GetTasksTest < Test::Unit::TestCase
 
 	def setup
@@ -21,14 +23,13 @@ class GetTasksTest < Test::Unit::TestCase
 	
 	def test_add_task
 		task = Landslider::WsTask.new
-		task.task_name='blash blbah'
+		dt = DateTime.strptime("2011-12-25T11:25:56-05:00")
+		task.task_name='task for ' + dt.to_s
+		task.due_date= dt
 		result = Landslider.add_task($sesson_idt7, task)
 		assert_not_nil result
 		assert_equal false, result[:error]
 		assert_equal true, result[:created]
-	
 	end
-	
-	
 	
 end
