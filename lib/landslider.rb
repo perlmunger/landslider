@@ -51,6 +51,18 @@ class Landslider < Handsoap::Service
 		node = response.document.xpath('//ns:loginResponse/loginResponse', ns)
 		parse_login_result(node)
 	end
+	
+	def add_task(session_id, task)
+		self.session_id = session_id
+		response = invoke('urn:addTask', :soap_action => :none) do |message|
+			message.add('task') { |req|
+				task.soapify_for(req)
+			}
+		end
+		node = response.document.xpath('//ns:addTaskResponse/Status', ns)
+		parse_add_task_result(node)
+
+	end
 
 	# @param [WsAccountSearch] search
 	# @param [String] session_id
@@ -359,6 +371,14 @@ class Landslider < Handsoap::Service
 		:status_code => xml_to_int(node, './statusCode/text()'),
 		:password_expired => xml_to_bool(node, './passwordExpired/text()'),
 		:session_id => xml_to_str(node, './sessionId/text()')
+		}
+	end
+	
+	def parse_add_task_result(node)
+		{
+		:error => xml_to_bool(node, './error/text()'),
+		:error_code => xml_to_int(node, './errorCode/text()'),
+		:created => xml_to_bool(node, './created/text()')
 		}
 	end
 

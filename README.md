@@ -79,6 +79,7 @@ API methods
 
 	Here is a list of API methods that have been added:
 
+* addTask
 * login
 * getApiVersion
 * getAccounts
