@@ -38,6 +38,8 @@ require 'landslider/entities/ws_product'
 require 'landslider/entities/ws_product_family'
 require 'landslider/entities/ws_product_result'
 
+require 'landslider/entities/ws_task_search'
+
 
 require 'landslider/entities/ws_search'
 require 'landslider/entities/ws_selling_process'

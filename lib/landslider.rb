@@ -293,6 +293,20 @@ class Landslider < Handsoap::Service
 	end
 
 	# @param [String] session_id
+	# @return [Hash]
+	def get_tasks(session_id, search)
+		self.session_id = session_id
+
+		response = invoke('urn:getTasks', :soap_action => :none) do |message|
+			message.add('taskSearch') { |req|
+				search.soapify_for(req)
+			}
+		end
+		node = response.document.xpath('//ns:getTasksResponse', ns)
+		parse_get_tasks_result(node)
+	end
+
+	# @param [String] session_id
 	# @param [String] user_id usually in the form of user@example.com
 	# @return [Hash]
 	def get_user_information(session_id, user_id)
@@ -523,7 +537,19 @@ class Landslider < Handsoap::Service
 		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
 		}.merge(notes)
 	end
-
+	
+	def parse_get_tasks_result(node)
+		tasks = parse_tasks(node)
+		{
+		:error => xml_to_bool(node, './*/error/text()'),
+		:error_code => xml_to_int(node, './*/errorCode/text()'),
+		:result_msg => xml_to_str(node, './*/resultMsg/text()'),
+		:status_code => xml_to_int(node, './*/statusCode/text()'),
+		:results_returned => xml_to_int(node, './*/resultsReturned/text()'),
+		:total_results_available => xml_to_int(node, './*/totalResultsAvailable/text()')
+		}.merge(tasks)
+	end
+	
 	def parse_get_user_information_by_id_result(node)
 		{
 		:employee => parse_employee(node.xpath('./WsEmployee/employee')),
@@ -716,6 +742,25 @@ class Landslider < Handsoap::Service
 		:selling_process => xml_to_str(node, './sellingProcess/sellingProcess/text()'),
 		:selling_process_id => xml_to_int(node, './sellingProcess/sellingProcessId/text()'),
 		:start_date => xml_to_date(node, './startDate/text()')
+		}
+	end
+	
+	def parse_tasks(node)
+		{
+		:tasks => node.xpath('./*/taskList', ns).map { |child| parse_task(child) }
+		}
+	end
+	
+	# WsTask
+	def parse_task(node)
+		{
+		:created_by => xml_to_int(node, './task/createdBy/text()'),
+		:created_on => xml_to_date(node, './task/createdOn/text()'),
+		:completed => xml_to_bool(node, './task/completed/text()'),
+		:description => xml_to_str(node, './task/description/text()'),
+		:due_date => xml_to_date(node, './task/dueDate/text()'),
+		:assigned_to => xml_to_int(node, './task/assignedTo/text()'),
+		:updated_on => xml_to_date(node, './task/updatedOn/text()'),
 		}
 	end
 
