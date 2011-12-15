@@ -99,6 +99,7 @@ API methods
 * getOpportunities
 * getOpportunityCustomFields
 * getOpportunityNotes
+* getTasks
 * getUserInformation
 * getUserInformationById
 * runMyListbyId
