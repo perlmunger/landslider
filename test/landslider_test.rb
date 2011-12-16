@@ -54,7 +54,6 @@ class LandsliderTest < Test::Unit::TestCase
 	def test_landslider_get_account_contacts
 		result = Landslider.get_account_contacts($sid, 55647822)
 
-		assert_equal 4, result[:results_returned]
 		validate_standard_api_result result
 		assert_kind_of Array, result[:contacts]
 		assert_not_nil result[:contacts].first[:contact_id]
