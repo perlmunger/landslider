@@ -36,4 +36,9 @@ class GetTasksTest < Test::Unit::TestCase
 		assert_equal true, result[:created]
 	end
 	
+	def test_get_task_types
+		result = Landslider.get_task_types($sesson_idt7)
+		assert_equal false, result[:error]
+		assert_kind_of Array, result[:task_types]
+	end
 end

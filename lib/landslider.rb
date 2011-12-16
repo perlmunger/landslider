@@ -306,6 +306,16 @@ class Landslider < Handsoap::Service
 
 	# @param [String] session_id
 	# @return [Hash]
+	def get_task_types(session_id)
+		self.session_id = session_id
+		response = invoke('urn:getTaskTypes', :soap_action => :none)
+		node = response.document.xpath('//ns:getTaskTypesResponse', ns)
+		parse_get_task_types_result(node)
+	end
+
+	# @param [String] session_id
+	# @param [WsTaskSearch] search
+	# @return [Hash]
 	def get_tasks(session_id, search)
 		self.session_id = session_id
 
@@ -558,6 +568,15 @@ class Landslider < Handsoap::Service
 		}.merge(notes)
 	end
 	
+	def parse_get_task_types_result(node)
+		{
+		:task_types => node.xpath('Status/taskTypeList', ns).map { |child| parse_task_type(child) },
+		:error => xml_to_bool(node, './*/error/text()'),
+		:error_code => xml_to_int(node, './*/errorCode/text()'),
+		:status_code => xml_to_int(node, './*/statusCode/text()')
+		}
+	end
+	
 	def parse_get_tasks_result(node)
 		tasks = parse_tasks(node)
 		{
@@ -762,6 +781,15 @@ class Landslider < Handsoap::Service
 		:selling_process => xml_to_str(node, './sellingProcess/sellingProcess/text()'),
 		:selling_process_id => xml_to_int(node, './sellingProcess/sellingProcessId/text()'),
 		:start_date => xml_to_date(node, './startDate/text()')
+		}
+	end
+	
+	# WsTaskType
+	def parse_task_type(node)
+		{
+		:task_type_id => xml_to_int(node, 'taskTypeId/text()'),
+		:task_type_name => xml_to_str(node, 'taskTypeName/text()'),
+		:active => xml_to_bool(node, 'active/text()')
 		}
 	end
 	
