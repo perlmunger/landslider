@@ -6,7 +6,7 @@ class Landslider
 		# @return [Integer]
 		attr_reader :task_id, :created_by, :archived_by, :associated_contact_id, :associated_entity_id, :updated_by
 		
-		# Required
+		# The name of the task (required)
 		# @return [String]
 		attr_writer :task_name
 		

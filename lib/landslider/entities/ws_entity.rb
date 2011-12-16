@@ -9,7 +9,7 @@ class Landslider
 		attr_reader :entity_type, :entity_name
 		
 		def soapify_for(msg)
-			msg.add 'entityId', @entity_id unless @entity_id.nil?
+			msg.add 'entityId', @entity_id.to_i
 		end
 	end
 	
