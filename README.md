@@ -38,7 +38,7 @@ There is a rake task to generate the configuration settings.
 Example config:
 
 	LS_INSTANCE_NAME = 'jaytest'
-	LS_API_USERNAME = 'jayp@landslide.com'
+	LS_API_USERNAME = 'jaytest@example.com'
 	LS_API_KEY = '53308ccbdcb7f23fbd81a0b2ebcf12a4'
 
 Usage
