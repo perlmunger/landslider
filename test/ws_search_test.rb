@@ -19,7 +19,6 @@ class WsSearchTest < Test::Unit::TestCase
 		result = Landslider.get_accounts($sid2)
 
 		assert_equal false, result[:error]
-		assert_equal 16, result[:results_returned]
 	end
 
 	def test_get_accounts_with_search_criteria
