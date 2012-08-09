@@ -41,6 +41,8 @@ Example config:
 	LS_API_USERNAME = 'jaytest@example.com'
 	LS_API_KEY = '53308ccbdcb7f23fbd81a0b2ebcf12a4'
 
+The API key is simply an md5 hash of the password associated with the username used for the api concatenated with the instance name.  "#{Digest::MD5.hexdigest(api_password + instance_name)}"
+
 Usage
 -----
 
