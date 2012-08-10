@@ -355,6 +355,19 @@ class Landslider < Handsoap::Service
 	end
 
 	# @param [String] session_id
+	# @param [String] email
+	# @return [Hash]
+	def get_user_information_by_email(session_id, email)
+		self.session_id = session_id
+
+		response = invoke('urn:getUserInformationByEmail', :soap_action => :none) do |message|
+			message.add 'emailAddress', email
+		end
+		node = response.document.xpath('//ns:getUserInformationByEmailResponse', ns)
+		parse_get_user_information_by_id_result(node)
+	end
+
+	# @param [String] session_id
 	# @param [Integer] mylist_id
 	# @return [Hash]
 	def run_mylist_by_id(session_id, mylist_id)
